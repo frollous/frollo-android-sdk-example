@@ -9,6 +9,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.providers.Provider
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
@@ -52,7 +53,6 @@ class ProvidersActivity : BaseStackActivity() {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { providers -> loadProviders(providers) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Providers Failed")
-                Resource.Status.LOADING -> Log.d(TAG, "Loading Providers...")
             }
         }
     }
@@ -62,10 +62,13 @@ class ProvidersActivity : BaseStackActivity() {
     }
 
     private fun refreshProviders() {
-        FrolloSDK.aggregation.refreshProviders { error ->
+        FrolloSDK.aggregation.refreshProviders { result ->
             refresh_layout.isRefreshing = false
-            if (error != null)
-                displayError(error.localizedDescription, "Refreshing Providers Failed")
+
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Providers Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Providers Failed")
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import org.jetbrains.anko.support.v4.onRefresh
 import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
@@ -63,7 +64,6 @@ class TransactionsActivity : BaseStackActivity() {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { transactions -> loadTransactions(transactions) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Transactions Failed")
-                Resource.Status.LOADING -> Log.d(TAG, "Loading Transactions...")
             }
         }
     }
@@ -76,10 +76,13 @@ class TransactionsActivity : BaseStackActivity() {
         val toDate = LocalDate.now().toString(Transaction.DATE_FORMAT_PATTERN)
         val fromDate = LocalDate.now().minusMonths(3).toString(Transaction.DATE_FORMAT_PATTERN) // 3 months ago
 
-        FrolloSDK.aggregation.refreshTransactions(fromDate = fromDate, toDate = toDate, accountIds = longArrayOf(accountId)) { error ->
+        FrolloSDK.aggregation.refreshTransactions(fromDate = fromDate, toDate = toDate, accountIds = longArrayOf(accountId)) { result ->
             refresh_layout.isRefreshing = false
-            if (error != null)
-                displayError(error.localizedDescription, "Refreshing Transactions Failed")
+
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Transactions Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Transactions Failed")
+            }
         }
     }
 

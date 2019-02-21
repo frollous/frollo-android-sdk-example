@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.messages.ContentType
 import us.frollo.frollosdk.model.coredata.messages.Message
 import us.frollo.frollosdk.model.coredata.messages.MessageText
@@ -55,7 +56,6 @@ class MessagesFragment : BaseFragment() {
                 when (it?.status) {
                     Resource.Status.SUCCESS -> loadMessages(it.data)
                     Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Messages Failed")
-                    Resource.Status.LOADING -> Log.d(TAG, "Loading Messages...")
                 }
             }
         }
@@ -67,10 +67,13 @@ class MessagesFragment : BaseFragment() {
     }
 
     private fun refreshUnreadMessages() {
-        FrolloSDK.messages.refreshUnreadMessages { error ->
+        FrolloSDK.messages.refreshUnreadMessages { result ->
             refresh_layout.isRefreshing = false
-            if (error != null)
-                displayError(error.localizedDescription, "Refreshing Messages Failed")
+
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Messages Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Messages Failed")
+            }
         }
     }
 }

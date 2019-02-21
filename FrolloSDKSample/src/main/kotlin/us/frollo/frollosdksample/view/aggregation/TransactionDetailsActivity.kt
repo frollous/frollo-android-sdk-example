@@ -1,7 +1,6 @@
 package us.frollo.frollosdksample.view.aggregation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,6 +9,7 @@ import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
 import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
 import us.frollo.frollosdksample.base.ARGUMENT
@@ -57,7 +57,6 @@ class TransactionDetailsActivity : BaseStackActivity() {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { transaction -> loadView(transaction) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Transaction Failed")
-                Resource.Status.LOADING -> Log.d(TAG, "Loading Transaction...")
             }
         }
     }
@@ -90,13 +89,13 @@ class TransactionDetailsActivity : BaseStackActivity() {
         progress_bar.show()
 
         fetchedTransaction?.let {
-            FrolloSDK.aggregation.updateTransaction(transactionId, it) { error ->
+            FrolloSDK.aggregation.updateTransaction(transactionId, it) { result ->
                 progress_bar.hide()
 
-                if (error != null)
-                    displayError(error.localizedDescription, "Updating Transaction Failed")
-                else
-                    toast("Updated!")
+                when (result.status) {
+                    Result.Status.SUCCESS -> toast("Updated!")
+                    Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Updating Transaction Failed")
+                }
             }
         }
     }
