@@ -9,6 +9,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.accounts.Account
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
@@ -55,7 +56,6 @@ class AccountsActivity : BaseStackActivity() {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { accounts -> loadAccounts(accounts) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Accounts Failed")
-                Resource.Status.LOADING -> Log.d(TAG, "Loading Accounts...")
             }
         }
     }
@@ -65,10 +65,13 @@ class AccountsActivity : BaseStackActivity() {
     }
 
     private fun refreshAccounts() {
-        FrolloSDK.aggregation.refreshAccounts { error ->
+        FrolloSDK.aggregation.refreshAccounts { result ->
             refresh_layout.isRefreshing = false
-            if (error != null)
-                displayError(error.localizedDescription, "Refreshing Accounts Failed")
+
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Accounts Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Accounts Failed")
+            }
         }
     }
 

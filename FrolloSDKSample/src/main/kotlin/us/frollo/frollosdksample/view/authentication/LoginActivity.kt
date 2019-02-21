@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.auth.AuthType
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdksample.*
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
@@ -32,16 +33,19 @@ class LoginActivity : AppCompatActivity() {
         btn_login.hide()
         progress_bar.show()
 
-        FrolloSDK.authentication.loginUser(method = AuthType.EMAIL, email = email, password = password) { error ->
+        FrolloSDK.authentication.loginUser(method = AuthType.EMAIL, email = email, password = password) { result ->
             progress_bar.hide()
 
-            if (error != null) {
-                btn_login.show()
-                displayError(error.localizedDescription, "Login Failed")
-            } else {
-                FrolloSDK.refreshData()
-                startActivity<MainActivity>()
-                finish()
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    FrolloSDK.refreshData()
+                    startActivity<MainActivity>()
+                    finish()
+                }
+                Result.Status.ERROR -> {
+                    btn_login.show()
+                    displayError(result.error?.localizedDescription, "Login Failed")
+                }
             }
         }
     }

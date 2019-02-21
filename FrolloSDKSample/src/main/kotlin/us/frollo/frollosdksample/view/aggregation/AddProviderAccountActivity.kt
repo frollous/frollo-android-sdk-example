@@ -5,6 +5,7 @@ import android.util.Log
 import kotlinx.android.synthetic.main.activity_add_provider_account.*
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.providers.Provider
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
@@ -37,15 +38,16 @@ class AddProviderAccountActivity : BaseStackActivity() {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { provider -> loadProviderForm(provider) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Provider Failed")
-                Resource.Status.LOADING -> Log.d(TAG, "Loading Provider...")
             }
         }
     }
 
     private fun refreshProvider() {
-        FrolloSDK.aggregation.refreshProvider(providerId) { error ->
-            if (error != null)
-                displayError(error.localizedDescription, "Refreshing Provider Failed")
+        FrolloSDK.aggregation.refreshProvider(providerId) { result ->
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Provider Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Provider Failed")
+            }
         }
     }
 

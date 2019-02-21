@@ -10,6 +10,7 @@ import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.ProviderAccount
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
@@ -63,7 +64,7 @@ class ProviderAccountsFragment : BaseFragment() {
 
         initView()
         initLiveData()
-        refresh_layout.onRefresh { refreshProviders() }
+        refresh_layout.onRefresh { refreshProviderAccounts() }
     }
 
     private fun initView() {
@@ -83,7 +84,6 @@ class ProviderAccountsFragment : BaseFragment() {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { providerAccounts -> loadProviderAccounts(providerAccounts) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Provider Accounts Failed")
-                Resource.Status.LOADING -> Log.d(TAG, "Loading Provider Accounts...")
             }
         }
     }
@@ -92,11 +92,14 @@ class ProviderAccountsFragment : BaseFragment() {
         providerAccountsAdapter.replaceAll(providerAccounts)
     }
 
-    private fun refreshProviders() {
-        FrolloSDK.aggregation.refreshProviderAccounts { error ->
+    private fun refreshProviderAccounts() {
+        FrolloSDK.aggregation.refreshProviderAccounts { result ->
             refresh_layout.isRefreshing = false
-            if (error != null)
-                displayError(error.localizedDescription, "Refreshing Provider Accounts Failed")
+
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Provider Accounts Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Provider Accounts Failed")
+            }
         }
     }
 

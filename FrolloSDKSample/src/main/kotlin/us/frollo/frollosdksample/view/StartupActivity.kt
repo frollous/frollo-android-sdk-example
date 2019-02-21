@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_startup.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.core.SetupParams
 import us.frollo.frollosdk.logging.LogLevel
 import us.frollo.frollosdksample.R
@@ -36,11 +37,11 @@ class StartupActivity : AppCompatActivity() {
         if (FrolloSDK.isSetup) {
             completeStartup()
         } else {
-            FrolloSDK.setup(application, setupParams = setupParams) { error ->
-                if (error != null)
-                    Log.e(TAG, error.localizedDescription)
-                else
-                    completeStartup()
+            FrolloSDK.setup(application, setupParams = setupParams) { result ->
+                when (result.status) {
+                    Result.Status.SUCCESS -> completeStartup()
+                    Result.Status.ERROR -> Log.e(TAG, result.error?.localizedDescription)
+                }
             }
         }
     }
