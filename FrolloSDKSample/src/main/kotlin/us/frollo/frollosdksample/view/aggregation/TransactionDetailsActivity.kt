@@ -1,11 +1,15 @@
 package us.frollo.frollosdksample.view.aggregation
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_transaction_details.*
 import org.jetbrains.anko.selector
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
@@ -14,7 +18,9 @@ import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
 import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_GENERIC
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
 import us.frollo.frollosdksample.utils.*
 
 class TransactionDetailsActivity : BaseStackActivity() {
@@ -68,11 +74,29 @@ class TransactionDetailsActivity : BaseStackActivity() {
         text_description.text = transaction.description?.original
         text_amount.text = transaction.amount.display
         text_date.text = transaction.transactionDate.changeDateFormat(Transaction.DATE_FORMAT_PATTERN, "dd/MM/yyyy")
+        text_transaction_category.text = transaction.categoryId.toString()
         text_budget_category.text = budgetCategoryLabel(transaction.budgetCategory)
         switch_exclude.isChecked = !transaction.included
 
+        text_transaction_category.setOnClickListener { showCategories() }
         text_budget_category.setOnClickListener { pickBudget() }
         switch_exclude.setOnCheckedChangeListener { _, isChecked -> fetchedTransaction?.included = !isChecked }
+    }
+
+    private fun showCategories() {
+        startActivityForResult<TransactionCategoriesActivity>(REQUEST_SELECTION)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+
+        if (requestCode == REQUEST_SELECTION && resultCode == Activity.RESULT_OK) {
+            val categoryId = intent?.getLongExtra(ARG_GENERIC, -1)
+            categoryId?.let {
+                fetchedTransaction?.categoryId = it
+                text_transaction_category.text = it.toString()
+            }
+        }
     }
 
     private fun pickBudget() {
