@@ -51,6 +51,11 @@
             android:label="@string/title_transaction_details"/>
 
         <activity
+            android:name=".view.aggregation.TransactionCategoriesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_transaction_categories"/>
+
+        <activity
             android:name=".view.aggregation.ProvidersActivity"
             android:screenOrientation="portrait"
             android:label="@string/str_add_provider"/>
