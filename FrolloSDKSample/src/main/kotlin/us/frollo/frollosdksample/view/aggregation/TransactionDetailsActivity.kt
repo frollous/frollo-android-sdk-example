@@ -76,15 +76,21 @@ class TransactionDetailsActivity : BaseStackActivity() {
         text_date.text = transaction.transactionDate.changeDateFormat(Transaction.DATE_FORMAT_PATTERN, "dd/MM/yyyy")
         text_transaction_category.text = transaction.categoryId.toString()
         text_budget_category.text = budgetCategoryLabel(transaction.budgetCategory)
+        text_merchant.text = transaction.merchantId.toString()
         switch_exclude.isChecked = !transaction.included
 
         text_transaction_category.setOnClickListener { showCategories() }
         text_budget_category.setOnClickListener { pickBudget() }
+        text_merchant.setOnClickListener { showMerchants() }
         switch_exclude.setOnCheckedChangeListener { _, isChecked -> fetchedTransaction?.included = !isChecked }
     }
 
     private fun showCategories() {
         startActivityForResult<TransactionCategoriesActivity>(REQUEST_SELECTION)
+    }
+
+    private fun showMerchants() {
+        startActivity<MerchantsActivity>()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {

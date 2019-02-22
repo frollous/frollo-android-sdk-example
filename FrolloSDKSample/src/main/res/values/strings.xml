@@ -17,6 +17,7 @@
     <string name="title_transaction_details">Details</string>
     <string name="title_provider_accounts">Provider Accounts</string>
     <string name="title_transaction_categories">Categories</string>
+    <string name="title_merchants">Merchants</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>

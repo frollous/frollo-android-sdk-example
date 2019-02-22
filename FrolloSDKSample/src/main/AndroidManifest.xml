@@ -56,6 +56,11 @@
             android:label="@string/title_transaction_categories"/>
 
         <activity
+            android:name=".view.aggregation.MerchantsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_merchants"/>
+
+        <activity
             android:name=".view.aggregation.ProvidersActivity"
             android:screenOrientation="portrait"
             android:label="@string/str_add_provider"/>

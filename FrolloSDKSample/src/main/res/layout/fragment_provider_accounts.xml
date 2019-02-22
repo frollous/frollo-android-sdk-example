@@ -10,6 +10,6 @@
         android:id="@+id/recycler_provider_accounts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/template_message_item"/>
+        tools:listitem="@layout/template_provider_account_item"/>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -10,6 +10,6 @@
         android:id="@+id/recycler_categories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/template_message_item"/>
+        tools:listitem="@layout/template_transaction_category_item"/>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
