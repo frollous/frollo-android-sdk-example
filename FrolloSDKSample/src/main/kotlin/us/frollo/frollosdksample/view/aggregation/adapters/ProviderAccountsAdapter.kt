@@ -2,15 +2,15 @@ package us.frollo.frollosdksample.view.aggregation.adapters
 
 import android.view.View
 import kotlinx.android.synthetic.main.template_provider_account_item.view.*
-import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.ProviderAccount
+import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.ProviderAccountRelation
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 
-class ProviderAccountsAdapter : BaseRecyclerAdapter<ProviderAccount, ProviderAccountsAdapter.ProviderAccountViewHolder>(ProviderAccount::class.java, providerAccountsComparator) {
+class ProviderAccountsAdapter : BaseRecyclerAdapter<ProviderAccountRelation, ProviderAccountsAdapter.ProviderAccountViewHolder>(ProviderAccountRelation::class.java, providerAccountsComparator) {
 
     companion object {
-        private val providerAccountsComparator = compareBy<ProviderAccount> { it.providerAccountId }
+        private val providerAccountsComparator = compareBy<ProviderAccountRelation> { it.providerAccount?.providerAccountId }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
@@ -19,15 +19,16 @@ class ProviderAccountsAdapter : BaseRecyclerAdapter<ProviderAccount, ProviderAcc
     override fun getViewHolder(view: View, viewType: Int) =
             ProviderAccountViewHolder(view)
 
-    inner class ProviderAccountViewHolder(itemView: View) : BaseViewHolder<ProviderAccount>(itemView) {
+    inner class ProviderAccountViewHolder(itemView: View) : BaseViewHolder<ProviderAccountRelation>(itemView) {
 
-        override fun bind(model: ProviderAccount) {
-            itemView.text_title.text = itemView.context.resources.getString(R.string.str_unknown_provider_account)
-            itemView.text_accounts.text = itemView.context.resources.getString(R.string.str_accounts_count, 0)
+        override fun bind(model: ProviderAccountRelation) {
+            itemView.text_title.text = model.provider?.providerName ?: itemView.context.resources.getString(R.string.str_unknown_provider_account)
+            itemView.text_accounts.text = itemView.context.resources.getString(R.string.str_accounts_count, model.accounts?.size ?: 0)
         }
 
         override fun recycle() {
             itemView.text_title.text = null
+            itemView.text_accounts.text = null
         }
     }
 }

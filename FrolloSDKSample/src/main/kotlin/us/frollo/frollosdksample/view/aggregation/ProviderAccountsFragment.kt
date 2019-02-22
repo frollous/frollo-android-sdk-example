@@ -11,7 +11,7 @@ import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
-import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.ProviderAccount
+import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.ProviderAccountRelation
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.view.aggregation.adapters.ProviderAccountsAdapter
@@ -80,7 +80,7 @@ class ProviderAccountsFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.aggregation.fetchProviderAccounts().observe(this) {
+        FrolloSDK.aggregation.fetchProviderAccountsWithRelation().observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { providerAccounts -> loadProviderAccounts(providerAccounts) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Provider Accounts Failed")
@@ -88,7 +88,7 @@ class ProviderAccountsFragment : BaseFragment() {
         }
     }
 
-    private fun loadProviderAccounts(providerAccounts: List<ProviderAccount>) {
+    private fun loadProviderAccounts(providerAccounts: List<ProviderAccountRelation>) {
         providerAccountsAdapter.replaceAll(providerAccounts)
     }
 
@@ -103,7 +103,7 @@ class ProviderAccountsFragment : BaseFragment() {
         }
     }
 
-    private fun showAccounts(providerAccount: ProviderAccount) {
-        startActivity<AccountsActivity>(ARGUMENT.ARG_GENERIC to providerAccount.providerAccountId)
+    private fun showAccounts(model: ProviderAccountRelation) {
+        startActivity<AccountsActivity>(ARGUMENT.ARG_DATA_1 to model.providerAccount?.providerAccountId)
     }
 }

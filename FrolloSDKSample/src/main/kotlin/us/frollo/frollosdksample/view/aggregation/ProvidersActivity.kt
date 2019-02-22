@@ -73,6 +73,6 @@ class ProvidersActivity : BaseStackActivity() {
     }
 
     private fun showProviderLoginForm(provider: Provider) {
-        startActivity<AddProviderAccountActivity>(ARGUMENT.ARG_GENERIC to provider.providerId)
+        startActivity<AddProviderAccountActivity>(ARGUMENT.ARG_DATA_1 to provider.providerId)
     }
 }

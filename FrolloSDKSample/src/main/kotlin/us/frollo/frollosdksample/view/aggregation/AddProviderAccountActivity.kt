@@ -26,7 +26,7 @@ class AddProviderAccountActivity : BaseStackActivity() {
 
         setContentView(R.layout.activity_add_provider_account)
 
-        providerId = intent.getLongExtra(ARGUMENT.ARG_GENERIC, -1)
+        providerId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initLiveData()
 
