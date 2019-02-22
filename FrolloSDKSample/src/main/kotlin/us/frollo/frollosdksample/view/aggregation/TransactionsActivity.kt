@@ -34,7 +34,7 @@ class TransactionsActivity : BaseStackActivity() {
 
         setContentView(R.layout.activity_transactions)
 
-        accountId = intent.getLongExtra(ARGUMENT.ARG_GENERIC, -1)
+        accountId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initView()
         initLiveData()
@@ -87,6 +87,6 @@ class TransactionsActivity : BaseStackActivity() {
     }
 
     private fun showTransactionDetails(transaction: Transaction) {
-        startActivity<TransactionDetailsActivity>(ARGUMENT.ARG_GENERIC to transaction.transactionId)
+        startActivity<TransactionDetailsActivity>(ARGUMENT.ARG_DATA_1 to transaction.transactionId)
     }
 }

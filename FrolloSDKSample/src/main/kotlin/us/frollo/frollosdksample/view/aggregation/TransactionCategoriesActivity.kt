@@ -13,7 +13,8 @@ import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.transactioncategories.TransactionCategory
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.ARGUMENT.ARG_GENERIC
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
@@ -74,7 +75,10 @@ class TransactionCategoriesActivity : BaseStackActivity() {
     }
 
     private fun chooseCategory(category: TransactionCategory) {
-        setResult(Activity.RESULT_OK, Intent().putExtra(ARG_GENERIC, category.transactionCategoryId))
+        val intent = Intent()
+        intent.putExtra(ARG_DATA_1, category.transactionCategoryId)
+        intent.putExtra(ARG_DATA_2, category.name)
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
 }

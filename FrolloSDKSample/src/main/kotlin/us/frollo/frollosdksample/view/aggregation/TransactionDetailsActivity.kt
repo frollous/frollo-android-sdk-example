@@ -15,10 +15,12 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
+import us.frollo.frollosdk.model.coredata.aggregation.transactions.TransactionRelation
 import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.ARGUMENT.ARG_GENERIC
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
 import us.frollo.frollosdksample.utils.*
@@ -37,7 +39,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
 
         setContentView(R.layout.activity_transaction_details)
 
-        transactionId = intent.getLongExtra(ARGUMENT.ARG_GENERIC, -1)
+        transactionId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initLiveData()
     }
@@ -59,7 +61,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.aggregation.fetchTransaction(transactionId).observe(this) {
+        FrolloSDK.aggregation.fetchTransactionWithRelation(transactionId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { transaction -> loadView(transaction) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Transaction Failed")
@@ -67,17 +69,19 @@ class TransactionDetailsActivity : BaseStackActivity() {
         }
     }
 
-    private fun loadView(transaction: Transaction) {
-        fetchedTransaction = transaction
+    private fun loadView(model: TransactionRelation) {
+        fetchedTransaction = model.transaction
 
-        text_title.text = transaction.description?.user ?: transaction.description?.simple ?: transaction.description?.original
-        text_description.text = transaction.description?.original
-        text_amount.text = transaction.amount.display
-        text_date.text = transaction.transactionDate.changeDateFormat(Transaction.DATE_FORMAT_PATTERN, "dd/MM/yyyy")
-        text_transaction_category.text = transaction.categoryId.toString()
-        text_budget_category.text = budgetCategoryLabel(transaction.budgetCategory)
-        text_merchant.text = transaction.merchantId.toString()
-        switch_exclude.isChecked = !transaction.included
+        fetchedTransaction?.let { transaction ->
+            text_title.text = transaction.description?.user ?: transaction.description?.simple ?: transaction.description?.original
+            text_description.text = transaction.description?.original
+            text_amount.text = transaction.amount.display
+            text_date.text = transaction.transactionDate.changeDateFormat(Transaction.DATE_FORMAT_PATTERN, "dd/MM/yyyy")
+            text_transaction_category.text = model.transactionCategory?.name
+            text_budget_category.text = budgetCategoryLabel(transaction.budgetCategory)
+            text_merchant.text = model.merchant?.name
+            switch_exclude.isChecked = !transaction.included
+        }
 
         text_transaction_category.setOnClickListener { showCategories() }
         text_budget_category.setOnClickListener { pickBudget() }
@@ -97,10 +101,11 @@ class TransactionDetailsActivity : BaseStackActivity() {
         super.onActivityResult(requestCode, resultCode, intent)
 
         if (requestCode == REQUEST_SELECTION && resultCode == Activity.RESULT_OK) {
-            val categoryId = intent?.getLongExtra(ARG_GENERIC, -1)
-            categoryId?.let {
-                fetchedTransaction?.categoryId = it
-                text_transaction_category.text = it.toString()
+            val categoryId = intent?.getLongExtra(ARG_DATA_1, -1)
+            val categoryName = intent?.getStringExtra(ARG_DATA_2)
+            ifNotNull(categoryId, categoryName) { id, name ->
+                fetchedTransaction?.categoryId = id
+                text_transaction_category.text = name
             }
         }
     }
