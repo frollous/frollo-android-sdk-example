@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_startup.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
-import us.frollo.frollosdk.core.SetupParams
+import us.frollo.frollosdk.core.FrolloSDKConfiguration
 import us.frollo.frollosdk.logging.LogLevel
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.utils.hide
@@ -27,17 +27,21 @@ class StartupActivity : AppCompatActivity() {
 
         val serverUrl = "https://api-sandbox.frollo.us"
 
-        val setupParams = SetupParams.Builder()
-                .serverUrl(serverUrl = serverUrl)
-                .logLevel(logLevel = LogLevel.DEBUG)
-                .build()
+        val configuration = FrolloSDKConfiguration(
+                clientId = "",
+                clientSecret = "",
+                redirectUri = "",
+                authorizationUrl = "",
+                tokenUrl = "",
+                serverUrl = serverUrl,
+                logLevel = LogLevel.DEBUG)
 
         progress_bar.show()
 
         if (FrolloSDK.isSetup) {
             completeStartup()
         } else {
-            FrolloSDK.setup(application, setupParams = setupParams) { result ->
+            FrolloSDK.setup(application, configuration = configuration) { result ->
                 when (result.status) {
                     Result.Status.SUCCESS -> completeStartup()
                     Result.Status.ERROR -> Log.e(TAG, result.error?.localizedDescription)
