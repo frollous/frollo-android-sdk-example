@@ -29,7 +29,6 @@ class StartupActivity : AppCompatActivity() {
 
         val configuration = FrolloSDKConfiguration(
                 clientId = "",
-                clientSecret = "",
                 redirectUri = "",
                 authorizationUrl = "",
                 tokenUrl = "",
