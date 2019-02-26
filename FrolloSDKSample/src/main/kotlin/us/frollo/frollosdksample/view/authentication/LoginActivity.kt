@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.authentication.AuthType
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdksample.*
 import us.frollo.frollosdksample.utils.displayError
@@ -33,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         btn_login.hide()
         progress_bar.show()
 
-        FrolloSDK.authentication.loginUser(method = AuthType.EMAIL, email = email, password = password) { result ->
+        FrolloSDK.authentication.loginUser(email = email, password = password) { result ->
             progress_bar.hide()
 
             when (result.status) {
