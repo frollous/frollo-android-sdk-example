@@ -13,7 +13,7 @@ android {
         versionName "1.0-demo"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-                'appAuthRedirectScheme': 'us.frollo'
+                'appAuthRedirectScheme': 'frollo-sdk-example'
         ]
     }
     buildTypes {
