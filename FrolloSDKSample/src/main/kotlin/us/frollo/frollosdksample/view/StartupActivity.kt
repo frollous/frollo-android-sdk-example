@@ -25,14 +25,12 @@ class StartupActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_startup)
 
-        val serverUrl = "https://api-sandbox.frollo.us"
-
         val configuration = FrolloSDKConfiguration(
-                clientId = "",
-                redirectUri = "",
-                authorizationUrl = "",
-                tokenUrl = "",
-                serverUrl = serverUrl,
+                clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
+                redirectUri = "frollo-sdk-example://authorize",
+                authorizationUrl = "https://api-sandbox.frollo.us/oauth/authorize/",
+                tokenUrl = "https://api-sandbox.frollo.us/oauth/token/",
+                serverUrl = "https://api-sandbox.frollo.us/api/v2/",
                 logLevel = LogLevel.DEBUG)
 
         progress_bar.show()
