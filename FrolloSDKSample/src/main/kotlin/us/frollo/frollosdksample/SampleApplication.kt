@@ -27,7 +27,7 @@ class SampleApplication : Application(), LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onAppForegrounded() {
 
-        if (FrolloSDK.authentication.loggedIn)
+        if (FrolloSDK.isSetup && FrolloSDK.authentication.loggedIn)
             FrolloSDK.onAppForegrounded()
     }
 }

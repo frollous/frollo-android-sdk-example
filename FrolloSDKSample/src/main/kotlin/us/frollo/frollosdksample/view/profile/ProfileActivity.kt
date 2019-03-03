@@ -8,7 +8,7 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.utils.showThemed
-import us.frollo.frollosdksample.view.authentication.LoginActivity
+import us.frollo.frollosdksample.view.authentication.LoginROPCActivity
 
 class ProfileActivity : BaseStackActivity() {
 
@@ -24,7 +24,7 @@ class ProfileActivity : BaseStackActivity() {
         alert("Are you sure you want to logout?", "Logout") {
             positiveButton("Yes") {
                 FrolloSDK.logout()
-                startActivity<LoginActivity>()
+                startActivity<LoginROPCActivity>()
                 finishAffinity()
             }
             negativeButton("No") {}
