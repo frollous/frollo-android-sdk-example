@@ -2,7 +2,7 @@ package us.frollo.frollosdksample.view.authentication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login_ropc.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
@@ -12,12 +12,12 @@ import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.view.MainActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginROPCActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_login_ropc)
 
         btn_login.setOnClickListener { attemptLogin() }
     }

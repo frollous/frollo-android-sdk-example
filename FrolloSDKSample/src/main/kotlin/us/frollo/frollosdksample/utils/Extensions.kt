@@ -62,9 +62,11 @@ private fun AlertDialog.setTheme(): AlertDialog =
 fun Fragment.displayError(message: String?, title: String)
         = requireActivity().displayError(message, title)
 
-fun Activity.displayError(message: String?, title: String) {
+fun Activity.displayError(message: String?, title: String, callback: (() -> Unit)? = null) {
     alert(message ?: "", title) {
-        positiveButton("OK", {})
+        positiveButton("OK") {
+            callback?.invoke()
+        }
     }.showThemed()
 }
 
