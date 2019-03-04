@@ -41,4 +41,12 @@
             android:visibility="gone" />
     </FrameLayout>
 
+    <Button
+        android:id="@+id/btn_login_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/str_web_login"
+        android:layout_marginTop="10dp" />
+
 </LinearLayout>

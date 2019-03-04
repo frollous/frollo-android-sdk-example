@@ -22,12 +22,12 @@
         </activity>
 
         <activity
-            android:name=".view.authentication.LoginROPCActivity"
+            android:name=".view.authentication.LoginActivity"
             android:label="@string/str_login"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".view.authentication.LoginAuthorizationCodeActivity"
+            android:name=".view.authentication.LoginWebActivity"
             android:label="@string/str_login"
             android:screenOrientation="portrait" />
 
