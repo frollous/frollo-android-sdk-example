@@ -9,14 +9,14 @@ import us.frollo.frollosdksample.*
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.view.MainActivity
 
-class LoginAuthorizationCodeActivity : AppCompatActivity() {
+class LoginWebActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_login_authorization_code)
+        setContentView(R.layout.activity_login_web)
 
-        FrolloSDK.authentication.handleAuthorizationResponse(intent) { result ->
+        FrolloSDK.authentication.handleWebLoginResponse(intent) { result ->
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     FrolloSDK.refreshData()
