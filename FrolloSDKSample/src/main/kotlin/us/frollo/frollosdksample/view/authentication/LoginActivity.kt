@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
             return
 
         btn_login.hide()
+        btn_login_web.hide()
         progress_bar.show()
 
         FrolloSDK.authentication.loginUser(email = email, password = password) { result ->
@@ -46,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 Result.Status.ERROR -> {
                     btn_login.show()
+                    btn_login_web.show()
                     displayError(result.error?.localizedDescription, "Login Failed")
                 }
             }
