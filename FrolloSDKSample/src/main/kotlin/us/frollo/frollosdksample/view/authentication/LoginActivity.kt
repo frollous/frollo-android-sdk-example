@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdksample.*
@@ -16,6 +17,10 @@ import us.frollo.frollosdksample.view.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
+    companion object {
+        private const val EXTRA_FAILED = "failed"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
 
         btn_login.setOnClickListener { attemptLogin() }
         btn_login_web.setOnClickListener { startAuthorizationCodeFlow() }
+
+        if (intent.getBooleanExtra(EXTRA_FAILED, false)) {
+            toast("Authorization cancelled")
+        }
     }
 
     private fun attemptLogin() {
@@ -55,9 +64,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun startAuthorizationCodeFlow() {
-        val intent = Intent(this, LoginWebActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-        FrolloSDK.authentication.loginUserUsingWeb(this, pendingIntent)
-        finish()
+        val completionIntent = Intent(this, LoginWebActivity::class.java)
+        val cancelIntent = Intent(this, LoginActivity::class.java)
+        cancelIntent.putExtra(EXTRA_FAILED, true)
+        cancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+        FrolloSDK.authentication.loginUserUsingWeb(
+                activity = this,
+                completedIntent = PendingIntent.getActivity(this, 0, completionIntent, 0),
+                cancelledIntent = PendingIntent.getActivity(this, 0, cancelIntent, 0),
+                toolBarColor = resources.getColor(R.color.colorPrimary, null))
     }
 }
