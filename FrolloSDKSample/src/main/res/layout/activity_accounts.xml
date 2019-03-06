@@ -6,10 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_accounts"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/template_account_item"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_accounts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/template_account_item"/>
+
+        <include layout="@layout/progress_bar_full_screen" />
+
+    </FrameLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

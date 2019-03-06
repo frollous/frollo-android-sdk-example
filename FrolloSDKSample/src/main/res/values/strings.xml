@@ -8,10 +8,14 @@
     <string name="str_logout">Logout</string>
 
     <string name="str_logging_in">Logging in&#8230;</string>
+    <string name="str_adding_account">Adding account&#8230;</string>
+    <string name="str_deleting_account">Deleting account&#8230;</string>
 
     <string name="str_menu_profile">Profile</string>
     <string name="str_menu_add">Add</string>
     <string name="str_menu_save">Save</string>
+    <string name="str_menu_done">Done</string>
+    <string name="str_menu_delete_account">Delete Account</string>
 
     <string name="title_profile">Profile</string>
     <string name="title_messages">Messages</string>

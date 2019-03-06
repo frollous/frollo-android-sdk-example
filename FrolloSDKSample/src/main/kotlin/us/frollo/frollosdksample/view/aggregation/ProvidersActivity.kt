@@ -1,11 +1,14 @@
 package us.frollo.frollosdksample.view.aggregation
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_providers.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
@@ -22,6 +25,7 @@ class ProvidersActivity : BaseStackActivity() {
 
     companion object {
         private const val TAG = "ProvidersActivity"
+        private const val REQUEST_ADD_ACCOUNT = 100
     }
 
     private val providersAdapter = ProvidersAdapter()
@@ -73,6 +77,14 @@ class ProvidersActivity : BaseStackActivity() {
     }
 
     private fun showProviderLoginForm(provider: Provider) {
-        startActivity<AddProviderAccountActivity>(ARGUMENT.ARG_DATA_1 to provider.providerId)
+        startActivityForResult<AddProviderAccountActivity>(REQUEST_ADD_ACCOUNT, ARGUMENT.ARG_DATA_1 to provider.providerId)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_ADD_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            finish()
+        }
     }
 }
