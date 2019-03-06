@@ -2,11 +2,16 @@ package us.frollo.frollosdksample.view.aggregation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_accounts.*
+import kotlinx.android.synthetic.main.progress_bar_full_screen.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
+import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
@@ -15,7 +20,9 @@ import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.observe
+import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.view.aggregation.adapters.AccountsAdapter
 
 class AccountsActivity : BaseStackActivity() {
@@ -26,6 +33,7 @@ class AccountsActivity : BaseStackActivity() {
 
     private val accountsAdapter = AccountsAdapter()
     private var providerAccountId: Long = -1
+    private var menuDelete: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +45,23 @@ class AccountsActivity : BaseStackActivity() {
         initView()
         initLiveData()
         refresh_layout.onRefresh { refreshAccounts() }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.accounts_menu, menu)
+        menuDelete = menu?.findItem(R.id.menu_delete_account)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_delete_account -> {
+                deleteAccount()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initView() {
@@ -77,5 +102,26 @@ class AccountsActivity : BaseStackActivity() {
 
     private fun showTransactions(account: Account) {
         startActivity<TransactionsActivity>(ARGUMENT.ARG_DATA_1 to account.accountId)
+    }
+
+    private fun deleteAccount() {
+        menuDelete?.isEnabled = false
+        text_progress_title.text = getString(R.string.str_deleting_account)
+        progress_bar.show()
+
+        FrolloSDK.aggregation.deleteProviderAccount(providerAccountId = providerAccountId) { result ->
+            progress_bar.hide()
+
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    toast("Account Deleted!")
+                    finish()
+                }
+                Result.Status.ERROR -> {
+                    menuDelete?.isEnabled = true
+                    displayError(result.error?.localizedDescription, "Deleting Account Failed")
+                }
+            }
+        }
     }
 }
