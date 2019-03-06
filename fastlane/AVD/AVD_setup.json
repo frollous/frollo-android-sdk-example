@@ -16,9 +16,9 @@
           "launch_avd_additional_options": "-gpu on"
         },
         {
-          "avd_name": "Test-Emulator-API22-Pixel-XL",
+          "avd_name": "Test-Emulator-API23-Pixel-XL",
 
-          "create_avd_package": "system-images;android-22;google_apis;x86",
+          "create_avd_package": "system-images;android-23;google_apis;x86",
           "create_avd_device": "pixel_xl",
           "create_avd_tag": "google_apis",
           "create_avd_abi": "x86",
