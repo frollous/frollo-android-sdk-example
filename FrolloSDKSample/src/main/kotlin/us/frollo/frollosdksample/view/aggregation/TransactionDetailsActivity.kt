@@ -141,7 +141,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
             BudgetCategory.LIFESTYLE -> "Lifestyle"
             BudgetCategory.LIVING -> "Living"
             BudgetCategory.ONE_OFF -> "One Off"
-            BudgetCategory.GOALS -> "Savings"
+            BudgetCategory.SAVINGS -> "Savings"
         }
     }
 }
