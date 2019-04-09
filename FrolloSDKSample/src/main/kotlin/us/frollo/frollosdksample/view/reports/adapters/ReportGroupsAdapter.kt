@@ -14,31 +14,32 @@
  * limitations under the License.
  */
 
-package us.frollo.frollosdksample.view.aggregation.adapters
+package us.frollo.frollosdksample.view.reports.adapters
 
 import android.view.View
 import kotlinx.android.synthetic.main.template_simple_item1.view.*
-import us.frollo.frollosdk.model.coredata.aggregation.providers.Provider
+import org.apache.commons.lang3.StringUtils.capitalize
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
+import us.frollo.frollosdksample.display.GroupModel
 
-class ProvidersAdapter : BaseRecyclerAdapter<Provider, ProvidersAdapter.ProviderViewHolder>(Provider::class.java, providerComparator) {
+class ReportGroupsAdapter : BaseRecyclerAdapter<GroupModel, ReportGroupsAdapter.GroupModelViewHolder>(GroupModel::class.java, groupsComparator) {
 
     companion object {
-        private val providerComparator = compareByDescending<Provider> { it.popular }.thenBy { it.providerName }
+        private val groupsComparator = compareBy<GroupModel> { it.name }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
             R.layout.template_simple_item1
 
     override fun getViewHolder(view: View, viewType: Int) =
-            ProviderViewHolder(view)
+            GroupModelViewHolder(view)
 
-    inner class ProviderViewHolder(itemView: View) : BaseViewHolder<Provider>(itemView) {
+    inner class GroupModelViewHolder(itemView: View) : BaseViewHolder<GroupModel>(itemView) {
 
-        override fun bind(model: Provider) {
-            itemView.text_title.text = model.providerName
+        override fun bind(model: GroupModel) {
+            itemView.text_title.text = capitalize(model.name)
         }
 
         override fun recycle() {

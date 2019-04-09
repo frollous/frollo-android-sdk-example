@@ -90,6 +90,41 @@
             android:screenOrientation="portrait"
             android:label="@string/str_add_account"/>
 
+        <activity
+            android:name=".view.reports.ReportsAccountsListActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_accounts"/>
+
+        <activity
+            android:name=".view.reports.AccountsBalancesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_balance_reports"/>
+
+        <activity
+            android:name=".view.reports.ReportTypesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_reports"/>
+
+        <activity
+            android:name=".view.reports.CurrentTransactionsReportGroupingActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/str_current_reports"/>
+
+        <activity
+            android:name=".view.reports.CurrentTransactionsReportActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/str_current_reports"/>
+
+        <activity
+            android:name=".view.reports.HistoryTransactionsReportGroupingActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/str_history_reports"/>
+
+        <activity
+            android:name=".view.reports.HistoryTransactionsReportActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/str_history_reports"/>
+
         <service android:name=".view.notifications.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
