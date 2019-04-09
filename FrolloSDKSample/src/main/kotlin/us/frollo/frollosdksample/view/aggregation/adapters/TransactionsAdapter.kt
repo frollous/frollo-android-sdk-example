@@ -40,8 +40,7 @@ class TransactionsAdapter : BaseRecyclerAdapter<Transaction, TransactionsAdapter
 
         override fun bind(model: Transaction) {
             itemView.text_name.text = model.description?.user ?: model.description?.simple ?: model.description?.original
-            itemView.text_date.text = model.transactionDate.changeDateFormat(
-                    originalPattern = Transaction.DATE_FORMAT_PATTERN, newPattern = "dd/MM/yyyy")
+            itemView.text_date.text = model.transactionDate.changeDateFormat(from = Transaction.DATE_FORMAT_PATTERN, to = "dd/MM/yyyy")
             itemView.text_amount.text = model.amount.display
         }
 

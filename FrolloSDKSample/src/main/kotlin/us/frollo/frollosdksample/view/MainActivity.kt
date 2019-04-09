@@ -27,10 +27,15 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.display.UserCurrency
+import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.view.aggregation.ProviderAccountsFragment
 import us.frollo.frollosdksample.view.messages.MessagesFragment
 import us.frollo.frollosdksample.view.profile.ProfileActivity
+import us.frollo.frollosdksample.view.reports.ReportsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private val messagesFragment = MessagesFragment()
     private val accountsFragment = ProviderAccountsFragment()
+    private val reportsFragment = ReportsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavSelected(DEFAULT_PAGE)
+
+        fetchUserCurrency()
     }
 
     private fun registerPushNotification() {
@@ -78,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         val fragment = when (itemId) {
             R.id.nav_messages -> messagesFragment
             R.id.nav_accounts -> accountsFragment
+            R.id.nav_reports -> reportsFragment
             else -> null
         }
 
@@ -102,6 +111,15 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun fetchUserCurrency() {
+        FrolloSDK.authentication.fetchUser().observe(this) { resource ->
+            when (resource?.status) {
+                Resource.Status.SUCCESS -> resource.data?.let { UserCurrency.currency = it.primaryCurrency }
+                Resource.Status.ERROR -> displayError(resource.error?.localizedDescription, "Fetch User Failed")
+            }
         }
     }
 }

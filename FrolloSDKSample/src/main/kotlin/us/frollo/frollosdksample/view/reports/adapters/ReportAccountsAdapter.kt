@@ -14,32 +14,33 @@
  * limitations under the License.
  */
 
-package us.frollo.frollosdksample.view.aggregation.adapters
+package us.frollo.frollosdksample.view.reports.adapters
 
 import android.view.View
 import kotlinx.android.synthetic.main.template_simple_item2.view.*
-import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.ProviderAccountRelation
+import us.frollo.frollosdk.model.coredata.aggregation.accounts.AccountRelation
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 
-class ProviderAccountsAdapter : BaseRecyclerAdapter<ProviderAccountRelation, ProviderAccountsAdapter.ProviderAccountViewHolder>(ProviderAccountRelation::class.java, providerAccountsComparator) {
+class ReportAccountsAdapter : BaseRecyclerAdapter<AccountRelation, ReportAccountsAdapter.AccountViewHolder>(AccountRelation::class.java, accountsComparator) {
 
     companion object {
-        private val providerAccountsComparator = compareBy<ProviderAccountRelation> { it.providerAccount?.providerAccountId }
+        private val accountsComparator = compareBy<AccountRelation> { it.providerAccount?.providerAccount?.providerAccountId }
+                .thenBy { it.account?.attributes?.accountType }.thenBy { it.account?.accountName }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
             R.layout.template_simple_item2
 
     override fun getViewHolder(view: View, viewType: Int) =
-            ProviderAccountViewHolder(view)
+            AccountViewHolder(view)
 
-    inner class ProviderAccountViewHolder(itemView: View) : BaseViewHolder<ProviderAccountRelation>(itemView) {
+    inner class AccountViewHolder(itemView: View) : BaseViewHolder<AccountRelation>(itemView) {
 
-        override fun bind(model: ProviderAccountRelation) {
-            itemView.text_title.text = model.provider?.providerName ?: itemView.context.resources.getString(R.string.str_unknown_provider_account)
-            itemView.text_subtitle.text = itemView.context.resources.getString(R.string.str_accounts_count, model.accounts?.size ?: 0)
+        override fun bind(model: AccountRelation) {
+            itemView.text_title.text = model.providerAccount?.provider?.providerName ?: itemView.context.resources.getString(R.string.str_unknown_provider_account)
+            itemView.text_subtitle.text = model.account?.accountName
         }
 
         override fun recycle() {

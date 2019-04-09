@@ -7,9 +7,9 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_providers"
+        android:id="@+id/recycler_reports"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/template_simple_item1"/>
+        tools:listitem="@layout/template_detail_item1" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

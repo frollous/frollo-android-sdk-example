@@ -34,8 +34,11 @@ import org.jetbrains.anko.alert
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeFormatterBuilder
+import org.threeten.bp.temporal.ChronoField
 import us.frollo.frollosdk.model.coredata.aggregation.accounts.Balance
 import us.frollo.frollosdksample.R
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 
@@ -92,10 +95,13 @@ fun LocalDateTime.toString(pattern: String): String =
 fun LocalDate.toString(pattern: String): String =
         DateTimeFormatter.ofPattern(pattern).format(this)
 
-fun String.changeDateFormat(originalPattern: String, newPattern: String): String {
-    val sourceFormatter = DateTimeFormatter.ofPattern(originalPattern)
-    val newFormatter = DateTimeFormatter.ofPattern(newPattern)
-    return newFormatter.format(sourceFormatter.parse(this))
+fun String.changeDateFormat(from: String, to: String): String {
+    val sourceFormatter = DateTimeFormatterBuilder()
+            .appendPattern(from)
+            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+            .toFormatter()
+    val date = LocalDate.parse(this, sourceFormatter)
+    return date.toString(to)
 }
 
 fun String.formatISOString(pattern: String): String =
@@ -120,3 +126,6 @@ val Balance?.display: String?
         }
         return null
     }
+
+fun BigDecimal.display(currency: String): String? =
+        this.toCurrencyString(currency, 2)

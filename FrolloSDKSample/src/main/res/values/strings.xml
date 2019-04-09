@@ -25,10 +25,21 @@
     <string name="title_provider_accounts">Provider Accounts</string>
     <string name="title_transaction_categories">Categories</string>
     <string name="title_merchants">Merchants</string>
+    <string name="title_reports">Reports</string>
+    <string name="title_balance_reports">Balance Reports</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
     <string name="str_unknown_provider_account">Unknown Provider Account</string>
     <string name="str_accounts_count">%d Accounts</string>
     <string name="str_excluded">Excluded</string>
+
+    <string name="str_account_balances">Account Balances</string>
+    <string name="str_current_transaction_reports">Current Transaction Reports</string>
+    <string name="str_historic_transaction_reports">Historic Transaction Reports</string>
+    <string name="str_type_budget_category">Budget Category</string>
+    <string name="str_type_merchant">Merchant</string>
+    <string name="str_type_transaction_category">Transaction Category</string>
+    <string name="str_current_reports">Current Reports</string>
+    <string name="str_history_reports">History Reports</string>
 </resources>
