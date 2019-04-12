@@ -27,6 +27,8 @@
     <string name="title_merchants">Merchants</string>
     <string name="title_reports">Reports</string>
     <string name="title_balance_reports">Balance Reports</string>
+    <string name="title_bills">Bills</string>
+    <string name="title_bill_payments">Bill Payments</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
@@ -42,4 +44,6 @@
     <string name="str_type_transaction_category">Transaction Category</string>
     <string name="str_current_reports">Current Reports</string>
     <string name="str_history_reports">History Reports</string>
+
+    <string name="str_next_due">Next due: %s</string>
 </resources>

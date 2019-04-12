@@ -125,6 +125,11 @@
             android:screenOrientation="portrait"
             android:label="@string/str_history_reports"/>
 
+        <activity
+            android:name=".view.bills.BillPaymentsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_bill_payments"/>
+
         <service android:name=".view.notifications.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

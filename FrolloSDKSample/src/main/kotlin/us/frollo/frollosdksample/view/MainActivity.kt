@@ -33,6 +33,7 @@ import us.frollo.frollosdksample.display.UserCurrency
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.view.aggregation.ProviderAccountsFragment
+import us.frollo.frollosdksample.view.bills.BillsFragment
 import us.frollo.frollosdksample.view.messages.MessagesFragment
 import us.frollo.frollosdksample.view.profile.ProfileActivity
 import us.frollo.frollosdksample.view.reports.ReportsFragment
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private val messagesFragment = MessagesFragment()
     private val accountsFragment = ProviderAccountsFragment()
+    private val billsFragment = BillsFragment()
     private val reportsFragment = ReportsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         val fragment = when (itemId) {
             R.id.nav_messages -> messagesFragment
             R.id.nav_accounts -> accountsFragment
+            R.id.nav_bills -> billsFragment
             R.id.nav_reports -> reportsFragment
             else -> null
         }
