@@ -12,6 +12,11 @@
         android:title="@string/title_messages" />
 
     <item
+        android:id="@+id/nav_bills"
+        android:icon="@drawable/ic_receipt"
+        android:title="@string/title_bills" />
+
+    <item
         android:id="@+id/nav_reports"
         android:icon="@drawable/ic_bar_chart"
         android:title="@string/title_reports" />

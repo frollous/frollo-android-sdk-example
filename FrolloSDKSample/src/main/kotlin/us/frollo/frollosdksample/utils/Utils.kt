@@ -89,6 +89,19 @@ fun Activity.displayError(message: String?, title: String, callback: (() -> Unit
     }.showThemed()
 }
 
+fun Fragment.showListDialog(array: Array<String>, title: String? = null,
+                            clickListener: DialogInterface.OnClickListener)
+        = requireActivity().showListDialog(array, title, clickListener)
+
+fun Activity.showListDialog(array: Array<String>, title: String? = null,
+                            clickListener: DialogInterface.OnClickListener) =
+        AlertDialog.Builder(this).apply {
+            title?.let { setTitle(title) }
+            setItems(array, clickListener)
+            create()
+            show()
+        }
+
 fun LocalDateTime.toString(pattern: String): String =
         DateTimeFormatter.ofPattern(pattern).format(this)
 
