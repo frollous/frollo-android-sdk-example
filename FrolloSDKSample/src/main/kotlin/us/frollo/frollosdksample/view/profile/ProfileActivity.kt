@@ -31,8 +31,6 @@ class ProfileActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_profile)
-
         btn_logout.setOnClickListener { logout() }
     }
 
@@ -46,4 +44,7 @@ class ProfileActivity : BaseStackActivity() {
             negativeButton("No") {}
         }.showThemed()
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_profile
 }

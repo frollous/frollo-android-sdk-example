@@ -54,8 +54,6 @@ class AccountsActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_accounts)
-
         providerAccountId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initView()
@@ -140,4 +138,7 @@ class AccountsActivity : BaseStackActivity() {
             }
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_accounts
 }

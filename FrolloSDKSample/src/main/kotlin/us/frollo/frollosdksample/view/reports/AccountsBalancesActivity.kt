@@ -52,8 +52,6 @@ class AccountsBalancesActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_report_details)
-
         accountId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         updateDates()
@@ -105,4 +103,7 @@ class AccountsBalancesActivity : BaseStackActivity() {
             }
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_report_details
 }

@@ -30,12 +30,10 @@ abstract class BaseRecyclerAdapter<T: IAdapterModel, VH : BaseViewHolder<T>>(kla
 
     fun onItemClick(l: (model: T?, v: View?, p: Int) -> Unit) {
         this.mClickCallback = l
-        notifyDataSetChanged()
     }
 
     fun onItemLongClick(l: (model: T?, v: View?, p: Int) -> Unit) {
         mLongClickCallback = l
-        notifyDataSetChanged()
     }
 
     fun replaceAll(data: List<T>) {

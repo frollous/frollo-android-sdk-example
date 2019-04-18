@@ -21,7 +21,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,6 +28,7 @@ import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.display.UserCurrency
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
@@ -38,7 +38,7 @@ import us.frollo.frollosdksample.view.messages.MessagesFragment
 import us.frollo.frollosdksample.view.profile.ProfileActivity
 import us.frollo.frollosdksample.view.reports.ReportsFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseStackActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
@@ -52,8 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
 
         registerPushNotification()
 
@@ -107,8 +105,8 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.menu_profile -> {
                 startActivity<ProfileActivity>()
                 true
@@ -125,4 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_main
 }

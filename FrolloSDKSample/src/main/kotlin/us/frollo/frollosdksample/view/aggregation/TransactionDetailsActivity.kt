@@ -53,8 +53,6 @@ class TransactionDetailsActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_transaction_details)
-
         transactionId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initLiveData()
@@ -160,4 +158,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
             BudgetCategory.SAVINGS -> "Savings"
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_transaction_details
 }

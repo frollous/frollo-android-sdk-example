@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.ActionBar
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -61,6 +62,9 @@ fun View.show() {
 fun View.hide(visibility: Int = View.GONE) {
     this.visibility = visibility
 }
+
+fun View.isVisible(): Boolean =
+        visibility == View.VISIBLE
 
 fun AlertBuilder<AlertDialog>.showThemed(): AlertDialog =
         show().setTheme()
@@ -142,3 +146,8 @@ val Balance?.display: String?
 
 fun BigDecimal.display(currency: String): String? =
         this.toCurrencyString(currency, 2)
+
+fun ActionBar.showBackNavigation(show: Boolean) {
+    displayOptions = if (show) ActionBar.DISPLAY_SHOW_TITLE or ActionBar.DISPLAY_SHOW_HOME or ActionBar.DISPLAY_HOME_AS_UP
+                     else ActionBar.DISPLAY_SHOW_TITLE
+}

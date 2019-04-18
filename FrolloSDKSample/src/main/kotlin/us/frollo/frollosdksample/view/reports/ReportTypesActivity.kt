@@ -35,8 +35,6 @@ class ReportTypesActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_report_types)
-
         current = intent.getBooleanExtra(ARGUMENT.ARG_DATA_1, false)
 
         initView()
@@ -60,4 +58,7 @@ class ReportTypesActivity : BaseStackActivity() {
         if (current) startActivity<CurrentTransactionsReportGroupingActivity>(ARGUMENT.ARG_DATA_1 to grouping)
         else startActivity<HistoryTransactionsReportGroupingActivity>(ARGUMENT.ARG_DATA_1 to grouping)
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_report_types
 }

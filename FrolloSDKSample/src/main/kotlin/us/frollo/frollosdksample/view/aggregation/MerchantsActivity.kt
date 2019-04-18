@@ -40,8 +40,6 @@ class MerchantsActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_merchants)
-
         initView()
         initLiveData()
     }
@@ -66,4 +64,7 @@ class MerchantsActivity : BaseStackActivity() {
     private fun loadMerchants(merchants: List<Merchant>) {
         merchantsAdapter.replaceAll(merchants)
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_merchants
 }

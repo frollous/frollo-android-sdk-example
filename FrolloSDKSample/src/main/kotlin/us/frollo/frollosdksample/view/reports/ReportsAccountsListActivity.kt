@@ -42,8 +42,6 @@ class ReportsAccountsListActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_report_accounts_list)
-
         initView()
         initLiveData()
     }
@@ -78,4 +76,7 @@ class ReportsAccountsListActivity : BaseStackActivity() {
             startActivity<AccountsBalancesActivity>(ARGUMENT.ARG_DATA_1 to it.accountId)
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_report_accounts_list
 }
