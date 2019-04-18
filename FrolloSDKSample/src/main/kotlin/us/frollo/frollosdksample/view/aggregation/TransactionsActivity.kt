@@ -48,8 +48,6 @@ class TransactionsActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_transactions)
-
         accountId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initView()
@@ -105,4 +103,7 @@ class TransactionsActivity : BaseStackActivity() {
     private fun showTransactionDetails(transaction: Transaction) {
         startActivity<TransactionDetailsActivity>(ARGUMENT.ARG_DATA_1 to transaction.transactionId)
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_transactions
 }

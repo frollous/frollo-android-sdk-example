@@ -53,8 +53,6 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_report_grouping)
-
         grouping = intent.getSerializableExtra(ARGUMENT.ARG_DATA_1) as ReportGrouping
 
         updateDates()
@@ -119,4 +117,7 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
             }
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_report_grouping
 }

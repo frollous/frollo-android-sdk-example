@@ -47,8 +47,6 @@ class TransactionCategoriesActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_transaction_categories)
-
         initView()
         initLiveData()
         refresh_layout.onRefresh { refreshTransactionCategories() }
@@ -97,4 +95,7 @@ class TransactionCategoriesActivity : BaseStackActivity() {
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_transaction_categories
 }

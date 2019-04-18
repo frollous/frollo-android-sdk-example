@@ -23,6 +23,7 @@ import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.utils.showBackNavigation
 
 class ReportsFragment : BaseFragment() {
 
@@ -37,6 +38,7 @@ class ReportsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        actionBar?.showBackNavigation(show = false)
         actionBar?.title = getString(R.string.title_reports)
 
         initView()

@@ -34,6 +34,7 @@ import us.frollo.frollosdksample.view.aggregation.adapters.ProviderAccountsAdapt
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
+import us.frollo.frollosdksample.utils.showBackNavigation
 
 class ProviderAccountsFragment : BaseFragment() {
 
@@ -76,6 +77,7 @@ class ProviderAccountsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        actionBar?.showBackNavigation(show = false)
         actionBar?.title = getString(R.string.title_provider_accounts)
 
         initView()
@@ -84,6 +86,8 @@ class ProviderAccountsFragment : BaseFragment() {
     }
 
     private fun initView() {
+        fab_search.setOnClickListener { start(TransactionSearchFragment(), R.id.container, backStack = true) }
+
         recycler_provider_accounts.apply {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))

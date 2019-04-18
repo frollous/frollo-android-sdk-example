@@ -54,8 +54,6 @@ class BillPaymentsActivity : BaseStackActivity(), DialogInterface.OnClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.fragment_bills)
-
         billId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initView()
@@ -155,4 +153,7 @@ class BillPaymentsActivity : BaseStackActivity(), DialogInterface.OnClickListene
             selected = null
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.fragment_bills
 }

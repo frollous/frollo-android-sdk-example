@@ -16,8 +16,13 @@
 
 package us.frollo.frollosdksample.base
 
+import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
 abstract class BaseFragment : ViewLifecycleFragment() {
 
@@ -26,4 +31,18 @@ abstract class BaseFragment : ViewLifecycleFragment() {
 
     protected val actionBar: ActionBar?
         get() = activity?.supportActionBar
+
+    protected fun start(fragment: Fragment, @IdRes containerViewId: Int, backStack: Boolean = false, args: Bundle? = null) {
+        fragment.arguments = args
+
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(containerViewId, fragment)
+            if (backStack) addToBackStack(fragment.javaClass.name)
+        }.commit()
+    }
+
+    protected fun navigateBack(tag: String? = null) {
+        requireActivity().supportFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
 }

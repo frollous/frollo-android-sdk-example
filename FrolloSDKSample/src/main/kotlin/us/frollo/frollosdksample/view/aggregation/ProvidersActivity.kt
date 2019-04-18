@@ -23,7 +23,6 @@ import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_providers.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
@@ -48,8 +47,6 @@ class ProvidersActivity : BaseStackActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_providers)
 
         initView()
         initLiveData()
@@ -103,4 +100,7 @@ class ProvidersActivity : BaseStackActivity() {
             finish()
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_providers
 }

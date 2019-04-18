@@ -33,6 +33,7 @@ import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
+import us.frollo.frollosdksample.utils.showBackNavigation
 import us.frollo.frollosdksample.view.bills.adapters.BillsAdapter
 
 class BillsFragment : BaseFragment() {
@@ -50,6 +51,7 @@ class BillsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        actionBar?.showBackNavigation(show = false)
         actionBar?.title = getString(R.string.title_bills)
 
         initView()

@@ -35,6 +35,7 @@ import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
+import us.frollo.frollosdksample.utils.showBackNavigation
 import us.frollo.frollosdksample.view.messages.adapters.MessagesAdapter
 
 class MessagesFragment : BaseFragment() {
@@ -52,7 +53,9 @@ class MessagesFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        actionBar?.showBackNavigation(show = false)
         actionBar?.title = getString(R.string.title_messages)
+
         initView()
         initLiveData()
         refresh_layout.onRefresh { refreshUnreadMessages() }

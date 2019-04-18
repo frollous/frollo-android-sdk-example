@@ -48,8 +48,6 @@ class CurrentTransactionsReportActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_report_details)
-
         grouping = intent.getSerializableExtra(ARGUMENT.ARG_DATA_1) as ReportGrouping
         linkedId = intent.getLongExtra(ARGUMENT.ARG_DATA_2, 1)
 
@@ -90,4 +88,7 @@ class CurrentTransactionsReportActivity : BaseStackActivity() {
             }
         }
     }
+
+    override val resourceId: Int
+        get() = R.layout.activity_report_details
 }

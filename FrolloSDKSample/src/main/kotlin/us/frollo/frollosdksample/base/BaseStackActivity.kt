@@ -17,17 +17,15 @@
 package us.frollo.frollosdksample.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import us.frollo.frollosdksample.utils.showBackNavigation
 
-abstract class BaseStackActivity : AppCompatActivity() {
+abstract class BaseStackActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.showBackNavigation(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
