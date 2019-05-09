@@ -34,12 +34,16 @@ import org.jetbrains.anko.AlertBuilder
 import org.jetbrains.anko.alert
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeFormatterBuilder
+import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.temporal.ChronoField
 import us.frollo.frollosdk.model.coredata.aggregation.accounts.Balance
 import us.frollo.frollosdksample.R
 import java.math.BigDecimal
+import java.sql.Timestamp
 import java.text.NumberFormat
 import java.util.*
 
@@ -119,6 +123,26 @@ fun String.changeDateFormat(from: String, to: String): String {
             .toFormatter()
     val date = LocalDate.parse(this, sourceFormatter)
     return date.toString(to)
+}
+
+fun String.getDateTime(): LocalDateTime? {
+    try {
+        return OffsetDateTime.parse(this).toLocalDateTime()
+    }catch (e: DateTimeParseException){
+        e.printStackTrace()
+        Log.d("","error parsing date")
+    }
+    return null
+}
+
+fun String.getDateTimeStamp(): Long {
+    try {
+        return  Timestamp(OffsetDateTime.parse(this).toLocalDateTime().toEpochSecond(ZoneOffset.UTC)).time
+    }catch (e: DateTimeParseException){
+        e.printStackTrace()
+        Log.d("","error parsing date")
+    }
+    return 0
 }
 
 fun String.formatISOString(pattern: String): String =
