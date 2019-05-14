@@ -41,7 +41,8 @@ import us.frollo.frollosdk.model.coredata.aggregation.accounts.Balance
 import us.frollo.frollosdksample.R
 import java.math.BigDecimal
 import java.text.NumberFormat
-import java.util.*
+import java.util.Currency
+import java.util.Locale
 
 fun <T1, T2> ifNotNull(value1: T1?, value2: T2?, bothNotNull: (T1, T2) -> (Unit)) {
     if (value1 != null && value2 != null) {
@@ -82,8 +83,8 @@ private fun AlertDialog.setTheme(): AlertDialog =
             getButton(AlertDialog.BUTTON_NEUTRAL)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
         }
 
-fun Fragment.displayError(message: String?, title: String)
-        = requireActivity().displayError(message, title)
+fun Fragment.displayError(message: String?, title: String) =
+        requireActivity().displayError(message, title)
 
 fun Activity.displayError(message: String?, title: String, callback: (() -> Unit)? = null) {
     alert(message ?: "", title) {
@@ -93,12 +94,18 @@ fun Activity.displayError(message: String?, title: String, callback: (() -> Unit
     }.showThemed()
 }
 
-fun Fragment.showListDialog(array: Array<String>, title: String? = null,
-                            clickListener: DialogInterface.OnClickListener)
-        = requireActivity().showListDialog(array, title, clickListener)
+fun Fragment.showListDialog(
+    array: Array<String>,
+    title: String? = null,
+    clickListener: DialogInterface.OnClickListener
+) =
+        requireActivity().showListDialog(array, title, clickListener)
 
-fun Activity.showListDialog(array: Array<String>, title: String? = null,
-                            clickListener: DialogInterface.OnClickListener) =
+fun Activity.showListDialog(
+    array: Array<String>,
+    title: String? = null,
+    clickListener: DialogInterface.OnClickListener
+) =
         AlertDialog.Builder(this).apply {
             title?.let { setTitle(title) }
             setItems(array, clickListener)
@@ -126,7 +133,7 @@ fun String.formatISOString(pattern: String): String =
 
 fun Number.toCurrencyString(currency: String, fractionDigits: Int = 2): String {
     val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
-    //Try setting the currency into the new format if possible. If not, go with Locale default
+    // Try setting the currency into the new format if possible. If not, go with Locale default
     try {
         format.currency = Currency.getInstance(currency)
     } catch (ex: Exception) {
@@ -149,5 +156,5 @@ fun BigDecimal.display(currency: String): String? =
 
 fun ActionBar.showBackNavigation(show: Boolean) {
     displayOptions = if (show) ActionBar.DISPLAY_SHOW_TITLE or ActionBar.DISPLAY_SHOW_HOME or ActionBar.DISPLAY_HOME_AS_UP
-                     else ActionBar.DISPLAY_SHOW_TITLE
+    else ActionBar.DISPLAY_SHOW_TITLE
 }

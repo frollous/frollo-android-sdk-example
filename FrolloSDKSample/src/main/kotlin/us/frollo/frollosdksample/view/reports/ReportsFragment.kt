@@ -17,8 +17,12 @@
 package us.frollo.frollosdksample.view.reports
 
 import android.os.Bundle
-import android.view.*
-import kotlinx.android.synthetic.main.fragment_reports.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_reports.text_account_balances
+import kotlinx.android.synthetic.main.fragment_reports.text_current_transaction_reports
+import kotlinx.android.synthetic.main.fragment_reports.text_historic_transaction_reports
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT

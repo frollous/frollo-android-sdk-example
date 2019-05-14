@@ -39,7 +39,13 @@ import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
-import us.frollo.frollosdksample.utils.*
+import us.frollo.frollosdksample.utils.changeDateFormat
+import us.frollo.frollosdksample.utils.display
+import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.hide
+import us.frollo.frollosdksample.utils.ifNotNull
+import us.frollo.frollosdksample.utils.observe
+import us.frollo.frollosdksample.utils.show
 
 class TransactionDetailsActivity : BaseStackActivity() {
 

@@ -17,15 +17,22 @@
 package us.frollo.frollosdksample.view.bills.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_simple_item3.view.*
+import kotlinx.android.synthetic.main.template_simple_item3.view.image_arrow
+import kotlinx.android.synthetic.main.template_simple_item3.view.text_amount
+import kotlinx.android.synthetic.main.template_simple_item3.view.text_subtitle1
+import kotlinx.android.synthetic.main.template_simple_item3.view.text_subtitle2
+import kotlinx.android.synthetic.main.template_simple_item3.view.text_subtitle3
+import kotlinx.android.synthetic.main.template_simple_item3.view.text_title
 import us.frollo.frollosdk.model.coredata.bills.BillPayment
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentRelation
-import us.frollo.frollosdksample.*
+import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 import us.frollo.frollosdksample.display.UserCurrency
 import us.frollo.frollosdksample.extension.toDisplay
-import us.frollo.frollosdksample.utils.*
+import us.frollo.frollosdksample.utils.changeDateFormat
+import us.frollo.frollosdksample.utils.display
+import us.frollo.frollosdksample.utils.hide
 
 class BillPaymentsAdapter : BaseRecyclerAdapter<BillPaymentRelation, BillPaymentsAdapter.BillPaymentViewHolder>(BillPaymentRelation::class.java, comparator) {
 
