@@ -17,9 +17,9 @@
 package us.frollo.frollosdksample.view.aggregation.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_transaction_category_item.view.*
+import kotlinx.android.synthetic.main.template_transaction_category_item.view.text_title
 import us.frollo.frollosdk.model.coredata.aggregation.transactioncategories.TransactionCategory
-import us.frollo.frollosdksample.*
+import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 

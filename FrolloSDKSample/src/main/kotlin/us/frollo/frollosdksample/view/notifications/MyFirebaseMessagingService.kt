@@ -33,12 +33,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 FrolloSDK.notifications.handlePushNotification(data)
             }
 
-            Log.d(TAG,"**** Woohooo!! Received Notification!!")
+            Log.d(TAG, "**** Woohooo!! Received Notification!!")
         }
     }
 
     override fun onNewToken(token: String?) {
-        Log.d(TAG,"**** New FCM token: $token")
+        Log.d(TAG, "**** New FCM token: $token")
         token?.let { FrolloSDK.notifications.registerPushNotificationToken(it) }
     }
 }

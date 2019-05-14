@@ -18,7 +18,7 @@ package us.frollo.frollosdksample.display
 
 import us.frollo.frollosdk.model.IAdapterModel
 
-data class GroupModel (
+data class GroupModel(
     val id: Long,
     val name: String
-): IAdapterModel
+) : IAdapterModel

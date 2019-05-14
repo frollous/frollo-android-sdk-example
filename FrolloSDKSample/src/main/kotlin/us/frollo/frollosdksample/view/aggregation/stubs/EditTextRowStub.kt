@@ -19,15 +19,18 @@ package us.frollo.frollosdksample.view.aggregation.stubs
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import org.jetbrains.anko.*
+import android.widget.EditText
+import android.widget.Spinner
+import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.find
+import org.jetbrains.anko.verticalLayout
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFieldOption
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFieldType
 
 class EditTextRowStub(private val item: FieldItem, private val parent: ViewGroup) : RowStub() {
     override fun createView(ui: AnkoContext<Context>): View = with(ui) {
         verticalLayout {
-            //TextView + EditText
+            // TextView + EditText
             item.rows.forEach {
 
                 textViewFor(it)

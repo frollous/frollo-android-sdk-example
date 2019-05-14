@@ -42,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun initToolbar() {
-        //Initialize the toolbar as the support action bar, if available on the layout
+        // Initialize the toolbar as the support action bar, if available on the layout
         toolbar?.let { setSupportActionBar(it) }
     }
 

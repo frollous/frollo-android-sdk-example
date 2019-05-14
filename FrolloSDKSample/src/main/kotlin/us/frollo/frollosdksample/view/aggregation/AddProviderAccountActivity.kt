@@ -24,8 +24,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.activity_add_provider_account.*
-import kotlinx.android.synthetic.main.progress_bar_full_screen.*
+import kotlinx.android.synthetic.main.activity_add_provider_account.form_container
+import kotlinx.android.synthetic.main.activity_add_provider_account.text_title
+import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar
+import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_title
 import org.jetbrains.anko.UI
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
@@ -41,7 +43,11 @@ import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
-import us.frollo.frollosdksample.view.aggregation.stubs.*
+import us.frollo.frollosdksample.view.aggregation.stubs.EditTextRowStub
+import us.frollo.frollosdksample.view.aggregation.stubs.FieldItem
+import us.frollo.frollosdksample.view.aggregation.stubs.FieldType
+import us.frollo.frollosdksample.view.aggregation.stubs.OptionsRowStub
+import us.frollo.frollosdksample.view.aggregation.stubs.RowStub
 
 class AddProviderAccountActivity : BaseStackActivity() {
 

@@ -18,11 +18,12 @@ package us.frollo.frollosdksample.view.authentication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.progress_bar_full_screen.*
+import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar
+import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_title
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
-import us.frollo.frollosdksample.*
+import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.view.MainActivity

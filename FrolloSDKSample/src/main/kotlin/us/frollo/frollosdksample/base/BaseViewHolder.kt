@@ -20,7 +20,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import us.frollo.frollosdksample.utils.ifNotNull
 
-abstract class BaseViewHolder<in T>(itemView: View): RecyclerView.ViewHolder(itemView) {
+abstract class BaseViewHolder<in T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var mClickCallback: (((View), (Int)) -> Unit)? = null
     private var mLongClickCallback: (((View), (Int)) -> Unit)? = null
 
