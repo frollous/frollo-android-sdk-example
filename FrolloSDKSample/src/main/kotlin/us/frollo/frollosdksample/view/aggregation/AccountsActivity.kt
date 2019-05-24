@@ -91,7 +91,7 @@ class AccountsActivity : BaseStackActivity() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.aggregation.fetchAccountsByProviderAccountId(providerAccountId).observe(this) {
+        FrolloSDK.aggregation.fetchAccounts(providerAccountId = providerAccountId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { accounts -> loadAccounts(accounts) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Accounts Failed")
