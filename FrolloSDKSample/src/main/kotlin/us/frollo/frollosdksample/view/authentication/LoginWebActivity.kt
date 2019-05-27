@@ -23,12 +23,15 @@ import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_tit
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
+import us.frollo.frollosdk.model.oauth.OAuth2Scope
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.view.MainActivity
 
 class LoginWebActivity : AppCompatActivity() {
+
+    private val scopes = listOf(OAuth2Scope.OFFLINE_ACCESS, OAuth2Scope.EMAIL, OAuth2Scope.OPENID)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,7 @@ class LoginWebActivity : AppCompatActivity() {
         text_progress_title.text = getString(R.string.str_logging_in)
         progress_bar.show()
 
-        FrolloSDK.authentication.handleWebLoginResponse(intent) { result ->
+        FrolloSDK.authentication.handleWebLoginResponse(authIntent = intent, scopes = scopes) { result ->
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     FrolloSDK.refreshData()
