@@ -37,7 +37,7 @@ class ProfileActivity : BaseStackActivity() {
     private fun logout() {
         alert("Are you sure you want to logout?", "Logout") {
             positiveButton("Yes") {
-                FrolloSDK.logout()
+                FrolloSDK.authentication.logoutUser()
                 startActivity<LoginActivity>()
                 finishAffinity()
             }
