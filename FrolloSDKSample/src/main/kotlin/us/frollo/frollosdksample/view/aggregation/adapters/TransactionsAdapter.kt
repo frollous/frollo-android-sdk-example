@@ -17,12 +17,15 @@
 package us.frollo.frollosdksample.view.aggregation.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_transaction_item.view.*
+import kotlinx.android.synthetic.main.template_transaction_item.view.text_amount
+import kotlinx.android.synthetic.main.template_transaction_item.view.text_date
+import kotlinx.android.synthetic.main.template_transaction_item.view.text_name
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
-import us.frollo.frollosdksample.*
+import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
-import us.frollo.frollosdksample.utils.*
+import us.frollo.frollosdksample.utils.changeDateFormat
+import us.frollo.frollosdksample.utils.display
 
 class TransactionsAdapter : BaseRecyclerAdapter<Transaction, TransactionsAdapter.TransactionViewHolder>(Transaction::class.java, transactionComparator) {
 

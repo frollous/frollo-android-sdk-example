@@ -17,12 +17,16 @@
 package us.frollo.frollosdksample.view.aggregation
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_transaction_search.*
+import kotlinx.android.synthetic.main.fragment_transaction_search.progress
+import kotlinx.android.synthetic.main.fragment_transaction_search.recycler_transactions
+import kotlinx.android.synthetic.main.fragment_transaction_search.search_view
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
@@ -30,7 +34,11 @@ import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseFragment
-import us.frollo.frollosdksample.utils.*
+import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.hide
+import us.frollo.frollosdksample.utils.observe
+import us.frollo.frollosdksample.utils.show
+import us.frollo.frollosdksample.utils.showBackNavigation
 import us.frollo.frollosdksample.view.aggregation.adapters.TransactionsAdapter
 
 class TransactionSearchFragment : BaseFragment() {
@@ -83,7 +91,7 @@ class TransactionSearchFragment : BaseFragment() {
         FrolloSDK.aggregation.transactionSearch(searchTerm) { resource ->
             progress.hide()
 
-            when(resource.status) {
+            when (resource.status) {
                 Resource.Status.ERROR -> {
                     displayError(resource.error?.localizedDescription, "Search Transactions Failed")
                 }

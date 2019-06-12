@@ -17,13 +17,20 @@
 package us.frollo.frollosdksample.view.aggregation.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_account_item.view.*
+import kotlinx.android.synthetic.main.template_account_item.view.progress_bar
+import kotlinx.android.synthetic.main.template_account_item.view.text_account_name
+import kotlinx.android.synthetic.main.template_account_item.view.text_amount
+import kotlinx.android.synthetic.main.template_account_item.view.text_last_updated
+import kotlinx.android.synthetic.main.template_account_item.view.text_status
 import us.frollo.frollosdk.model.coredata.aggregation.accounts.Account
 import us.frollo.frollosdk.model.coredata.aggregation.provideraccounts.AccountRefreshStatus
-import us.frollo.frollosdksample.*
+import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
-import us.frollo.frollosdksample.utils.*
+import us.frollo.frollosdksample.utils.display
+import us.frollo.frollosdksample.utils.formatISOString
+import us.frollo.frollosdksample.utils.hide
+import us.frollo.frollosdksample.utils.show
 
 class AccountsAdapter : BaseRecyclerAdapter<Account, AccountsAdapter.AccountViewHolder>(Account::class.java, accountComparator) {
 

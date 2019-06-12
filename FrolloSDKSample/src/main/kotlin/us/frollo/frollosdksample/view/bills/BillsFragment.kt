@@ -18,10 +18,13 @@ package us.frollo.frollosdksample.view.bills
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_bills.*
+import kotlinx.android.synthetic.main.fragment_bills.recycler_bills
+import kotlinx.android.synthetic.main.fragment_bills.refresh_layout
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
