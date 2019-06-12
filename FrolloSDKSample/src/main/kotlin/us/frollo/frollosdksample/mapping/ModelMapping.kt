@@ -16,6 +16,7 @@
 
 package us.frollo.frollosdksample.mapping
 
+import us.frollo.frollosdk.model.coredata.aggregation.tags.TransactionTag
 import us.frollo.frollosdk.model.coredata.reports.ReportGroupTransactionHistoryRelation
 import us.frollo.frollosdk.model.coredata.reports.ReportTransactionCurrentRelation
 import us.frollo.frollosdksample.display.GroupModel
@@ -42,3 +43,5 @@ fun ReportGroupTransactionHistoryRelation.toGroupModel(): GroupModel? {
 
     return model
 }
+
+fun String.toTransactionTag() = TransactionTag(name = this, count = null, lastUsedAt = null, createdAt = null)
