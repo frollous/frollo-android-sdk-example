@@ -22,6 +22,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.activity_transaction_details.*
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.startActivity
@@ -30,15 +32,18 @@ import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
+import us.frollo.frollosdk.core.TagApplyAllPair
+import us.frollo.frollosdk.model.coredata.aggregation.tags.TransactionTag
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.TransactionRelation
 import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.base.REQUEST.REQUEST_ADD_TAG
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
+import us.frollo.frollosdksample.mapping.toTransactionTag
 import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.display
 import us.frollo.frollosdksample.utils.displayError
@@ -46,6 +51,7 @@ import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.ifNotNull
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.show
+import us.frollo.frollosdksample.view.aggregation.adapters.TagsAdapter
 
 class TransactionDetailsActivity : BaseStackActivity() {
 
@@ -55,11 +61,12 @@ class TransactionDetailsActivity : BaseStackActivity() {
 
     private var fetchedTransaction: Transaction? = null
     private var transactionId: Long = -1
+    private val tagsAdapter = TagsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        transactionId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
+        transactionId = intent.getLongExtra(ARG_DATA_1, -1)
 
         initLiveData()
     }
@@ -101,12 +108,22 @@ class TransactionDetailsActivity : BaseStackActivity() {
             text_budget_category.text = budgetCategoryLabel(transaction.budgetCategory)
             text_merchant.text = model.merchant?.name
             switch_exclude.isChecked = !transaction.included
+            recycler_tags.apply {
+                layoutManager = FlexboxLayoutManager(context)
+                adapter = tagsAdapter.apply {
+                    onItemClick { model, view, _ ->
+                        handleTagClick(model, view)
+                    }
+                }
+            }
+            loadTags(transaction.userTags?.toSet())
         }
 
         text_transaction_category.setOnClickListener { showCategories() }
         text_budget_category.setOnClickListener { pickBudget() }
         text_merchant.setOnClickListener { showMerchants() }
         switch_exclude.setOnCheckedChangeListener { _, isChecked -> fetchedTransaction?.included = !isChecked }
+        btn_add_tag.setOnClickListener { startActivityForResult<AddTagActivity>(REQUEST_ADD_TAG) }
     }
 
     private fun showCategories() {
@@ -127,6 +144,9 @@ class TransactionDetailsActivity : BaseStackActivity() {
                 fetchedTransaction?.categoryId = id
                 text_transaction_category.text = name
             }
+        } else if (requestCode == REQUEST_ADD_TAG && resultCode == Activity.RESULT_OK) {
+            val tagName = intent?.getStringExtra(ARG_DATA_1)
+            tagName?.let { addTag(it) }
         }
     }
 
@@ -137,6 +157,51 @@ class TransactionDetailsActivity : BaseStackActivity() {
             val budget = budgetValues[index]
             fetchedTransaction?.budgetCategory = budget
             text_budget_category.text = budgetCategoryLabel(budget)
+        }
+    }
+
+    private fun loadTags(tags: Set<String>?) {
+        if (tags == null || tags.isEmpty()) {
+            recycler_tags.hide()
+            text_tag_placeholder.show()
+        } else {
+            recycler_tags.show()
+            text_tag_placeholder.hide()
+            tagsAdapter.replaceAll(tags.map { it.toTransactionTag() }.toList())
+        }
+    }
+
+    private fun handleTagClick(model: TransactionTag?, view: View?) {
+        when (view?.id) {
+            R.id.image_remove -> {
+                model?.let { removeTag(model.name) }
+            }
+        }
+    }
+
+    private fun addTag(tagName: String) {
+        progress_bar.show()
+
+        FrolloSDK.aggregation.addTagsToTransaction(transactionId, arrayOf(TagApplyAllPair(tagName, false))) { result ->
+            progress_bar.hide()
+
+            when (result.status) {
+                Result.Status.SUCCESS -> {}
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Add Tag Failed")
+            }
+        }
+    }
+
+    private fun removeTag(tagName: String) {
+        progress_bar.show()
+
+        FrolloSDK.aggregation.removeTagsFromTransaction(transactionId, arrayOf(TagApplyAllPair(tagName, false))) { result ->
+            progress_bar.hide()
+
+            when (result.status) {
+                Result.Status.SUCCESS -> {}
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Remove Tag Failed")
+            }
         }
     }
 
