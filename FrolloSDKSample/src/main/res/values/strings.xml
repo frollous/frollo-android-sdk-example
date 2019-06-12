@@ -30,12 +30,17 @@
     <string name="title_bills">Bills</string>
     <string name="title_bill_payments">Bill Payments</string>
     <string name="title_search_transactions">Search Transactions</string>
+    <string name="title_add_tag">Add Tag</string>
+    <string name="title_search_tags">Search Tags</string>
+    <string name="title_user_tags">User Tags</string>
+    <string name="title_suggested_tags">Suggested Tags</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
     <string name="str_unknown_provider_account">Unknown Provider Account</string>
     <string name="str_accounts_count">%d Accounts</string>
     <string name="str_excluded">Excluded</string>
+    <string name="str_add_tags">Add your tags</string>
 
     <string name="str_account_balances">Account Balances</string>
     <string name="str_current_transaction_reports">Current Transaction Reports</string>
