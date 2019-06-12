@@ -74,7 +74,7 @@ class TransactionsActivity : BaseStackActivity() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.aggregation.fetchTransactionsByAccountId(accountId).observe(this) {
+        FrolloSDK.aggregation.fetchTransactions(accountId = accountId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { transactions -> loadTransactions(transactions) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Transactions Failed")

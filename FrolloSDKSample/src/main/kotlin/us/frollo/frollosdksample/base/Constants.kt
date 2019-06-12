@@ -23,4 +23,5 @@ object ARGUMENT {
 
 object REQUEST {
     const val REQUEST_SELECTION = 1
+    const val REQUEST_ADD_TAG = 2
 }

@@ -83,7 +83,7 @@ class BillPaymentsActivity : BaseStackActivity(), DialogInterface.OnClickListene
     }
 
     private fun initLiveData() {
-        FrolloSDK.bills.fetchBillPaymentsByBillIdWithRelation(billId).observe(this) {
+        FrolloSDK.bills.fetchBillPaymentsWithRelation(billId = billId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Bill Payments Failed")
