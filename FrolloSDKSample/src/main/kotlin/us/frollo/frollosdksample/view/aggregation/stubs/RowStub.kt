@@ -22,17 +22,33 @@ import android.text.InputFilter
 import android.text.InputType
 import android.view.View
 import android.view.ViewManager
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Spinner
+import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoComponent
+import org.jetbrains.anko.AnkoViewDslMarker
+import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.custom.ankoView
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.editText
+import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.padding
+import org.jetbrains.anko.spinner
+import org.jetbrains.anko.textAppearance
+import org.jetbrains.anko.textColorResource
+import org.jetbrains.anko.textView
+import org.jetbrains.anko.verticalLayout
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFieldOption
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFieldType
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFormField
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFormRow
 import us.frollo.frollosdksample.R
-import java.util.*
+import java.util.WeakHashMap
 
 abstract class RowStub : AnkoComponent<Context> {
     val viewIdCache: WeakHashMap<String, Int> = WeakHashMap()
@@ -100,7 +116,7 @@ fun EditText.setMaxLength(maxLength: Int) {
     filters = if (filters == null) {
         arrayOf(InputFilter.LengthFilter(maxLength))
     } else {
-        //This is used in order not to override other filters
+        // This is used in order not to override other filters
         filters.filter { it !is InputFilter.LengthFilter }
                 .toMutableList()
                 .apply { add(InputFilter.LengthFilter(maxLength)) }

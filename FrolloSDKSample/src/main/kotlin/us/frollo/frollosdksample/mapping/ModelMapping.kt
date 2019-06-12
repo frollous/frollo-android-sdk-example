@@ -21,7 +21,7 @@ import us.frollo.frollosdk.model.coredata.reports.ReportTransactionCurrentRelati
 import us.frollo.frollosdksample.display.GroupModel
 import us.frollo.frollosdksample.utils.ifNotNull
 
-fun ReportTransactionCurrentRelation.toGroupModel() : GroupModel? {
+fun ReportTransactionCurrentRelation.toGroupModel(): GroupModel? {
 
     var model: GroupModel? = null
 
@@ -32,7 +32,7 @@ fun ReportTransactionCurrentRelation.toGroupModel() : GroupModel? {
     return model
 }
 
-fun ReportGroupTransactionHistoryRelation.toGroupModel() : GroupModel? {
+fun ReportGroupTransactionHistoryRelation.toGroupModel(): GroupModel? {
 
     var model: GroupModel? = null
 

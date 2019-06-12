@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import us.frollo.frollosdk.model.IAdapterModel
 import us.frollo.frollosdksample.utils.inflate
 
-abstract class BaseRecyclerAdapter<T: IAdapterModel, VH : BaseViewHolder<T>>(klass: Class<T>, private val comparator: Comparator<T>? = null) : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerAdapter<T : IAdapterModel, VH : BaseViewHolder<T>>(klass: Class<T>, private val comparator: Comparator<T>? = null) : RecyclerView.Adapter<VH>() {
     protected var mData = listOf<T>()
     protected var mClickCallback: ((T, View, Int) -> Unit)? = null
     protected var mLongClickCallback: ((T, View, Int) -> Unit)? = null
@@ -41,12 +41,12 @@ abstract class BaseRecyclerAdapter<T: IAdapterModel, VH : BaseViewHolder<T>>(kla
         notifyDataSetChanged()
     }
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-		val viewHolder: VH = getViewHolder(parent.inflate(getViewHolderLayout(viewType)), viewType)
-		mClickCallback?.let { viewHolder.setOnClickListener(this::invokeClickCallback) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        val viewHolder: VH = getViewHolder(parent.inflate(getViewHolderLayout(viewType)), viewType)
+        mClickCallback?.let { viewHolder.setOnClickListener(this::invokeClickCallback) }
         mLongClickCallback?.let { viewHolder.setOnLongClickListener(this::invokeLongClickCallback) }
-		return viewHolder
-	}
+        return viewHolder
+    }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         mData[position].let { holder.bind(it) }

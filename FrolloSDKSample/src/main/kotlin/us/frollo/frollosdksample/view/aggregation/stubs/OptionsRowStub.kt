@@ -19,8 +19,16 @@ package us.frollo.frollosdksample.view.aggregation.stubs
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import org.jetbrains.anko.*
+import android.widget.EditText
+import android.widget.Spinner
+import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.find
+import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.radioButton
+import org.jetbrains.anko.radioGroup
+import org.jetbrains.anko.textAppearance
+import org.jetbrains.anko.verticalLayout
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFieldOption
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderFieldType
 import us.frollo.frollosdksample.R
@@ -39,18 +47,18 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                         text = row.label
                         textAppearance = R.style.TextAppearance_AppCompat_Medium
                         setOnClickListener {
-                            //Hide all options
+                            // Hide all options
                             item.rows.forEachIndexed { i, row ->
                                 this@verticalLayout.findViewWithTag<View>(row.fieldRowChoice + i)?.hide()
                             }
-                            //Show this option only
+                            // Show this option only
                             this@verticalLayout.findViewWithTag<View>(row.fieldRowChoice + rowIndex)?.show()
                         }
                     }.lparams {
                         topMargin = dip(8)
                     }
                 }
-                //Check the first item
+                // Check the first item
                 check(getChildAt(0).id)
             }.lparams {
                 topMargin = dip(8)
@@ -59,7 +67,7 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
 
             item.rows.forEachIndexed { i, it ->
                 verticalLayout {
-                    //Use tags to show/hide this layouts later on
+                    // Use tags to show/hide this layouts later on
                     tag = it.fieldRowChoice + i
 
                     textViewFor(it)
@@ -90,7 +98,7 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                         }
                     }
 
-                    //Hack: don't hide the first option (default one)
+                    // Hack: don't hide the first option (default one)
                     if (i > 0) hide()
                 }
             }

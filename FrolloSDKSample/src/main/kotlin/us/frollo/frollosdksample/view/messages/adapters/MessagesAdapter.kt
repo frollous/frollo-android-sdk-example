@@ -27,7 +27,7 @@ import us.frollo.frollosdksample.base.BaseViewHolder
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
 
-class MessagesAdapter : BaseRecyclerAdapter<Message, MessagesAdapter.MessageTextViewHolder>(Message::class.java, messageComparator)  {
+class MessagesAdapter : BaseRecyclerAdapter<Message, MessagesAdapter.MessageTextViewHolder>(Message::class.java, messageComparator) {
 
     companion object {
         private val messageComparator = compareByDescending<Message> { it.placement }
