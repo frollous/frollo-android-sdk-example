@@ -42,7 +42,6 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
             textViewFor("Choose One")
 
             radioGroup {
-                //show radio buttons and on click show item of that particular row based on tag given to option of that row.
                 item.rows.forEachIndexed { rowIndex, row ->
                     radioButton {
                         text = row.label
@@ -66,16 +65,16 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                 bottomMargin = dip(8)
             }
 
-            item.rows.forEachIndexed { index, row ->
+            item.rows.forEachIndexed { i, it ->
                 verticalLayout {
                     // Use tags to show/hide this layouts later on
-                    tag = row.fieldRowChoice + index
+                    tag = it.fieldRowChoice + i
 
-                    textViewFor(row)
+                    textViewFor(it)
 
                     horizontalLayout {
-                        val lastIndex = row.fields.lastIndex
-                        row.fields.forEachIndexed { index, field ->
+                        val lastIndex = it.fields.lastIndex
+                        it.fields.forEachIndexed { index, field ->
                             val viewId = View.generateViewId()
                             viewIdCache[field.fieldId] = viewId
 
@@ -100,7 +99,7 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                     }
 
                     // Hack: don't hide the first option (default one)
-                    if (index > 0) hide()
+                    if (i > 0) hide()
                 }
             }
         }
