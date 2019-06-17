@@ -23,6 +23,7 @@ import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.managers.SetupManager
 import us.frollo.frollosdksample.utils.showThemed
 import us.frollo.frollosdksample.view.authentication.LoginActivity
 
@@ -37,7 +38,11 @@ class ProfileActivity : BaseStackActivity() {
     private fun logout() {
         alert("Are you sure you want to logout?", "Logout") {
             positiveButton("Yes") {
-                FrolloSDK.authentication.logoutUser()
+                if (SetupManager.useV1Auth) {
+                    FrolloSDK.reset()
+                } else {
+                    FrolloSDK.defaultAuthentication?.logout()
+                }
                 startActivity<LoginActivity>()
                 finishAffinity()
             }

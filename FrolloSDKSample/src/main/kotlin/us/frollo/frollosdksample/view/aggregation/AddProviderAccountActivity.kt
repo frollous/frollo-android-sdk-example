@@ -123,11 +123,11 @@ class AddProviderAccountActivity : BaseStackActivity() {
                 val rows = linkedMapOf<String, FieldItem>()
 
                 loginForm.rows.forEach {
-                    if (it.fieldRowChoice.contains("Choice", true)) {
-                        if (rows.containsKey(it.fieldRowChoice))
-                            rows[it.fieldRowChoice]?.rows?.add(it)
+                    if (it.fieldRowChoice.contains("Choice", true)) { // check if it is of type choice
+                        if (rows.containsKey(it.fieldRowChoice)) // now check if rows map that you have created already contains that field item
+                            rows[it.fieldRowChoice]?.rows?.add(it) // if yes add to rows of fieldItem
                         else
-                            rows[it.fieldRowChoice] = FieldItem(FieldType.CHOICE, mutableListOf(it))
+                            rows[it.fieldRowChoice] = FieldItem(FieldType.CHOICE, mutableListOf(it)) // else create a new field item of that type
                     } else {
                         rows[it.fieldRowChoice] = FieldItem(FieldType.TEXT, mutableListOf(it))
                     }
