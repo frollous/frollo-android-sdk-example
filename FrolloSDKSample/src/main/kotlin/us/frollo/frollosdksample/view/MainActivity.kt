@@ -116,7 +116,7 @@ class MainActivity : BaseStackActivity() {
     }
 
     private fun fetchUserCurrency() {
-        FrolloSDK.authentication.fetchUser().observe(this) { resource ->
+        FrolloSDK.userManagement.fetchUser().observe(this) { resource ->
             when (resource?.status) {
                 Resource.Status.SUCCESS -> resource.data?.let { UserCurrency.currency = it.primaryCurrency }
                 Resource.Status.ERROR -> displayError(resource.error?.localizedDescription, "Fetch User Failed")

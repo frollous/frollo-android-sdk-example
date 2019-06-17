@@ -24,7 +24,7 @@ import us.frollo.frollosdk.model.IAdapterModel
 import us.frollo.frollosdksample.utils.inflate
 
 abstract class BaseRecyclerAdapter<T : IAdapterModel, VH : BaseViewHolder<T>>(klass: Class<T>, private val comparator: Comparator<T>? = null) : RecyclerView.Adapter<VH>() {
-    protected var mData = listOf<T>()
+    protected var mData = mutableListOf<T>()
     protected var mClickCallback: ((T, View, Int) -> Unit)? = null
     protected var mLongClickCallback: ((T, View, Int) -> Unit)? = null
 
@@ -36,8 +36,13 @@ abstract class BaseRecyclerAdapter<T : IAdapterModel, VH : BaseViewHolder<T>>(kl
         mLongClickCallback = l
     }
 
-    fun replaceAll(data: List<T>) {
-        mData = comparator?.let { data.sortedWith(comparator) } ?: run { data }
+    open fun replaceAll(data: List<T>) {
+        mData = comparator?.let { data.sortedWith(comparator).toMutableList() } ?: run { data.toMutableList() }
+        notifyDataSetChanged()
+    }
+
+    open fun clear() {
+        mData.clear()
         notifyDataSetChanged()
     }
 
@@ -56,6 +61,9 @@ abstract class BaseRecyclerAdapter<T : IAdapterModel, VH : BaseViewHolder<T>>(kl
         super.onViewRecycled(holder)
         holder.recycle()
     }
+
+    fun getItemAt(position: Int): T? =
+            if (position > -1 && position < mData.size) mData[position] else null
 
     override fun getItemCount(): Int = mData.size
 

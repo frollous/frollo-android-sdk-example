@@ -41,7 +41,7 @@ class LoginWebActivity : AppCompatActivity() {
         text_progress_title.text = getString(R.string.str_logging_in)
         progress_bar.show()
 
-        FrolloSDK.authentication.handleWebLoginResponse(authIntent = intent, scopes = scopes) { result ->
+        FrolloSDK.defaultAuthentication?.handleWebLoginResponse(authIntent = intent, scopes = scopes) { result ->
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     FrolloSDK.refreshData()
