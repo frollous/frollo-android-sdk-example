@@ -42,6 +42,7 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
             textViewFor("Choose One")
 
             radioGroup {
+                // Show radio buttons and on click show item of that particular row, based on tag assigned to option of that row.
                 item.rows.forEachIndexed { rowIndex, row ->
                     radioButton {
                         text = row.label
@@ -65,16 +66,16 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                 bottomMargin = dip(8)
             }
 
-            item.rows.forEachIndexed { i, it ->
+            item.rows.forEachIndexed { rowIndex, row ->
                 verticalLayout {
                     // Use tags to show/hide this layouts later on
-                    tag = it.fieldRowChoice + i
+                    tag = row.fieldRowChoice + rowIndex
 
-                    textViewFor(it)
+                    textViewFor(row)
 
                     horizontalLayout {
-                        val lastIndex = it.fields.lastIndex
-                        it.fields.forEachIndexed { index, field ->
+                        val lastIndex = row.fields.lastIndex
+                        row.fields.forEachIndexed { fieldIndex, field ->
                             val viewId = View.generateViewId()
                             viewIdCache[field.fieldId] = viewId
 
@@ -91,7 +92,7 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                                         .lparams {
                                             weight = 1f
                                             topMargin = dip(8)
-                                            if (index < lastIndex) marginEnd = dip(10)
+                                            if (fieldIndex < lastIndex) marginEnd = dip(10)
                                             width = matchParent
                                             height = dip(52)
                                         }
@@ -99,7 +100,7 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
                     }
 
                     // Hack: don't hide the first option (default one)
-                    if (i > 0) hide()
+                    if (rowIndex > 0) hide()
                 }
             }
         }
