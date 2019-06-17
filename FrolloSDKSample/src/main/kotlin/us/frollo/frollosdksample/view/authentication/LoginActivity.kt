@@ -31,6 +31,7 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.oauth.OAuth2Scope
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.managers.SetupManager
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
@@ -49,15 +50,25 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        btn_login.setOnClickListener { attemptLogin() }
-        btn_login_web.setOnClickListener { startAuthorizationCodeFlow() }
+        if (SetupManager.useV1Auth) {
+            btn_login_web.hide()
+        } else {
+            btn_login_web.setOnClickListener { startAuthorizationCodeFlow() }
+        }
+
+        btn_login.setOnClickListener {
+            if (SetupManager.useV1Auth)
+                attemptV1Login()
+            else
+                attemptDefaultLogin()
+        }
 
         if (intent.getBooleanExtra(EXTRA_FAILED, false)) {
             toast("Authorization cancelled")
         }
     }
 
-    private fun attemptLogin() {
+    private fun attemptDefaultLogin() {
         val email = input_email.text.toString()
         val password = input_password.text.toString()
 
@@ -68,7 +79,36 @@ class LoginActivity : AppCompatActivity() {
         btn_login_web.hide()
         progress_bar.show()
 
-        FrolloSDK.authentication.loginUser(email = email, password = password, scopes = scopes) { result ->
+        FrolloSDK.defaultAuthentication?.loginUser(email = email, password = password, scopes = scopes) { result ->
+            progress_bar.hide()
+
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    FrolloSDK.refreshData()
+                    startActivity<MainActivity>()
+                    finish()
+                }
+                Result.Status.ERROR -> {
+                    btn_login.show()
+                    btn_login_web.show()
+                    displayError(result.error?.localizedDescription, "Login Failed")
+                }
+            }
+        }
+    }
+
+    private fun attemptV1Login() {
+        val email = input_email.text.toString()
+        val password = input_password.text.toString()
+
+        if (email.isBlank() || password.isBlank())
+            return
+
+        btn_login.hide()
+        btn_login_web.hide()
+        progress_bar.show()
+
+        SetupManager.customAuthentication?.loginUser(email = email, password = password) { result ->
             progress_bar.hide()
 
             when (result.status) {
@@ -92,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
         cancelIntent.putExtra(EXTRA_FAILED, true)
         cancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
-        FrolloSDK.authentication.loginUserUsingWeb(
+        FrolloSDK.defaultAuthentication?.loginUserUsingWeb(
                 activity = this,
                 scopes = scopes,
                 completedIntent = PendingIntent.getActivity(this, 0, completionIntent, 0),

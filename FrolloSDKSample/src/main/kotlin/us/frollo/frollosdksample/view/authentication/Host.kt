@@ -16,6 +16,6 @@
 
 package us.frollo.frollosdksample.view.authentication
 
-enum class WebAuthServer {
-    AUTH0, FROLLO
+enum class Host {
+    FROLLO_AUTH0, FROLLO_V2, FROLLO_V1
 }
