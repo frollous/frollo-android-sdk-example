@@ -120,15 +120,14 @@ class AddProviderAccountActivity : BaseStackActivity() {
             providerLiveData.removeObserver(observer)
 
             doAsync {
-//                  rows =         fieldRowChoice, fieldItem
                 val rows = linkedMapOf<String, FieldItem>()
 
                 loginForm.rows.forEach {
-                    if (it.fieldRowChoice.contains("Choice", true)) {// check if it is of type choice
-                        if (rows.containsKey(it.fieldRowChoice))//now check if rows map that u have created alreadu containes that field item
-                            rows[it.fieldRowChoice]?.rows?.add(it) // if yes add to rows of fieldItem
+                    if (it.fieldRowChoice.contains("Choice", true)) {
+                        if (rows.containsKey(it.fieldRowChoice))
+                            rows[it.fieldRowChoice]?.rows?.add(it)
                         else
-                            rows[it.fieldRowChoice] = FieldItem(FieldType.CHOICE, mutableListOf(it))// else create a new field item of that type
+                            rows[it.fieldRowChoice] = FieldItem(FieldType.CHOICE, mutableListOf(it))
                     } else {
                         rows[it.fieldRowChoice] = FieldItem(FieldType.TEXT, mutableListOf(it))
                     }
