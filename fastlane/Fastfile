@@ -20,7 +20,6 @@ platform :android do
   desc "Build Example App Continuous"
   lane :continuous do
     gradle(task: "assemble",
-      flavor: "debug",
       build_type: "Debug"
     )
   end
