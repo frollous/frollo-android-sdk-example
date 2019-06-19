@@ -17,6 +17,14 @@ default_platform(:android)
 
 platform :android do
 
+  desc "Build Example App Continuous"
+  lane :continuous do
+    gradle(task: "assemble",
+      flavor: "debug",
+      build_type: "Debug"
+    )
+  end
+
   desc "Runs all the tests"
   lane :test do
       gradle(task: "test")
@@ -29,16 +37,29 @@ platform :android do
 
       gradle(task: "dokka")
 
-      slack(message: "Frollo Android SDK Successfully Integrated!",
-            default_payloads: [:git_branch, :lane, :test_result],
-            success: true)
+      slack(
+        message: "Frollo Android SDK Successfully Integrated!",
+        success: true,
+        default_payloads: [:git_branch, :lane, :test_result]
+      )
+  end
+
+  error do |lane, exception|
+    slack(
+       message: "Frollo Android SDK Failed Integration.",
+       success: false,
+       payload: {
+        "Error" => exception.message
+       },
+       default_payloads: [:git_branch, :git_author, :test_result]
+    )
   end
 
 end
 
-def on_error(exception)
-       slack(
-           message: "Frollo Android SDK integration failed with exception : #{exception}",
-           success: false,
-       )
-end
+#def on_error(exception)
+#       slack(
+#           message: "Frollo Android SDK integration failed with exception : #{exception}",
+#           success: false,
+#       )
+#end
