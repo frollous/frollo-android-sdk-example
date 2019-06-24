@@ -184,12 +184,12 @@ class AddProviderAccountActivity : BaseStackActivity() {
             progress_bar.hide()
 
             when (result.status) {
-                Result.Status.SUCCESS -> {
+                Resource.Status.SUCCESS -> {
                     toast("Account Added!")
                     setResult(Activity.RESULT_OK)
                     finish()
                 }
-                Result.Status.ERROR -> {
+                Resource.Status.ERROR -> {
                     menuDone?.isEnabled = true
                     displayError(result.error?.localizedDescription, "Adding Account Failed")
                 }

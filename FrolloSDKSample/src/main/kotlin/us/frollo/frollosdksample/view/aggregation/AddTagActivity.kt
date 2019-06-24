@@ -108,7 +108,7 @@ class AddTagActivity : BaseStackActivity() {
 
         tagViewModel.userTagsLiveData.observe(this) {
             if (it?.status == Resource.Status.SUCCESS) {
-                 it.data?.let(::loadUserTags)
+                it.data?.let(::loadUserTags)
             }
         }
         tagViewModel.fetchUserTags()
@@ -145,7 +145,7 @@ class AddTagActivity : BaseStackActivity() {
         } else {
             tagViewModel.fetchUserTags(newText)
 
-            countDownTimer = object: CountDownTimer(2000, 1000) {
+            countDownTimer = object : CountDownTimer(2000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {}
                 override fun onFinish() {
                     tagViewModel.fetchSuggestedTags(newText)
