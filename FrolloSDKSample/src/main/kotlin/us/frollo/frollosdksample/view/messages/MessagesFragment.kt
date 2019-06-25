@@ -21,6 +21,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_messages.*
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -45,6 +46,7 @@ class MessagesFragment : BaseFragment() {
     }
 
     private val messagesAdapter = MessagesAdapter()
+    private var fetchedLiveData: LiveData<Resource<List<Message>>>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_messages, container, false)
@@ -71,7 +73,9 @@ class MessagesFragment : BaseFragment() {
 
     private fun initLiveData() {
         viewLifecycleOwner?.let { owner ->
-            FrolloSDK.messages.fetchMessages(read = false).observe(owner) {
+            fetchedLiveData?.removeObservers(this)
+            fetchedLiveData = FrolloSDK.messages.fetchMessages(read = false)
+            fetchedLiveData?.observe(owner) {
                 when (it?.status) {
                     Resource.Status.SUCCESS -> loadMessages(it.data)
                     Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Messages Failed")
