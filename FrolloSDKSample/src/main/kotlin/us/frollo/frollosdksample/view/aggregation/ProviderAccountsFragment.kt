@@ -24,6 +24,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_provider_accounts.*
@@ -48,6 +49,7 @@ class ProviderAccountsFragment : BaseFragment() {
     }
 
     private val providerAccountsAdapter = ProviderAccountsAdapter()
+    private var fetchedLiveData: LiveData<Resource<List<ProviderAccountRelation>>>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,7 +107,9 @@ class ProviderAccountsFragment : BaseFragment() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.aggregation.fetchProviderAccountsWithRelation().observe(this) {
+        fetchedLiveData?.removeObservers(this)
+        fetchedLiveData = FrolloSDK.aggregation.fetchProviderAccountsWithRelation()
+        fetchedLiveData?.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { providerAccounts -> loadProviderAccounts(providerAccounts) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Provider Accounts Failed")
