@@ -33,7 +33,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 import us.frollo.frollosdk.authentication.Authentication
-import us.frollo.frollosdk.authentication.AuthenticationCallback
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.core.OnFrolloSDKCompletionListener
 import us.frollo.frollosdk.error.FrolloSDKError
@@ -43,8 +42,6 @@ import java.io.IOException
 class CustomV1Authentication(private val app: Application, private val baseUrl: String) : Authentication() {
 
     override var loggedIn: Boolean = false
-
-    override var authenticationCallback: AuthenticationCallback? = null
 
     fun loginUser(email: String, password: String, completion: OnFrolloSDKCompletionListener<Result>) {
         val apiService = CustomNetworkService().create(baseUrl, LoginApi::class.java)
@@ -57,7 +54,7 @@ class CustomV1Authentication(private val app: Application, private val baseUrl: 
                     if (token != null && expiry != null) {
                         loggedIn = true
 
-                        authenticationCallback?.saveAccessTokens(token, expiry)
+                        tokenCallback?.saveAccessTokens(token, expiry)
 
                         completion.invoke(Result.success())
                     } else {
