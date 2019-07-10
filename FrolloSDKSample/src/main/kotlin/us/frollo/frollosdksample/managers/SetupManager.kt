@@ -38,7 +38,7 @@ object SetupManager {
      *
      * NOTE: Every time you change this make sure to clear App Data in Settings for the change to take effect
      */
-    val host = Host.FROLLO_V2
+    private val host = Host.FROLLO_V2
 
     fun setup(application: Application, callback: () -> Unit) {
         val configuration = when (host) {
