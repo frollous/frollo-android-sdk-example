@@ -46,10 +46,10 @@ object SetupManager {
                 useV1Auth = false
                 FrolloSDKConfiguration(
                         authenticationType = OAuth2(
-                                clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                                 redirectUrl = "frollo-sdk-example://authorize",
                                 authorizationUrl = "https://id-sandbox.frollo.us/oauth/authorize/",
                                 tokenUrl = "https://id-sandbox.frollo.us/oauth/token/"),
+                        clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                         serverUrl = "https://api-sandbox.frollo.us/api/v2/",
                         logLevel = LogLevel.DEBUG)
             }
@@ -57,11 +57,11 @@ object SetupManager {
                 useV1Auth = false
                 FrolloSDKConfiguration(
                         authenticationType = OAuth2(
-                                clientId = "PzlborkOwZf42SJ2b6Fdj6JTi9lcqiNi",
                                 redirectUrl = "frollo-sdk-example://authorize",
                                 authorizationUrl = "https://frollo-test.au.auth0.com/authorize/",
                                 tokenUrl = "https://frollo-test.au.auth0.com/oauth/token/",
                                 revokeTokenURL = "https://frollo-test.au.auth0.com/oauth/revoke/"),
+                        clientId = "PzlborkOwZf42SJ2b6Fdj6JTi9lcqiNi",
                         serverUrl = "https://volt-sandbox.frollo.us/api/v2/",
                         logLevel = LogLevel.DEBUG)
             }
@@ -73,6 +73,7 @@ object SetupManager {
                 customAuthentication = authentication
                 FrolloSDKConfiguration(
                         authenticationType = Custom(authentication = authentication),
+                        clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                         serverUrl = "https://api-sandbox.frollo.us/api/v2/",
                         logLevel = LogLevel.DEBUG)
             }
