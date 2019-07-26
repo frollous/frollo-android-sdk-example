@@ -18,7 +18,7 @@ package us.frollo.frollosdksample.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_startup.*
+import kotlinx.android.synthetic.main.activity_startup.progress_bar
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdksample.R
