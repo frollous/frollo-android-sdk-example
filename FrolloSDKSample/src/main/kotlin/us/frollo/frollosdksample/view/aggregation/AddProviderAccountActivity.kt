@@ -26,7 +26,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_add_provider_account.form_container
 import kotlinx.android.synthetic.main.activity_add_provider_account.text_title
-import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar
+import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar_layout
 import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_title
 import org.jetbrains.anko.UI
 import org.jetbrains.anko.doAsync
@@ -178,10 +178,10 @@ class AddProviderAccountActivity : BaseStackActivity() {
     private fun addAccount(loginForm: ProviderLoginForm) {
         menuDone?.isEnabled = false
         text_progress_title.text = getString(R.string.str_adding_account)
-        progress_bar.show()
+        progress_bar_layout.show()
 
         FrolloSDK.aggregation.createProviderAccount(providerId = providerId, loginForm = loginForm) { result ->
-            progress_bar.hide()
+            progress_bar_layout.hide()
 
             when (result.status) {
                 Resource.Status.SUCCESS -> {

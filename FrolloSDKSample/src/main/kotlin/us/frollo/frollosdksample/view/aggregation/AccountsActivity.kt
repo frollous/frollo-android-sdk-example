@@ -121,10 +121,10 @@ class AccountsActivity : BaseStackActivity() {
     private fun deleteAccount() {
         menuDelete?.isEnabled = false
         text_progress_title.text = getString(R.string.str_deleting_account)
-        progress_bar.show()
+        progress_bar_layout.show()
 
         FrolloSDK.aggregation.deleteProviderAccount(providerAccountId = providerAccountId) { result ->
-            progress_bar.hide()
+            progress_bar_layout.hide()
 
             when (result.status) {
                 Result.Status.SUCCESS -> {
