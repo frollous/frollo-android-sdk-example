@@ -41,7 +41,7 @@ class ProfileActivity : BaseStackActivity() {
                 if (SetupManager.useV1Auth) {
                     FrolloSDK.reset()
                 } else {
-                    FrolloSDK.defaultAuthentication?.logout()
+                    FrolloSDK.logout()
                 }
                 startActivity<LoginActivity>()
                 finishAffinity()
