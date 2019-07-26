@@ -180,10 +180,10 @@ class TransactionDetailsActivity : BaseStackActivity() {
     }
 
     private fun addTag(tagName: String) {
-        progress_bar.show()
+        progress_bar_layout.show()
 
         FrolloSDK.aggregation.addTagsToTransaction(transactionId, arrayOf(TagApplyAllPair(tagName, false))) { result ->
-            progress_bar.hide()
+            progress_bar_layout.hide()
 
             when (result.status) {
                 Result.Status.SUCCESS -> {}
@@ -193,10 +193,10 @@ class TransactionDetailsActivity : BaseStackActivity() {
     }
 
     private fun removeTag(tagName: String) {
-        progress_bar.show()
+        progress_bar_layout.show()
 
         FrolloSDK.aggregation.removeTagsFromTransaction(transactionId, arrayOf(TagApplyAllPair(tagName, false))) { result ->
-            progress_bar.hide()
+            progress_bar_layout.hide()
 
             when (result.status) {
                 Result.Status.SUCCESS -> {}
@@ -206,11 +206,11 @@ class TransactionDetailsActivity : BaseStackActivity() {
     }
 
     private fun save() {
-        progress_bar.show()
+        progress_bar_layout.show()
 
         fetchedTransaction?.let {
             FrolloSDK.aggregation.updateTransaction(transactionId, it) { result ->
-                progress_bar.hide()
+                progress_bar_layout.hide()
 
                 when (result.status) {
                     Result.Status.SUCCESS -> toast("Updated!")
