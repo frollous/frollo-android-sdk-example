@@ -18,7 +18,7 @@ package us.frollo.frollosdksample.view.authentication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar
+import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar_layout
 import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_title
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
@@ -39,7 +39,7 @@ class LoginWebActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login_web)
 
         text_progress_title.text = getString(R.string.str_logging_in)
-        progress_bar.show()
+        progress_bar_layout.show()
 
         FrolloSDK.defaultAuthentication?.handleWebLoginResponse(authIntent = intent, scopes = scopes) { result ->
             when (result.status) {
