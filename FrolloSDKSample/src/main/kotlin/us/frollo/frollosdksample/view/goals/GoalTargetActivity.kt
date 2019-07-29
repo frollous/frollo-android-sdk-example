@@ -20,8 +20,10 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_goal_target.goal_target_amount
 import kotlinx.android.synthetic.main.activity_goal_target.goal_target_date
 import kotlinx.android.synthetic.main.activity_goal_target.goal_target_open_ended
+import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.model.coredata.goals.GoalTarget
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
 import us.frollo.frollosdksample.base.BaseStackActivity
 
 class GoalTargetActivity : BaseStackActivity() {
@@ -51,7 +53,8 @@ class GoalTargetActivity : BaseStackActivity() {
     }
 
     private fun startAddGoal(goalTarget: GoalTarget) {
-        // startActivity<>(ARGUMENT.ARG_DATA_1 to goalTarget)
+        startActivity<AddGoalActivity>(ARG_DATA_1 to goalTarget)
+        finish()
     }
 
     override val resourceId: Int

@@ -16,6 +16,7 @@
     <string name="str_menu_save">Save</string>
     <string name="str_menu_done">Done</string>
     <string name="str_menu_delete_account">Delete Account</string>
+    <string name="str_menu_create">Create</string>
 
     <string name="title_profile">Profile</string>
     <string name="title_messages">Messages</string>
@@ -36,6 +37,7 @@
     <string name="title_suggested_tags">Suggested Tags</string>
     <string name="title_goals">Goals</string>
     <string name="title_goal_target">Target of Goal</string>
+    <string name="title_add_goal">Add Goal</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
@@ -56,6 +58,18 @@
     <string name="str_goal_target_amount">Amount</string>
     <string name="str_goal_target_date">Date</string>
     <string name="str_goal_target_open_ended">Open Ended</string>
+    <string name="str_goal_name_hint">Name</string>
+    <string name="str_goal_description_hint">Description</string>
+    <string name="str_goal_account">Account</string>
+    <string name="str_goal_select_account">Select Account</string>
+    <string name="str_goal_tracking_method">Tracking Method</string>
+    <string name="str_goal_frequency">Frequency</string>
+    <string name="str_goal_target_amount_text">Target Amount</string>
+    <string name="str_goal_target_amount_hint">$1,000</string>
+    <string name="str_goal_period_amount">Period Amount</string>
+    <string name="str_goal_period_amount_hint">$200</string>
+    <string name="str_goal_start_date">Start Date</string>
+    <string name="str_goal_end_date">End Date</string>
 
     <string name="str_next_due">Next due: %s</string>
 </resources>

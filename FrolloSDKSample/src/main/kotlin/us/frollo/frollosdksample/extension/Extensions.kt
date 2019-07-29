@@ -18,6 +18,7 @@ package us.frollo.frollosdksample.extension
 
 import us.frollo.frollosdk.model.coredata.bills.BillFrequency
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentStatus
+import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
 
 fun BillFrequency.toDisplay(): String =
         when (this) {
@@ -38,4 +39,16 @@ fun BillPaymentStatus.toDisplay(): String =
             BillPaymentStatus.FUTURE -> "Future"
             BillPaymentStatus.OVERDUE -> "Overdue"
             BillPaymentStatus.PAID -> "Paid"
+        }
+
+fun GoalFrequency.toDisplay(): String =
+        when (this) {
+            GoalFrequency.ANNUALLY -> "Annually"
+            GoalFrequency.BIANNUALLY -> "Biannually"
+            GoalFrequency.FORTNIGHTLY -> "Fortnightly"
+            GoalFrequency.FOUR_WEEKLY -> "Four Weekly"
+            GoalFrequency.MONTHLY -> "Monthly"
+            GoalFrequency.QUARTERLY -> "Quarterly"
+            GoalFrequency.SINGULAR -> "Singular"
+            GoalFrequency.WEEKLY -> "Weekly"
         }

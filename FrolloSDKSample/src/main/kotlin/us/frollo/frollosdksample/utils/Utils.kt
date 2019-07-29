@@ -32,8 +32,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import org.jetbrains.anko.AlertBuilder
 import org.jetbrains.anko.alert
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeFormatterBuilder
 import org.threeten.bp.temporal.ChronoField
@@ -42,6 +44,7 @@ import us.frollo.frollosdksample.R
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.Currency
+import java.util.Date
 import java.util.Locale
 
 fun <T1, T2> ifNotNull(value1: T1?, value2: T2?, bothNotNull: (T1, T2) -> (Unit)) {
@@ -127,6 +130,17 @@ fun String.changeDateFormat(from: String, to: String): String {
     val date = LocalDate.parse(this, sourceFormatter)
     return date.toString(to)
 }
+
+fun String.toLocalDate(pattern: String): LocalDate {
+    val formatter = DateTimeFormatterBuilder()
+            .appendPattern(pattern)
+            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+            .toFormatter()
+    return LocalDate.parse(this, formatter)
+}
+
+fun LocalDate.toDate(): Date =
+        DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
 
 fun String.formatISOString(pattern: String): String =
         LocalDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toString(pattern)
