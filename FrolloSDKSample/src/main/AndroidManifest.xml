@@ -138,6 +138,11 @@
             android:screenOrientation="portrait"
             android:label="@string/title_bill_payments"/>
 
+        <activity
+            android:name=".view.goals.GoalTargetActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_goal_target"/>
+
         <service android:name=".view.notifications.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

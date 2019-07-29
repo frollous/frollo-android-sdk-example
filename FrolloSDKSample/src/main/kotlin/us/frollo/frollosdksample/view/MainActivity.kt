@@ -34,6 +34,7 @@ import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.view.aggregation.ProviderAccountsFragment
 import us.frollo.frollosdksample.view.bills.BillsFragment
+import us.frollo.frollosdksample.view.goals.GoalsFragment
 import us.frollo.frollosdksample.view.messages.MessagesFragment
 import us.frollo.frollosdksample.view.profile.ProfileActivity
 import us.frollo.frollosdksample.view.reports.ReportsFragment
@@ -49,6 +50,7 @@ class MainActivity : BaseStackActivity() {
     private val accountsFragment = ProviderAccountsFragment()
     private val billsFragment = BillsFragment()
     private val reportsFragment = ReportsFragment()
+    private val goalsFragment = GoalsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +90,7 @@ class MainActivity : BaseStackActivity() {
             R.id.nav_accounts -> accountsFragment
             R.id.nav_bills -> billsFragment
             R.id.nav_reports -> reportsFragment
+            R.id.nav_goals -> goalsFragment
             else -> null
         }
 
