@@ -34,6 +34,8 @@
     <string name="title_search_tags">Search Tags</string>
     <string name="title_user_tags">User Tags</string>
     <string name="title_suggested_tags">Suggested Tags</string>
+    <string name="title_goals">Goals</string>
+    <string name="title_goal_target">Target of Goal</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
@@ -50,6 +52,10 @@
     <string name="str_type_transaction_category">Transaction Category</string>
     <string name="str_current_reports">Current Reports</string>
     <string name="str_history_reports">History Reports</string>
+
+    <string name="str_goal_target_amount">Amount</string>
+    <string name="str_goal_target_date">Date</string>
+    <string name="str_goal_target_open_ended">Open Ended</string>
 
     <string name="str_next_due">Next due: %s</string>
 </resources>
