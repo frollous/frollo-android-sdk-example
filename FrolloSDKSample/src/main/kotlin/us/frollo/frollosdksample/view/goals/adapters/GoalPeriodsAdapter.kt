@@ -41,7 +41,7 @@ class GoalPeriodsAdapter : BaseRecyclerAdapter<GoalPeriod, GoalPeriodsAdapter.Go
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_goal_item
+            R.layout.template_goal_period_item
 
     override fun getViewHolder(view: View, viewType: Int) =
             GoalPeriodViewHolder(view)
