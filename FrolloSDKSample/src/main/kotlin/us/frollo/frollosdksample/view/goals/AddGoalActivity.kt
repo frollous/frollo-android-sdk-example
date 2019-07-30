@@ -16,11 +16,13 @@
 
 package us.frollo.frollosdksample.view.goals
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.DatePicker
+import kotlinx.android.synthetic.main.activity_add_goal.account
 import kotlinx.android.synthetic.main.activity_add_goal.endDate
 import kotlinx.android.synthetic.main.activity_add_goal.frequency
 import kotlinx.android.synthetic.main.activity_add_goal.progress_bar_layout
@@ -32,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_add_goal.sectionTrackingType
 import kotlinx.android.synthetic.main.activity_add_goal.startDate
 import kotlinx.android.synthetic.main.activity_add_goal.trackingType
 import org.jetbrains.anko.selector
+import org.jetbrains.anko.startActivityForResult
 import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
@@ -39,7 +42,9 @@ import us.frollo.frollosdk.model.coredata.goals.GoalTarget
 import us.frollo.frollosdk.model.coredata.goals.GoalTrackingType
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
+import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
 import us.frollo.frollosdksample.extension.toDisplay
 import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.show
@@ -59,6 +64,8 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
     private var goalFrequency = GoalFrequency.WEEKLY
     private var goalStartDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
     private var goalEndDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
+    private var goalAccountId: Long = -1
+    private var goalAccountName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +97,7 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
         startDate.text = goalStartDate.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
         endDate.text = goalEndDate.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
 
-        sectionAccount.setOnClickListener { }
+        sectionAccount.setOnClickListener { startActivityForResult<SelectAccountActivity>(REQUEST_SELECTION) }
         sectionTrackingType.setOnClickListener { pickTrackingType() }
         sectionFrequency.setOnClickListener { pickFrequency() }
         sectionStartDate.setOnClickListener {
@@ -100,6 +107,16 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
         sectionEndDate.setOnClickListener {
             val date = endDate.text.toString().toLocalDate(DATE_DISPLAY_FORMAT)
             showDatePickerDialog(date, "endDate")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_SELECTION && resultCode == RESULT_OK && data != null) {
+            goalAccountId = data.getLongExtra(ARG_DATA_1, -1)
+            goalAccountName = data.getStringExtra(ARG_DATA_2)
+            account.text = goalAccountName
         }
     }
 
