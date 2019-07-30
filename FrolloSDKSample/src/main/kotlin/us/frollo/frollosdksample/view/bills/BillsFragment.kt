@@ -92,7 +92,7 @@ class BillsFragment : BaseFragment() {
     }
 
     private fun refreshData() {
-        FrolloSDK.aggregation.refreshProviderAccounts { result ->
+        FrolloSDK.bills.refreshBills { result ->
             refresh_layout.isRefreshing = false
 
             when (result.status) {

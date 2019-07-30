@@ -17,22 +17,40 @@
 package us.frollo.frollosdksample.view.goals
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_goals.recycler_goals
+import kotlinx.android.synthetic.main.fragment_goals.refresh_layout
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
+import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.base.Result
+import us.frollo.frollosdk.model.coredata.goals.Goal
+import us.frollo.frollosdk.model.coredata.goals.GoalStatus
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showBackNavigation
+import us.frollo.frollosdksample.view.goals.adapters.GoalsAdapter
 
 class GoalsFragment : BaseFragment() {
 
     companion object {
         private const val TAG = "GoalsFragment"
     }
+
+    private val mAdapter = GoalsAdapter()
+    private var fetchedLiveData: LiveData<Resource<List<Goal>>>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,5 +83,51 @@ class GoalsFragment : BaseFragment() {
 
         actionBar?.showBackNavigation(show = false)
         actionBar?.title = getString(R.string.title_goals)
+
+        initView()
+        initLiveData()
+        refresh_layout.onRefresh { refreshData() }
+    }
+
+    private fun initView() {
+        recycler_goals.apply {
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            adapter = mAdapter.apply {
+                onItemClick { model, _, _ ->
+                    model?.let { showDetails(it) }
+                }
+            }
+        }
+    }
+
+    private fun initLiveData() {
+        fetchedLiveData?.removeObservers(this)
+        fetchedLiveData = FrolloSDK.goals.fetchGoals(status = GoalStatus.ACTIVE)
+        fetchedLiveData?.observe(this) {
+            when (it?.status) {
+                Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
+                Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Goals Failed")
+            }
+        }
+    }
+
+    private fun loadData(models: List<Goal>) {
+        mAdapter.replaceAll(models)
+    }
+
+    private fun refreshData() {
+        FrolloSDK.goals.refreshGoals { result ->
+            refresh_layout.isRefreshing = false
+
+            when (result.status) {
+                Result.Status.SUCCESS -> Log.d(TAG, "Goals Refreshed")
+                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Goals Refresh Failed")
+            }
+        }
+    }
+
+    private fun showDetails(model: Goal) {
+        // startActivity<GoalPeriodsActivity>(ARGUMENT.ARG_DATA_1 to model.goalId)
     }
 }
