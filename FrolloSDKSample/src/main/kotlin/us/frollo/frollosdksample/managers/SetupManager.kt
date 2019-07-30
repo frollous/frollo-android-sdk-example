@@ -48,7 +48,8 @@ object SetupManager {
                         authenticationType = OAuth2(
                                 redirectUrl = "frollo-sdk-example://authorize",
                                 authorizationUrl = "https://id-sandbox.frollo.us/oauth/authorize/",
-                                tokenUrl = "https://id-sandbox.frollo.us/oauth/token/"),
+                                tokenUrl = "https://id-sandbox.frollo.us/oauth/token/",
+                                revokeTokenURL = "https://id-sandbox.frollo.us/oauth/revoke/"),
                         clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                         serverUrl = "https://api-sandbox.frollo.us/api/v2/",
                         logLevel = LogLevel.DEBUG)
