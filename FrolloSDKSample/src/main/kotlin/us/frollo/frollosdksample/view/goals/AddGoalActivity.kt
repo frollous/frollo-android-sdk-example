@@ -23,19 +23,27 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.DatePicker
 import kotlinx.android.synthetic.main.activity_add_goal.account
+import kotlinx.android.synthetic.main.activity_add_goal.description
 import kotlinx.android.synthetic.main.activity_add_goal.endDate
 import kotlinx.android.synthetic.main.activity_add_goal.frequency
+import kotlinx.android.synthetic.main.activity_add_goal.name
+import kotlinx.android.synthetic.main.activity_add_goal.periodAmount
 import kotlinx.android.synthetic.main.activity_add_goal.progress_bar_layout
 import kotlinx.android.synthetic.main.activity_add_goal.sectionAccount
 import kotlinx.android.synthetic.main.activity_add_goal.sectionEndDate
 import kotlinx.android.synthetic.main.activity_add_goal.sectionFrequency
+import kotlinx.android.synthetic.main.activity_add_goal.sectionPeriodAmount
 import kotlinx.android.synthetic.main.activity_add_goal.sectionStartDate
+import kotlinx.android.synthetic.main.activity_add_goal.sectionTargetAmount
 import kotlinx.android.synthetic.main.activity_add_goal.sectionTrackingType
 import kotlinx.android.synthetic.main.activity_add_goal.startDate
+import kotlinx.android.synthetic.main.activity_add_goal.targetAmount
 import kotlinx.android.synthetic.main.activity_add_goal.trackingType
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.startActivityForResult
 import org.threeten.bp.LocalDate
+import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
 import us.frollo.frollosdk.model.coredata.goals.GoalTarget
@@ -47,10 +55,13 @@ import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
 import us.frollo.frollosdksample.extension.toDisplay
 import us.frollo.frollosdksample.utils.changeDateFormat
+import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.utils.toLocalDate
 import us.frollo.frollosdksample.utils.toString
 import us.frollo.frollosdksample.view.shared.DatePickerFragment
+import java.math.BigDecimal
 
 class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetListener {
 
@@ -63,9 +74,13 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
     private var goalTrackingType = GoalTrackingType.CREDIT
     private var goalFrequency = GoalFrequency.WEEKLY
     private var goalStartDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
-    private var goalEndDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
+    private var goalEndDate: String? = null
+    private var goalTargetAmount: BigDecimal? = null
+    private var goalPeriodAmount: BigDecimal? = null
     private var goalAccountId: Long = -1
     private var goalAccountName: String = ""
+    private var goalName: String = ""
+    private var goalDescription: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,10 +107,27 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
     }
 
     private fun initView() {
+        when (goalTarget) {
+            GoalTarget.AMOUNT -> {
+                supportActionBar?.title = "Add Amount Goal"
+                sectionEndDate.hide()
+            }
+            GoalTarget.DATE -> {
+                supportActionBar?.title = "Add Date Goal"
+                sectionPeriodAmount.hide()
+                goalEndDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
+            }
+            GoalTarget.OPEN_ENDED -> {
+                supportActionBar?.title = "Add Open Ended Goal"
+                sectionTargetAmount.hide()
+                goalEndDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
+            }
+        }
+
         trackingType.text = trackingLabel(goalTrackingType)
         frequency.text = goalFrequency.toDisplay()
         startDate.text = goalStartDate.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
-        endDate.text = goalEndDate.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
+        endDate.text = goalEndDate?.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
 
         sectionAccount.setOnClickListener { startActivityForResult<SelectAccountActivity>(REQUEST_SELECTION) }
         sectionTrackingType.setOnClickListener { pickTrackingType() }
@@ -153,16 +185,100 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
     }
 
     private fun createGoal() {
+        goalName = name.text.toString()
+        if (goalName.isBlank()) {
+            displayError("Missing goal name", "Create Goal Failed")
+            return
+        }
+
+        if (goalAccountId == -1L) {
+            displayError("Missing goal account", "Create Goal Failed")
+            return
+        }
+
+        when (goalTarget) {
+            GoalTarget.AMOUNT -> {
+                if (!validateTargetAmount()) {
+                    return
+                }
+                if (!validatePeriodAmount()) {
+                    return
+                }
+            }
+            GoalTarget.DATE -> {
+                if (!validateEndDate()) {
+                    return
+                }
+                if (!validateTargetAmount()) {
+                    return
+                }
+            }
+            GoalTarget.OPEN_ENDED -> {
+                if (!validateEndDate()) {
+                    return
+                }
+                if (!validatePeriodAmount()) {
+                    return
+                }
+            }
+        }
+
+        goalDescription = if (description.text.toString().isNotBlank()) description.text.toString() else null
+
         progress_bar_layout.show()
 
-        /*FrolloSDK.goals.createGoal() { result ->
+        FrolloSDK.goals.createGoal(
+                name = goalName,
+                description = goalDescription,
+                target = goalTarget,
+                trackingType = goalTrackingType,
+                frequency = goalFrequency,
+                startDate = goalStartDate,
+                endDate = goalEndDate,
+                periodAmount = goalPeriodAmount,
+                targetAmount = goalTargetAmount,
+                accountId = goalAccountId
+        ) { result ->
             progress_bar_layout.hide()
 
             when (result.status) {
-                Result.Status.SUCCESS -> {}
+                Result.Status.SUCCESS -> { finish() }
                 Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Create Goal Failed")
             }
-        }*/
+        }
+    }
+
+    private fun validateTargetAmount(): Boolean {
+        val amount = targetAmount.text.toString()
+        return if (amount.isNotBlank() && !amount.startsWith(".")) {
+            goalTargetAmount = BigDecimal(amount)
+            true
+        } else {
+            goalTargetAmount = null
+            displayError("Missing target amount", "Create Goal Failed")
+            false
+        }
+    }
+
+    private fun validatePeriodAmount(): Boolean {
+        val amount = periodAmount.text.toString()
+        return if (amount.isNotBlank() && !amount.startsWith(".")) {
+            goalPeriodAmount = BigDecimal(amount)
+            true
+        } else {
+            goalPeriodAmount = null
+            displayError("Missing period amount", "Create Goal Failed")
+            false
+        }
+    }
+
+    private fun validateEndDate(): Boolean {
+        return if (goalEndDate != null) {
+            true
+        } else {
+            displayError("Missing end date", "Create Goal Failed")
+            false
+        }
     }
 
     private fun trackingLabel(type: GoalTrackingType): String {
