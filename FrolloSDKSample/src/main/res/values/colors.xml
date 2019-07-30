@@ -7,4 +7,7 @@
     <color name="colorBorder">#CCCCCC</color>
     <color name="colorFab">#D81B60</color>
     <color name="colorGrey">#F4F4F4</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorOrange">#FF9100</color>
+    <color name="colorGreen">#00FF00</color>
 </resources>

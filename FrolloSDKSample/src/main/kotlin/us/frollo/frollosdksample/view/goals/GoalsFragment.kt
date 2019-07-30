@@ -37,6 +37,7 @@ import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdk.model.coredata.goals.GoalStatus
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
@@ -117,7 +118,7 @@ class GoalsFragment : BaseFragment() {
     }
 
     private fun refreshData() {
-        FrolloSDK.goals.refreshGoals { result ->
+        FrolloSDK.goals.refreshGoals(status = GoalStatus.ACTIVE) { result ->
             refresh_layout.isRefreshing = false
 
             when (result.status) {
@@ -128,6 +129,6 @@ class GoalsFragment : BaseFragment() {
     }
 
     private fun showDetails(model: Goal) {
-        // startActivity<GoalPeriodsActivity>(ARGUMENT.ARG_DATA_1 to model.goalId)
+        startActivity<GoalPeriodsActivity>(ARGUMENT.ARG_DATA_1 to model.goalId)
     }
 }

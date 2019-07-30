@@ -19,6 +19,8 @@ package us.frollo.frollosdksample.extension
 import us.frollo.frollosdk.model.coredata.bills.BillFrequency
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentStatus
 import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
+import us.frollo.frollosdk.model.coredata.goals.GoalTrackingStatus
+import us.frollo.frollosdksample.R
 
 fun BillFrequency.toDisplay(): String =
         when (this) {
@@ -52,3 +54,17 @@ fun GoalFrequency.toDisplay(): String =
             GoalFrequency.SINGULAR -> "Singular"
             GoalFrequency.WEEKLY -> "Weekly"
         }
+
+fun GoalTrackingStatus.toDisplay(): String =
+        when (this) {
+            GoalTrackingStatus.AHEAD -> "Ahead"
+            GoalTrackingStatus.ON_TRACK -> "On Track"
+            GoalTrackingStatus.BEHIND -> "Behind"
+        }
+
+val GoalTrackingStatus.color: Int
+    get() = when (this) {
+        GoalTrackingStatus.AHEAD -> R.color.colorGreen
+        GoalTrackingStatus.ON_TRACK -> R.color.colorOrange
+        GoalTrackingStatus.BEHIND -> R.color.colorRed
+    }
