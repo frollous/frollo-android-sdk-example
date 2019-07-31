@@ -48,6 +48,12 @@ class MessagesFragment : BaseFragment() {
     private val messagesAdapter = MessagesAdapter()
     private var fetchedLiveData: LiveData<Resource<List<Message>>>? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        refreshUnreadMessages()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_messages, container, false)
     }

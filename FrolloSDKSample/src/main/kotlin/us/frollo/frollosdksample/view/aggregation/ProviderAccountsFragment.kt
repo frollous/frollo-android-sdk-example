@@ -55,6 +55,9 @@ class ProviderAccountsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
+
+        FrolloSDK.aggregation.refreshProviders()
+        FrolloSDK.aggregation.refreshAccounts()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

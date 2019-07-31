@@ -49,6 +49,13 @@ class BillsFragment : BaseFragment() {
     private val mAdapter = BillsAdapter()
     private var fetchedLiveData: LiveData<Resource<List<BillRelation>>>? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        FrolloSDK.aggregation.refreshTransactionCategories()
+        refreshData()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_bills, container, false)
     }

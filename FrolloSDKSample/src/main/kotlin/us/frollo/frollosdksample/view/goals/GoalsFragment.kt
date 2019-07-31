@@ -57,6 +57,7 @@ class GoalsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
+        refreshData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
