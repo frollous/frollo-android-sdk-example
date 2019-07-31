@@ -77,4 +77,7 @@
     <string name="str_goal_end_date">End Date</string>
 
     <string name="str_next_due">Next due: %s</string>
+
+    <string name="str_profile_name">Name</string>
+    <string name="str_profile_email">Email</string>
 </resources>
