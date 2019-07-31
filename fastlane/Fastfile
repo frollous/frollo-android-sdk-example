@@ -19,13 +19,23 @@ platform :android do
 
   desc "Build Example App Continuous"
   lane :continuous do
-    gradle(task: "assemble",
+    gradle(
+      task: "assemble",
       build_type: "Debug"
     )
   end
 
   desc "Runs all the tests"
   lane :test do
+      changelog = changelog_from_git_commits(
+          between: [ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^", "HEAD"],
+          pretty: "- %s"
+      )
+      Actions.lane_context[SharedValues::FL_CHANGELOG] = changelog
+
+      build_number = number_of_commits.to_s
+      ENV["BUILD_NUMBER"] = build_number
+
       gradle(task: "test")
 
       automated_test_emulator_run(
@@ -37,9 +47,13 @@ platform :android do
       gradle(task: "dokka")
 
       slack(
-        message: "Frollo Android SDK Successfully Integrated!",
+        message: "Frollo Android SDK Continuous #" + build_number.to_s + " Successfully Integrated!",
         success: true,
-        default_payloads: [:git_branch, :lane, :test_result]
+        payload: {
+         "Jenkins" => "Build #" + ENV['BUILD_NUMBER'] + " - " + ENV['BUILD_URL'],
+         "Changelog" => changelog,
+        },
+        default_payloads: [:git_branch, :git_author, :lane, :test_result, :last_git_commit_message]
       )
   end
 
@@ -48,17 +62,12 @@ platform :android do
        message: "Frollo Android SDK Failed Integration.",
        success: false,
        payload: {
-        "Error" => exception.message
+        "Jenkins" => ENV['JOB_NAME'] + " Build #" + ENV['BUILD_NUMBER'] + " - " + ENV['BUILD_URL'],
+        "Error" => exception.message,
+        "Changelog" => Actions.lane_context[SharedValues::FL_CHANGELOG],
        },
-       default_payloads: [:git_branch, :git_author, :test_result]
+       default_payloads: [:git_branch, :git_author, :lane, :test_result, :last_git_commit_message]
     )
   end
 
 end
-
-#def on_error(exception)
-#       slack(
-#           message: "Frollo Android SDK integration failed with exception : #{exception}",
-#           success: false,
-#       )
-#end
