@@ -60,7 +60,7 @@ class MessagesFragment : BaseFragment() {
 
         initView()
         initLiveData()
-        refresh_layout.onRefresh { refreshUnreadMessages() }
+        refresh_layout?.onRefresh { refreshUnreadMessages() }
     }
 
     private fun initView() {
@@ -91,7 +91,7 @@ class MessagesFragment : BaseFragment() {
 
     private fun refreshUnreadMessages() {
         FrolloSDK.messages.refreshUnreadMessages { result ->
-            refresh_layout.isRefreshing = false
+            refresh_layout?.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Messages Refreshed")

@@ -61,7 +61,7 @@ class BillsFragment : BaseFragment() {
 
         initView()
         initLiveData()
-        refresh_layout.onRefresh { refreshData() }
+        refresh_layout?.onRefresh { refreshData() }
     }
 
     private fun initView() {
@@ -93,7 +93,7 @@ class BillsFragment : BaseFragment() {
 
     private fun refreshData() {
         FrolloSDK.bills.refreshBills { result ->
-            refresh_layout.isRefreshing = false
+            refresh_layout?.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Bills Refreshed")

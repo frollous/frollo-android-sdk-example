@@ -89,7 +89,7 @@ class ProviderAccountsFragment : BaseFragment() {
 
         initView()
         initLiveData()
-        refresh_layout.onRefresh { refreshProviderAccounts() }
+        refresh_layout?.onRefresh { refreshProviderAccounts() }
     }
 
     private fun initView() {
@@ -123,7 +123,7 @@ class ProviderAccountsFragment : BaseFragment() {
 
     private fun refreshProviderAccounts() {
         FrolloSDK.aggregation.refreshProviderAccounts { result ->
-            refresh_layout.isRefreshing = false
+            refresh_layout?.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Provider Accounts Refreshed")
