@@ -16,26 +16,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:padding="20dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="0dp">
 
-            <TextView
+            <EditText
                 android:id="@+id/goal_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
+                android:gravity="start"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="40dp"
+                android:hint="@string/str_goal_name_hint"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Name"/>
+                app:layout_constraintEnd_toStartOf="@id/text_edit_save"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/goal_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@android:color/black"
+                android:gravity="start"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="40dp"
+                android:hint="@string/str_goal_description_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/text_edit_save"
+                app:layout_constraintTop_toBottomOf="@id/goal_name"/>
 
             <TextView
                 android:id="@+id/frequency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/goal_name"
+                app:layout_constraintTop_toBottomOf="@id/goal_description"
                 tools:text="Weekly"/>
 
             <TextView
@@ -47,6 +74,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/frequency"
                 tools:text="$200.00"/>
+
+            <TextView
+                android:id="@+id/text_edit_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                tools:text="Save"
+                tools:visibility="visible"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

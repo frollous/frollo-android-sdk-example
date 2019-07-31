@@ -87,7 +87,7 @@ class GoalsFragment : BaseFragment() {
 
         initView()
         initLiveData()
-        refresh_layout.onRefresh { refreshData() }
+        refresh_layout?.onRefresh { refreshData() }
     }
 
     private fun initView() {
@@ -119,7 +119,7 @@ class GoalsFragment : BaseFragment() {
 
     private fun refreshData() {
         FrolloSDK.goals.refreshGoals(status = GoalStatus.ACTIVE) { result ->
-            refresh_layout.isRefreshing = false
+            refresh_layout?.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Goals Refreshed")
