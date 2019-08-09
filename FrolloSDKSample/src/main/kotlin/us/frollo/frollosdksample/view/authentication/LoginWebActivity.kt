@@ -25,6 +25,7 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.oauth.OAuth2Scope
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.view.MainActivity
@@ -50,7 +51,7 @@ class LoginWebActivity : AppCompatActivity() {
                 }
 
                 Result.Status.ERROR -> {
-                    displayError(result.error?.localizedDescription, "Login Failed") {
+                    displayError(result.error?.getMessage(), "Login Failed") {
                         finish()
                     }
                 }

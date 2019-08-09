@@ -33,6 +33,7 @@ import us.frollo.frollosdk.model.coredata.bills.BillPaymentStatus
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showListDialog
@@ -104,7 +105,7 @@ class BillPaymentsActivity : BaseStackActivity(), DialogInterface.OnClickListene
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Bill Payments Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Bill Payments Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Bill Payments Failed")
             }
         }
     }
@@ -131,7 +132,7 @@ class BillPaymentsActivity : BaseStackActivity(), DialogInterface.OnClickListene
             FrolloSDK.bills.deleteBillPayment(model.billPaymentId) { result ->
                 when (result.status) {
                     Result.Status.SUCCESS -> Log.d(TAG, "Bill Payment Deleted")
-                    Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Deleting Bill Payment Failed")
+                    Result.Status.ERROR -> displayError(result.error?.getMessage(), "Deleting Bill Payment Failed")
                 }
             }
 
@@ -146,7 +147,7 @@ class BillPaymentsActivity : BaseStackActivity(), DialogInterface.OnClickListene
             FrolloSDK.bills.updateBillPayment(billPaymentId = model.billPaymentId, paid = paid) { result ->
                 when (result.status) {
                     Result.Status.SUCCESS -> Log.d(TAG, "Bill Payment Updated")
-                    Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Updating Bill Payment Failed")
+                    Result.Status.ERROR -> displayError(result.error?.getMessage(), "Updating Bill Payment Failed")
                 }
             }
 

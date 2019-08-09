@@ -35,6 +35,7 @@ import us.frollo.frollosdk.model.coredata.bills.BillRelation
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showBackNavigation
@@ -104,7 +105,7 @@ class BillsFragment : BaseFragment() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Bills Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Bills Refresh Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Bills Refresh Failed")
             }
         }
     }

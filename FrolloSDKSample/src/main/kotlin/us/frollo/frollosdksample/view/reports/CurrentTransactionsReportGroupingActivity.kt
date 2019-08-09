@@ -33,6 +33,7 @@ import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.display.GroupModel
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.mapping.toGroupModel
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
@@ -99,7 +100,7 @@ class CurrentTransactionsReportGroupingActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Reports Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Reports Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Reports Failed")
             }
         }
     }

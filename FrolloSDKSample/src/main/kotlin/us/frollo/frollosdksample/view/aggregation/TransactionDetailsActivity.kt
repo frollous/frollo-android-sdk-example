@@ -43,6 +43,7 @@ import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_ADD_TAG
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.mapping.toTransactionTag
 import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.display
@@ -187,7 +188,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> {}
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Add Tag Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Add Tag Failed")
             }
         }
     }
@@ -200,7 +201,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> {}
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Remove Tag Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Remove Tag Failed")
             }
         }
     }
@@ -214,7 +215,7 @@ class TransactionDetailsActivity : BaseStackActivity() {
 
                 when (result.status) {
                     Result.Status.SUCCESS -> toast("Updated!")
-                    Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Updating Transaction Failed")
+                    Result.Status.ERROR -> displayError(result.error?.getMessage(), "Updating Transaction Failed")
                 }
             }
         }

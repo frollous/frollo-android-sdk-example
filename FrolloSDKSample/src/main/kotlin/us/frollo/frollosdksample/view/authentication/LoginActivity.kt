@@ -31,6 +31,7 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.oauth.OAuth2Scope
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.managers.SetupManager
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
@@ -91,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
                 Result.Status.ERROR -> {
                     btn_login.show()
                     btn_login_web.show()
-                    displayError(result.error?.localizedDescription, "Login Failed")
+                    displayError(result.error?.getMessage(), "Login Failed")
                 }
             }
         }
@@ -120,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
                 Result.Status.ERROR -> {
                     btn_login.show()
                     btn_login_web.show()
-                    displayError(result.error?.localizedDescription, "Login Failed")
+                    displayError(result.error?.getMessage(), "Login Failed")
                 }
             }
         }

@@ -32,6 +32,7 @@ import us.frollo.frollosdk.model.coredata.reports.ReportPeriod
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.toString
@@ -84,7 +85,7 @@ class AccountsBalancesActivity : BaseStackActivity() {
         FrolloSDK.reports.accountBalanceReports(fromDate = fromDate, toDate = toDate, period = period, accountId = accountId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { accounts -> loadReports(accounts) }
-                Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Account Balance Reports Failed")
+                Resource.Status.ERROR -> displayError(it.error?.getMessage(), "Fetch Account Balance Reports Failed")
             }
         }
     }

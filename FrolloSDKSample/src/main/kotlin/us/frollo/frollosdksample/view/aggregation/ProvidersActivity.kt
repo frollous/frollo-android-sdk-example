@@ -33,6 +33,7 @@ import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.view.aggregation.adapters.ProvidersAdapter
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 
@@ -84,7 +85,7 @@ class ProvidersActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Providers Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Providers Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Providers Failed")
             }
         }
     }
