@@ -46,6 +46,7 @@ import us.frollo.frollosdk.model.coredata.goals.GoalPeriod
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.extension.toDisplay
 import us.frollo.frollosdksample.utils.display
 import us.frollo.frollosdksample.utils.displayError
@@ -119,7 +120,7 @@ class GoalPeriodsActivity : BaseStackActivity() {
                 }
                 Result.Status.ERROR -> {
                     menuDelete?.isEnabled = true
-                    displayError(result.error?.localizedDescription, "Deleting Goal Failed")
+                    displayError(result.error?.getMessage(), "Deleting Goal Failed")
                 }
             }
         }
@@ -173,7 +174,7 @@ class GoalPeriodsActivity : BaseStackActivity() {
                         setEditMode(EditMode.EDIT)
                     }
                     Result.Status.ERROR -> {
-                        displayError(result.error?.localizedDescription, "Updating Goal Failed")
+                        displayError(result.error?.getMessage(), "Updating Goal Failed")
                     }
                 }
             }
@@ -233,7 +234,7 @@ class GoalPeriodsActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Goal Periods Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Goal Periods Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Goal Periods Failed")
             }
         }
     }

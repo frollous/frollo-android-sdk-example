@@ -34,6 +34,7 @@ import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.observe
@@ -93,7 +94,7 @@ class TransactionSearchFragment : BaseFragment() {
 
             when (resource.status) {
                 Resource.Status.ERROR -> {
-                    displayError(resource.error?.localizedDescription, "Search Transactions Failed")
+                    displayError(resource.error?.getMessage(), "Search Transactions Failed")
                 }
                 Resource.Status.SUCCESS -> {
                     resource.data?.let { fetchTransactions(it) }

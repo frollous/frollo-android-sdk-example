@@ -39,6 +39,7 @@ import us.frollo.frollosdk.model.coredata.goals.GoalStatus
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showBackNavigation
@@ -124,7 +125,7 @@ class GoalsFragment : BaseFragment() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Goals Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Goals Refresh Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Goals Refresh Failed")
             }
         }
     }

@@ -32,6 +32,7 @@ import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.view.aggregation.adapters.TransactionCategoriesAdapter
@@ -83,7 +84,7 @@ class TransactionCategoriesActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Transaction Categories Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Transaction Categories Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Transaction Categories Failed")
             }
         }
     }

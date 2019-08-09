@@ -38,6 +38,7 @@ import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.view.aggregation.adapters.ProviderAccountsAdapter
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showBackNavigation
@@ -130,7 +131,7 @@ class ProviderAccountsFragment : BaseFragment() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Provider Accounts Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Provider Accounts Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Provider Accounts Failed")
             }
         }
     }

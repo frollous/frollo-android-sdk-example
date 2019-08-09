@@ -16,11 +16,14 @@
 
 package us.frollo.frollosdksample.extension
 
+import us.frollo.frollosdk.error.APIError
+import us.frollo.frollosdk.error.FrolloSDKError
 import us.frollo.frollosdk.model.coredata.bills.BillFrequency
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentStatus
 import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
 import us.frollo.frollosdk.model.coredata.goals.GoalTrackingStatus
 import us.frollo.frollosdksample.R
+import java.lang.StringBuilder
 
 fun BillFrequency.toDisplay(): String =
         when (this) {
@@ -68,3 +71,13 @@ val GoalTrackingStatus.color: Int
         GoalTrackingStatus.ON_TRACK -> R.color.colorOrange
         GoalTrackingStatus.BEHIND -> R.color.colorRed
     }
+
+fun FrolloSDKError.getMessage(): String? {
+    val sb = StringBuilder()
+    sb.append(localizedDescription)
+    (this as? APIError)?.let {
+        sb.append(" - ")
+        sb.append(message)
+    }
+    return sb.toString()
+}

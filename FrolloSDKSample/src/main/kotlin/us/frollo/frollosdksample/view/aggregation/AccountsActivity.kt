@@ -35,6 +35,7 @@ import us.frollo.frollosdk.model.coredata.aggregation.accounts.Account
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.observe
@@ -109,7 +110,7 @@ class AccountsActivity : BaseStackActivity() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Accounts Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Accounts Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Accounts Failed")
             }
         }
     }
@@ -133,7 +134,7 @@ class AccountsActivity : BaseStackActivity() {
                 }
                 Result.Status.ERROR -> {
                     menuDelete?.isEnabled = true
-                    displayError(result.error?.localizedDescription, "Deleting Account Failed")
+                    displayError(result.error?.getMessage(), "Deleting Account Failed")
                 }
             }
         }

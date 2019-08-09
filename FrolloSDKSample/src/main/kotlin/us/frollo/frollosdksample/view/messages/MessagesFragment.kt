@@ -34,6 +34,7 @@ import us.frollo.frollosdk.model.coredata.messages.Message
 import us.frollo.frollosdk.model.coredata.messages.MessageText
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showBackNavigation
@@ -101,7 +102,7 @@ class MessagesFragment : BaseFragment() {
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Messages Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Messages Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Messages Failed")
             }
         }
     }

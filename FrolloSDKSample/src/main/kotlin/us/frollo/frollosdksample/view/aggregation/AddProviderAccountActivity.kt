@@ -40,6 +40,7 @@ import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderLoginFor
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
@@ -97,7 +98,7 @@ class AddProviderAccountActivity : BaseStackActivity() {
         FrolloSDK.aggregation.refreshProvider(providerId) { result ->
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Provider Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Refreshing Provider Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Provider Failed")
             }
         }
     }
@@ -191,7 +192,7 @@ class AddProviderAccountActivity : BaseStackActivity() {
                 }
                 Resource.Status.ERROR -> {
                     menuDone?.isEnabled = true
-                    displayError(result.error?.localizedDescription, "Adding Account Failed")
+                    displayError(result.error?.getMessage(), "Adding Account Failed")
                 }
             }
         }

@@ -53,6 +53,7 @@ import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
+import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.extension.toDisplay
 import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.displayError
@@ -243,7 +244,7 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
 
             when (result.status) {
                 Result.Status.SUCCESS -> { finish() }
-                Result.Status.ERROR -> displayError(result.error?.localizedDescription, "Create Goal Failed")
+                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Create Goal Failed")
             }
         }
     }
