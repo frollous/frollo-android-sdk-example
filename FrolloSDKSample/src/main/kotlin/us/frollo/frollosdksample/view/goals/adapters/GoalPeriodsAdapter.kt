@@ -54,8 +54,10 @@ class GoalPeriodsAdapter : BaseRecyclerAdapter<GoalPeriod, GoalPeriodsAdapter.Go
             itemView.period_current_amount.text = "Current: ${ model.currentAmount?.display(UserCurrency.currency) }"
             itemView.period_target_amount.text = "Target: ${ model.targetAmount?.display(UserCurrency.currency) }"
             itemView.period_required_amount.text = "Required: ${ model.requiredAmount?.display(UserCurrency.currency) }"
-            itemView.period_tracking_status.text = model.trackingStatus.toDisplay()
-            itemView.period_tracking_status.textColorResource = model.trackingStatus.color
+            model.trackingStatus?.let {
+                itemView.period_tracking_status.text = it.toDisplay()
+                itemView.period_tracking_status.textColorResource = it.color
+            }
         }
 
         override fun recycle() {
