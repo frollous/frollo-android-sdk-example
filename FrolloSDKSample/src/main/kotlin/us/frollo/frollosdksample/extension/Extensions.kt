@@ -16,6 +16,7 @@
 
 package us.frollo.frollosdksample.extension
 
+import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.error.APIError
 import us.frollo.frollosdk.error.FrolloSDKError
 import us.frollo.frollosdk.model.coredata.bills.BillFrequency
@@ -56,6 +57,18 @@ fun GoalFrequency.toDisplay(): String =
             GoalFrequency.QUARTERLY -> "Quarterly"
             GoalFrequency.SINGULAR -> "Singular"
             GoalFrequency.WEEKLY -> "Weekly"
+        }
+
+fun LocalDate.getGoalEndDate(frequency: GoalFrequency): LocalDate =
+        when (frequency) {
+            GoalFrequency.ANNUALLY -> this.plusYears(1)
+            GoalFrequency.BIANNUALLY -> this.plusDays((this.lengthOfYear() / 2).toLong())
+            GoalFrequency.FORTNIGHTLY -> this.plusDays(14)
+            GoalFrequency.FOUR_WEEKLY -> this.plusDays(28)
+            GoalFrequency.MONTHLY -> this.plusMonths(1)
+            GoalFrequency.QUARTERLY -> this.plusMonths(3)
+            GoalFrequency.SINGULAR -> this.plusDays(1)
+            GoalFrequency.WEEKLY -> this.plusWeeks(1)
         }
 
 fun GoalTrackingStatus.toDisplay(): String =
