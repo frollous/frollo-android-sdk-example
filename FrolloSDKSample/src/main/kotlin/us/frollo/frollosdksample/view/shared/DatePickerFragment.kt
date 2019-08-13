@@ -29,8 +29,9 @@ import java.util.Date
 
 class DatePickerFragment(
     private val listener: CustomOnDateSetListener,
-    private val dateTag: String,
-    private val localDate: LocalDate? = null
+    private val dateTag: String? = null,
+    private val localDate: LocalDate? = null,
+    private val minDate: LocalDate? = null
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -38,10 +39,7 @@ class DatePickerFragment(
         val date = localDate?.toDate() ?: Date()
 
         val c = Calendar.getInstance()
-        if (date.compareTo(today) >= 0)
-            c.time = date
-        else
-            c.time = today
+        c.time = if (date.compareTo(today) >= 0) date else today
 
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -49,8 +47,8 @@ class DatePickerFragment(
 
         // Create a new instance of DatePickerDialog and return it
         val dialog = DatePickerDialog(requireContext(), R.style.DatePickerTheme, adaptListener(listener), year, month, day)
-        dialog.datePicker.minDate = today.time
-        dialog.datePicker.tag = dateTag
+        minDate?.let { dialog.datePicker.minDate = it.toDate().time }
+        dateTag?.let { dialog.datePicker.tag = it }
         return dialog
     }
 

@@ -53,13 +53,12 @@ import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_1
 import us.frollo.frollosdksample.base.ARGUMENT.ARG_DATA_2
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.base.REQUEST.REQUEST_SELECTION
+import us.frollo.frollosdksample.extension.getGoalEndDate
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.extension.toDisplay
-import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
-import us.frollo.frollosdksample.utils.toLocalDate
 import us.frollo.frollosdksample.utils.toString
 import us.frollo.frollosdksample.view.shared.DatePickerFragment
 import java.math.BigDecimal
@@ -74,14 +73,16 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
     private lateinit var goalTarget: GoalTarget
     private var goalTrackingType = GoalTrackingType.CREDIT
     private var goalFrequency = GoalFrequency.WEEKLY
-    private var goalStartDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
-    private var goalEndDate: String? = null
+    private var goalStartDate = LocalDate.now()
+    private var goalEndDate: LocalDate? = null
     private var goalTargetAmount: BigDecimal? = null
     private var goalPeriodAmount: BigDecimal? = null
     private var goalAccountId: Long = -1
     private var goalAccountName: String = ""
     private var goalName: String = ""
     private var goalDescription: String? = null
+
+    private var minEndDate: LocalDate? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,30 +117,30 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
             GoalTarget.DATE -> {
                 supportActionBar?.title = "Add Date Goal"
                 sectionPeriodAmount.hide()
-                goalEndDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
+                updateMinimumEndDate()
             }
             GoalTarget.OPEN_ENDED -> {
                 supportActionBar?.title = "Add Open Ended Goal"
                 sectionTargetAmount.hide()
-                goalEndDate = LocalDate.now().toString(Goal.DATE_FORMAT_PATTERN)
+                updateMinimumEndDate()
             }
         }
 
         trackingType.text = trackingLabel(goalTrackingType)
         frequency.text = goalFrequency.toDisplay()
-        startDate.text = goalStartDate.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
-        endDate.text = goalEndDate?.changeDateFormat(Goal.DATE_FORMAT_PATTERN, DATE_DISPLAY_FORMAT)
+        startDate.text = goalStartDate.toString(DATE_DISPLAY_FORMAT)
+        endDate.text = goalEndDate?.toString(DATE_DISPLAY_FORMAT)
 
         sectionAccount.setOnClickListener { startActivityForResult<SelectAccountActivity>(REQUEST_SELECTION) }
         sectionTrackingType.setOnClickListener { pickTrackingType() }
         sectionFrequency.setOnClickListener { pickFrequency() }
         sectionStartDate.setOnClickListener {
-            val date = startDate.text.toString().toLocalDate(DATE_DISPLAY_FORMAT)
-            showDatePickerDialog(date, "startDate")
+            showDatePickerDialog(goalStartDate, DateMode.START_DATE)
         }
         sectionEndDate.setOnClickListener {
-            val date = endDate.text.toString().toLocalDate(DATE_DISPLAY_FORMAT)
-            showDatePickerDialog(date, "endDate")
+            goalEndDate?.let { date ->
+                showDatePickerDialog(date, DateMode.END_DATE)
+            }
         }
     }
 
@@ -168,20 +169,34 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
         selector("Frequency", values.map { it.toDisplay() }) { _, index ->
             goalFrequency = values[index]
             frequency.text = goalFrequency.toDisplay()
+            updateMinimumEndDate()
         }
     }
 
-    private fun showDatePickerDialog(date: LocalDate, dateTag: String) {
-        DatePickerFragment(this, dateTag, date).show(supportFragmentManager, "datePicker")
+    private fun showDatePickerDialog(date: LocalDate, dateMode: DateMode) {
+        val datePicker = when (dateMode) {
+            DateMode.START_DATE -> DatePickerFragment(this, dateMode.name, date, LocalDate.now())
+            DateMode.END_DATE -> DatePickerFragment(this, dateMode.name, date, minEndDate)
+        }
+        datePicker.show(supportFragmentManager, "datePicker")
     }
 
     override fun onDateSet(view: DatePicker, date: LocalDate) {
-        if (view.tag == "startDate") {
-            goalStartDate = date.toString(Goal.DATE_FORMAT_PATTERN)
+        if (view.tag == DateMode.START_DATE.name) {
+            goalStartDate = date
             startDate.text = date.toString(DATE_DISPLAY_FORMAT)
-        } else if (view.tag == "endDate") {
-            goalEndDate = date.toString(Goal.DATE_FORMAT_PATTERN)
+            updateMinimumEndDate()
+        } else if (view.tag == DateMode.END_DATE.name) {
+            goalEndDate = date
             endDate.text = date.toString(DATE_DISPLAY_FORMAT)
+        }
+    }
+
+    private fun updateMinimumEndDate() {
+        if (goalTarget == GoalTarget.DATE || goalTarget == GoalTarget.OPEN_ENDED) {
+            minEndDate = goalStartDate.getGoalEndDate(goalFrequency)
+            goalEndDate = minEndDate
+            endDate.text = minEndDate?.toString(DATE_DISPLAY_FORMAT)
         }
     }
 
@@ -234,8 +249,8 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
                 target = goalTarget,
                 trackingType = goalTrackingType,
                 frequency = goalFrequency,
-                startDate = goalStartDate,
-                endDate = goalEndDate,
+                startDate = goalStartDate.toString(Goal.DATE_FORMAT_PATTERN),
+                endDate = goalEndDate?.toString(Goal.DATE_FORMAT_PATTERN),
                 periodAmount = goalPeriodAmount,
                 targetAmount = goalTargetAmount,
                 accountId = goalAccountId
@@ -292,4 +307,8 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
 
     override val resourceId: Int
         get() = R.layout.activity_add_goal
+
+    private enum class DateMode {
+        START_DATE, END_DATE
+    }
 }
