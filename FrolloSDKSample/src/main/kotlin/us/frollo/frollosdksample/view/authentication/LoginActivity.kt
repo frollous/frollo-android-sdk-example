@@ -31,6 +31,7 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.oauth.OAuth2Scope
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.auth.CustomV1Authentication
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.managers.SetupManager
 import us.frollo.frollosdksample.utils.displayError
@@ -109,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
         btn_login_web.hide()
         progress_bar.show()
 
-        SetupManager.customAuthentication?.loginUser(email = email, password = password) { result ->
+        (SetupManager.customAuthentication as? CustomV1Authentication)?.loginUser(email = email, password = password) { result ->
             progress_bar.hide()
 
             when (result.status) {

@@ -19,6 +19,7 @@ package us.frollo.frollosdksample.managers
 import android.app.Application
 import android.util.Log
 import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.authentication.Authentication
 import us.frollo.frollosdk.authentication.AuthenticationType.Custom
 import us.frollo.frollosdk.authentication.AuthenticationType.OAuth2
 import us.frollo.frollosdk.base.Result
@@ -30,7 +31,7 @@ import us.frollo.frollosdksample.view.authentication.Host
 object SetupManager {
 
     private const val TAG = "SetupManager"
-    var customAuthentication: CustomV1Authentication? = null
+    var customAuthentication: Authentication? = null
     var useV1Auth = false
 
     /**

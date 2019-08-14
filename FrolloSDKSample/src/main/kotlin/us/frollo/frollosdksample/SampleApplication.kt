@@ -23,6 +23,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.jakewharton.threetenabp.AndroidThreeTen
 import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdksample.managers.SetupManager
 
 class SampleApplication : Application(), LifecycleObserver {
 
@@ -42,8 +43,12 @@ class SampleApplication : Application(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onAppForegrounded() {
-
         if (FrolloSDK.isSetup && FrolloSDK.authentication.loggedIn)
             FrolloSDK.onAppForegrounded()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppResumed() {
+        SetupManager.customAuthentication?.let { FrolloSDK.initializeAuthenticationCallbacks(it) }
     }
 }
