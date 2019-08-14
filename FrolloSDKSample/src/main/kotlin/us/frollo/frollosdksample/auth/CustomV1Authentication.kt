@@ -17,6 +17,7 @@
 package us.frollo.frollosdksample.auth
 
 import android.app.Application
+import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import com.google.gson.FieldNamingPolicy
@@ -41,7 +42,15 @@ import java.io.IOException
 
 class CustomV1Authentication(private val app: Application, private val baseUrl: String) : Authentication() {
 
-    override var loggedIn: Boolean = false
+    companion object {
+        private const val PREFERENCES = "pref_frollosdkexample"
+        private const val KEY_USER_LOGGED_IN = "key_frollosdkexample_user_logged_in"
+    }
+    private val preferences = app.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+    override var loggedIn: Boolean
+        get() = preferences.getBoolean(KEY_USER_LOGGED_IN, false)
+        set(value) = preferences.edit().putBoolean(KEY_USER_LOGGED_IN, value).apply()
+    private fun resetLoggedIn() = preferences.edit().remove(KEY_USER_LOGGED_IN).apply()
 
     fun loginUser(email: String, password: String, completion: OnFrolloSDKCompletionListener<Result>) {
         val apiService = CustomNetworkService().create(baseUrl, LoginApi::class.java)
@@ -86,7 +95,7 @@ class CustomV1Authentication(private val app: Application, private val baseUrl: 
     }
 
     override fun reset() {
-        loggedIn = false
+        resetLoggedIn()
     }
 
     private inner class CustomNetworkService {
