@@ -51,6 +51,7 @@ fun GoalFrequency.toDisplay(): String =
         when (this) {
             GoalFrequency.ANNUALLY -> "Annually"
             GoalFrequency.BIANNUALLY -> "Biannually"
+            GoalFrequency.DAILY -> "Daily"
             GoalFrequency.FORTNIGHTLY -> "Fortnightly"
             GoalFrequency.FOUR_WEEKLY -> "Four Weekly"
             GoalFrequency.MONTHLY -> "Monthly"
@@ -63,6 +64,7 @@ fun LocalDate.getGoalEndDate(frequency: GoalFrequency): LocalDate =
         when (frequency) {
             GoalFrequency.ANNUALLY -> this.plusYears(1)
             GoalFrequency.BIANNUALLY -> this.plusDays((this.lengthOfYear() / 2).toLong())
+            GoalFrequency.DAILY -> this.plusDays(1)
             GoalFrequency.FORTNIGHTLY -> this.plusDays(14)
             GoalFrequency.FOUR_WEEKLY -> this.plusDays(28)
             GoalFrequency.MONTHLY -> this.plusMonths(1)
