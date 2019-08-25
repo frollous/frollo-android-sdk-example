@@ -27,8 +27,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         private const val TAG = "MessagingService"
     }
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        remoteMessage?.data?.let { data ->
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        remoteMessage.data?.let { data ->
             if (data.isNotEmpty()) {
                 FrolloSDK.notifications.handlePushNotification(data)
             }
@@ -37,8 +37,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    override fun onNewToken(token: String?) {
+    override fun onNewToken(token: String) {
         Log.d(TAG, "**** New FCM token: $token")
-        token?.let { FrolloSDK.notifications.registerPushNotificationToken(it) }
+        token.let { FrolloSDK.notifications.registerPushNotificationToken(it) }
     }
 }
