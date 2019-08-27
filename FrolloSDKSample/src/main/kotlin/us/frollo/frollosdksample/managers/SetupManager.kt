@@ -19,7 +19,6 @@ package us.frollo.frollosdksample.managers
 import android.app.Application
 import android.util.Log
 import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.authentication.Authentication
 import us.frollo.frollosdk.authentication.AuthenticationType.Custom
 import us.frollo.frollosdk.authentication.AuthenticationType.OAuth2
 import us.frollo.frollosdk.base.Result
@@ -28,20 +27,23 @@ import us.frollo.frollosdk.logging.LogLevel
 import us.frollo.frollosdksample.auth.CustomV1Authentication
 import us.frollo.frollosdksample.view.authentication.Host
 
-object SetupManager {
+class SetupManager {
 
-    private const val TAG = "SetupManager"
-    var customAuthentication: Authentication? = null
+    companion object {
+        private const val TAG = "SetupManager"
+    }
+
     var useV1Auth = false
+    var customAuthentication: CustomV1Authentication? = null
 
     /**
      * This is to choose Auth0 or Frollo as authorization server
      *
      * NOTE: Every time you change this make sure to clear App Data in Settings for the change to take effect
      */
-    private val host = Host.FROLLO_V2
+    val host = Host.FROLLO_V2
 
-    fun setup(application: Application, callback: () -> Unit) {
+    fun setupFrolloSDK(application: Application) {
         val configuration = when (host) {
             Host.FROLLO_V2 -> {
                 useV1Auth = false
@@ -74,24 +76,21 @@ object SetupManager {
                         baseUrl = "https://api-sandbox.frollo.us/api/v1/")
                 customAuthentication = authentication
                 FrolloSDKConfiguration(
-                        authenticationType = Custom(authentication = authentication),
+                        authenticationType = Custom(accessTokenProvider = authentication, authenticationCallback = authentication),
                         clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                         serverUrl = "https://api-sandbox.frollo.us/api/v2/",
                         logLevel = LogLevel.DEBUG)
             }
         }
 
-        setupSdk(application, configuration, callback)
+        setupSdk(application, configuration)
     }
 
-    private fun setupSdk(application: Application, configuration: FrolloSDKConfiguration, callback: () -> Unit) {
-        if (FrolloSDK.isSetup) {
-            callback.invoke()
-        } else {
+    private fun setupSdk(application: Application, configuration: FrolloSDKConfiguration) {
+        if (!FrolloSDK.isSetup) {
             FrolloSDK.setup(application, configuration = configuration) { result ->
-                when (result.status) {
-                    Result.Status.SUCCESS -> callback.invoke()
-                    Result.Status.ERROR -> Log.e(TAG, result.error?.localizedDescription)
+                if (result.status == Result.Status.ERROR) {
+                    Log.e(TAG, result.error?.localizedDescription)
                 }
             }
         }
