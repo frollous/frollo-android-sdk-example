@@ -31,9 +31,8 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.oauth.OAuth2Scope
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.auth.CustomV1Authentication
+import us.frollo.frollosdksample.SampleApplication
 import us.frollo.frollosdksample.extension.getMessage
-import us.frollo.frollosdksample.managers.SetupManager
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
@@ -47,19 +46,22 @@ class LoginActivity : AppCompatActivity() {
 
     private val scopes = listOf(OAuth2Scope.OFFLINE_ACCESS, OAuth2Scope.EMAIL, OAuth2Scope.OPENID)
 
+    private val app: SampleApplication
+        get() = application as SampleApplication
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
 
-        if (SetupManager.useV1Auth) {
+        if (app.setupManager?.useV1Auth == true) {
             btn_login_web.hide()
         } else {
             btn_login_web.setOnClickListener { startAuthorizationCodeFlow() }
         }
 
         btn_login.setOnClickListener {
-            if (SetupManager.useV1Auth)
+            if (app.setupManager?.useV1Auth == true)
                 attemptV1Login()
             else
                 attemptDefaultLogin()
@@ -81,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
         btn_login_web.hide()
         progress_bar.show()
 
-        FrolloSDK.defaultAuthentication?.loginUser(email = email, password = password, scopes = scopes) { result ->
+        FrolloSDK.oAuth2Authentication?.loginUser(email = email, password = password, scopes = scopes) { result ->
             progress_bar.hide()
 
             when (result.status) {
@@ -110,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
         btn_login_web.hide()
         progress_bar.show()
 
-        (SetupManager.customAuthentication as? CustomV1Authentication)?.loginUser(email = email, password = password) { result ->
+        app.setupManager?.customAuthentication?.loginUser(email = email, password = password) { result ->
             progress_bar.hide()
 
             when (result.status) {
@@ -134,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
         cancelIntent.putExtra(EXTRA_FAILED, true)
         cancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
-        FrolloSDK.defaultAuthentication?.loginUserUsingWeb(
+        FrolloSDK.oAuth2Authentication?.loginUserUsingWeb(
                 activity = this,
                 scopes = scopes,
                 completedIntent = PendingIntent.getActivity(this, 0, completionIntent, 0),

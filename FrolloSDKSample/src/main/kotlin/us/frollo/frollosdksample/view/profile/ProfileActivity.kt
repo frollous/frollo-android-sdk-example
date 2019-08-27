@@ -24,7 +24,6 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
-import us.frollo.frollosdksample.managers.SetupManager
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.showThemed
@@ -54,10 +53,11 @@ class ProfileActivity : BaseStackActivity() {
     private fun logout() {
         alert("Are you sure you want to logout?", "Logout") {
             positiveButton("Yes") {
-                if (SetupManager.useV1Auth) {
+                if (app.setupManager?.useV1Auth == true) {
                     FrolloSDK.reset()
+                    app.setupManager?.customAuthentication?.logout()
                 } else {
-                    FrolloSDK.logout()
+                    FrolloSDK.oAuth2Authentication?.logout()
                 }
                 startActivity<LoginActivity>()
                 finishAffinity()

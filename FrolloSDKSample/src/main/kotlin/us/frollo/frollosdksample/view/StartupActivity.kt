@@ -22,9 +22,10 @@ import kotlinx.android.synthetic.main.activity_startup.progress_bar
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.managers.SetupManager
+import us.frollo.frollosdksample.SampleApplication
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.show
+import us.frollo.frollosdksample.view.authentication.Host
 import us.frollo.frollosdksample.view.authentication.LoginActivity
 
 class StartupActivity : AppCompatActivity() {
@@ -33,6 +34,9 @@ class StartupActivity : AppCompatActivity() {
         private const val TAG = "StartupActivity"
     }
 
+    private val app: SampleApplication
+        get() = application as SampleApplication
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,15 +44,19 @@ class StartupActivity : AppCompatActivity() {
 
         progress_bar.show()
 
-        SetupManager.setup(application) {
-            completeStartup()
-        }
+        completeStartup()
     }
 
     private fun completeStartup() {
         progress_bar.hide()
 
-        if (FrolloSDK.authentication.loggedIn) {
+        val loggedIn = if (app.setupManager?.host == Host.FROLLO_V1) {
+            app.setupManager?.customAuthentication?.loggedIn
+        } else {
+            FrolloSDK.oAuth2Authentication?.loggedIn
+        }
+
+        if (loggedIn == true) {
             handleNotification()
             FrolloSDK.refreshData()
             startActivity<MainActivity>()

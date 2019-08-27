@@ -19,11 +19,15 @@ package us.frollo.frollosdksample.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
+import us.frollo.frollosdksample.SampleApplication
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.isVisible
 import us.frollo.frollosdksample.utils.show
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    val app: SampleApplication
+        get() = application as SampleApplication
 
     var toolbarTitle: String
         get() = toolbar_title.text.toString()
