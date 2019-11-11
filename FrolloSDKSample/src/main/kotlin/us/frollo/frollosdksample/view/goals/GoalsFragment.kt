@@ -33,7 +33,6 @@ import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
-import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdk.model.coredata.goals.GoalStatus
 import us.frollo.frollosdksample.R
@@ -120,12 +119,12 @@ class GoalsFragment : BaseFragment() {
     }
 
     private fun refreshData() {
-        FrolloSDK.goals.refreshGoals(status = GoalStatus.ACTIVE) { result ->
+        FrolloSDK.goals.refreshGoals(status = GoalStatus.ACTIVE) { resource ->
             refresh_layout?.isRefreshing = false
 
-            when (result.status) {
-                Result.Status.SUCCESS -> Log.d(TAG, "Goals Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Goals Refresh Failed")
+            when (resource.status) {
+                Resource.Status.SUCCESS -> Log.d(TAG, "Goals Refreshed")
+                Resource.Status.ERROR -> displayError(resource.error?.getMessage(), "Goals Refresh Failed")
             }
         }
     }
