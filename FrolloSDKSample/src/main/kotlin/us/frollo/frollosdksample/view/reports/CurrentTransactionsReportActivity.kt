@@ -17,24 +17,15 @@
 package us.frollo.frollosdksample.view.reports
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_report_details.*
+import kotlinx.android.synthetic.main.activity_report_details.recycler_reports
+import kotlinx.android.synthetic.main.activity_report_details.refresh_layout
 import org.jetbrains.anko.support.v4.onRefresh
-import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Resource
-import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.reports.ReportGrouping
-import us.frollo.frollosdk.model.coredata.reports.ReportTransactionCurrentRelation
-import us.frollo.frollosdk.model.display.reports.toDisplay
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
-import us.frollo.frollosdksample.extension.getMessage
-import us.frollo.frollosdksample.utils.displayError
-import us.frollo.frollosdksample.utils.observe
-import us.frollo.frollosdksample.view.reports.adapters.CurrentTransactionsReportAdapter
 
 class CurrentTransactionsReportActivity : BaseStackActivity() {
 
@@ -42,7 +33,8 @@ class CurrentTransactionsReportActivity : BaseStackActivity() {
         private const val TAG = "CurrentTxnReport"
     }
 
-    private val reportsAdapter = CurrentTransactionsReportAdapter()
+    // TODO: Refactor to use new reports API methods
+    // private val reportsAdapter = CurrentTransactionsReportAdapter()
     private var grouping = ReportGrouping.BUDGET_CATEGORY
     private var linkedId: Long = 1
 
@@ -61,33 +53,37 @@ class CurrentTransactionsReportActivity : BaseStackActivity() {
         recycler_reports.apply {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(this@CurrentTransactionsReportActivity, LinearLayoutManager.VERTICAL))
-            adapter = reportsAdapter
+            // TODO: Refactor to use new reports API methods
+            // adapter = reportsAdapter
         }
     }
 
     private fun initLiveData() {
-        FrolloSDK.reports.currentTransactionReports(grouping).observe(this) {
+        // TODO: Refactor to use new reports API methods
+        /*FrolloSDK.reports.currentTransactionReports(grouping).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { reports -> loadData(reports) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Reports Failed")
             }
-        }
+        }*/
     }
 
-    private fun loadData(data: List<ReportTransactionCurrentRelation>) {
+    // TODO: Refactor to use new reports API methods
+    /*private fun loadData(data: List<ReportTransactionCurrentRelation>) {
         val models = data.toDisplay().groupReports.filter { it.report?.linkedId == linkedId }.toList()
         reportsAdapter.replaceAll(models)
-    }
+    }*/
 
     private fun refreshReports() {
-        FrolloSDK.reports.refreshTransactionCurrentReports(grouping) { result ->
+        // TODO: Refactor to use new reports API methods
+        /*FrolloSDK.reports.refreshTransactionCurrentReports(grouping) { result ->
             refresh_layout.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Reports Refreshed")
                 Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Reports Failed")
             }
-        }
+        }*/
     }
 
     override val resourceId: Int

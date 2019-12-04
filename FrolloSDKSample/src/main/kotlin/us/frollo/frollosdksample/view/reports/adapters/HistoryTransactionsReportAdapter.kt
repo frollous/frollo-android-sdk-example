@@ -16,20 +16,13 @@
 
 package us.frollo.frollosdksample.view.reports.adapters
 
-import android.view.View
 import kotlinx.android.synthetic.main.template_detail_item1.view.*
-import us.frollo.frollosdk.model.coredata.reports.ReportGroupTransactionHistoryRelation
-import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.BaseRecyclerAdapter
-import us.frollo.frollosdksample.base.BaseViewHolder
-import us.frollo.frollosdksample.display.UserCurrency
-import us.frollo.frollosdksample.utils.changeDateFormat
-import us.frollo.frollosdksample.utils.display
 
-class HistoryTransactionsReportAdapter : BaseRecyclerAdapter<ReportGroupTransactionHistoryRelation, HistoryTransactionsReportAdapter.ReportsViewHolder>(ReportGroupTransactionHistoryRelation::class.java, reportsComparator) {
+// TODO: Refactor to use new reports API methods
+/*class HistoryTransactionsReportAdapter : BaseRecyclerAdapter<ReportGroupTransactionRelation, HistoryTransactionsReportAdapter.ReportsViewHolder>(ReportGroupTransactionRelation::class.java, reportsComparator) {
 
     companion object {
-        private val reportsComparator = compareByDescending<ReportGroupTransactionHistoryRelation> { it.groupReport?.date }
+        private val reportsComparator = compareByDescending<ReportGroupTransactionRelation> { it.groupReport?.date }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
@@ -38,9 +31,9 @@ class HistoryTransactionsReportAdapter : BaseRecyclerAdapter<ReportGroupTransact
     override fun getViewHolder(view: View, viewType: Int) =
             ReportsViewHolder(view)
 
-    inner class ReportsViewHolder(itemView: View) : BaseViewHolder<ReportGroupTransactionHistoryRelation>(itemView) {
+    inner class ReportsViewHolder(itemView: View) : BaseViewHolder<ReportGroupTransactionRelation>(itemView) {
 
-        override fun bind(model: ReportGroupTransactionHistoryRelation) {
+        override fun bind(model: ReportGroupTransactionRelation) {
             model.groupReport?.let {
                 itemView.text_title.text = it.date.changeDateFormat(from = it.period.dateFormatPattern, to = "MMM d, yyyy")
                         .replace(".", "")
@@ -53,4 +46,4 @@ class HistoryTransactionsReportAdapter : BaseRecyclerAdapter<ReportGroupTransact
             itemView.text_detail.text = null
         }
     }
-}
+}*/

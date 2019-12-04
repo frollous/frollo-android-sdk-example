@@ -16,34 +16,13 @@
 
 package us.frollo.frollosdksample.view.reports
 
-import android.os.Bundle
-import android.util.Log
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_report_details.recycler_reports
-import kotlinx.android.synthetic.main.activity_report_details.refresh_layout
-import org.jetbrains.anko.support.v4.onRefresh
-import org.threeten.bp.LocalDate
-import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Resource
-import us.frollo.frollosdk.base.Result
-import us.frollo.frollosdk.model.coredata.reports.ReportDateFormat
-import us.frollo.frollosdk.model.coredata.reports.ReportGroupTransactionHistoryRelation
-import us.frollo.frollosdk.model.coredata.reports.ReportGrouping
-import us.frollo.frollosdk.model.coredata.reports.ReportPeriod
-import us.frollo.frollosdk.model.coredata.reports.ReportTransactionHistoryRelation
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
-import us.frollo.frollosdksample.extension.getMessage
-import us.frollo.frollosdksample.utils.displayError
-import us.frollo.frollosdksample.utils.observe
-import us.frollo.frollosdksample.utils.toString
-import us.frollo.frollosdksample.view.reports.adapters.HistoryTransactionsReportAdapter
 
+// TODO: Refactor to use new reports API methods
 class HistoryTransactionsReportActivity : BaseStackActivity() {
 
-    companion object {
+    /*companion object {
         private const val TAG = "HistoryTxnReport"
     }
 
@@ -89,8 +68,8 @@ class HistoryTransactionsReportActivity : BaseStackActivity() {
         }
     }
 
-    private fun loadData(data: List<ReportTransactionHistoryRelation>) {
-        val allGroups = mutableListOf<ReportGroupTransactionHistoryRelation>()
+    private fun loadData(data: List<ReportTransactionRelation>) {
+        val allGroups = mutableListOf<ReportGroupTransactionRelation>()
         data.forEach {
             it.groups?.let { groups -> allGroups.addAll(groups) }
         }
@@ -107,7 +86,7 @@ class HistoryTransactionsReportActivity : BaseStackActivity() {
                 Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Reports Failed")
             }
         }
-    }
+    }*/
 
     override val resourceId: Int
         get() = R.layout.activity_report_details
