@@ -16,17 +16,8 @@
 
 package us.frollo.frollosdksample.view.reports.adapters
 
-import android.view.View
-import kotlinx.android.synthetic.main.template_detail_item1.view.*
-import us.frollo.frollosdk.model.coredata.reports.ReportTransactionCurrentRelation
-import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.BaseRecyclerAdapter
-import us.frollo.frollosdksample.base.BaseViewHolder
-import us.frollo.frollosdksample.display.UserCurrency
-import us.frollo.frollosdksample.utils.display
-import java.math.BigDecimal
-
-class CurrentTransactionsReportAdapter : BaseRecyclerAdapter<ReportTransactionCurrentRelation, CurrentTransactionsReportAdapter.ReportsViewHolder>(ReportTransactionCurrentRelation::class.java, reportsComparator) {
+// TODO: Refactor to use new reports API methods
+/*class CurrentTransactionsReportAdapter : BaseRecyclerAdapter<ReportTransactionCurrentRelation, CurrentTransactionsReportAdapter.ReportsViewHolder>(ReportTransactionCurrentRelation::class.java, reportsComparator) {
 
     companion object {
         private val reportsComparator = compareBy<ReportTransactionCurrentRelation> { it.report?.day }
@@ -52,4 +43,4 @@ class CurrentTransactionsReportAdapter : BaseRecyclerAdapter<ReportTransactionCu
             itemView.text_detail.text = null
         }
     }
-}
+}*/

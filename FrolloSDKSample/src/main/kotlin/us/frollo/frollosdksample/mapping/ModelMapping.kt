@@ -17,23 +17,9 @@
 package us.frollo.frollosdksample.mapping
 
 import us.frollo.frollosdk.model.coredata.aggregation.tags.TransactionTag
-import us.frollo.frollosdk.model.coredata.reports.ReportGroupTransactionHistoryRelation
-import us.frollo.frollosdk.model.coredata.reports.ReportTransactionCurrentRelation
-import us.frollo.frollosdksample.display.GroupModel
-import us.frollo.frollosdksample.utils.ifNotNull
 
-fun ReportTransactionCurrentRelation.toGroupModel(): GroupModel? {
-
-    var model: GroupModel? = null
-
-    ifNotNull(report?.linkedId, report?.name) { id, name ->
-        model = GroupModel(id, name)
-    }
-
-    return model
-}
-
-fun ReportGroupTransactionHistoryRelation.toGroupModel(): GroupModel? {
+// TODO: Refactor to use new reports API methods
+/*fun ReportGroupTransactionRelation.toGroupModel(): GroupModel? {
 
     var model: GroupModel? = null
 
@@ -42,6 +28,6 @@ fun ReportGroupTransactionHistoryRelation.toGroupModel(): GroupModel? {
     }
 
     return model
-}
+}*/
 
 fun String.toTransactionTag() = TransactionTag(name = this, count = null, lastUsedAt = null, createdAt = null)

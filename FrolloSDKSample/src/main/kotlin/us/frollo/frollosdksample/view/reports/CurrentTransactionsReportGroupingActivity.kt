@@ -17,26 +17,17 @@
 package us.frollo.frollosdksample.view.reports
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_report_grouping.*
+import kotlinx.android.synthetic.main.activity_report_grouping.recycler_groups
+import kotlinx.android.synthetic.main.activity_report_grouping.refresh_layout
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
-import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Resource
-import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.reports.ReportGrouping
-import us.frollo.frollosdk.model.coredata.reports.ReportTransactionCurrentRelation
-import us.frollo.frollosdk.model.display.reports.toDisplay
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.display.GroupModel
-import us.frollo.frollosdksample.extension.getMessage
-import us.frollo.frollosdksample.mapping.toGroupModel
-import us.frollo.frollosdksample.utils.displayError
-import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.view.reports.adapters.ReportGroupsAdapter
 
 class CurrentTransactionsReportGroupingActivity : BaseStackActivity() {
@@ -77,32 +68,35 @@ class CurrentTransactionsReportGroupingActivity : BaseStackActivity() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.reports.currentTransactionReports(grouping).observe(this) {
+        // TODO: Refactor to use new reports API methods
+        /*FrolloSDK.reports.currentTransactionReports(grouping).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { reports -> loadData(reports) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Reports Failed")
             }
-        }
+        }*/
     }
 
-    private fun loadData(data: List<ReportTransactionCurrentRelation>) {
+    // TODO: Refactor to use new reports API methods
+    /*private fun loadData(data: List<ReportTransactionCurrentRelation>) {
         val models = data.toDisplay().groupReports.mapNotNull { it.toGroupModel() }.toSet()
         groupsAdapter.replaceAll(models.toList())
-    }
+    }*/
 
     private fun showDetails(model: GroupModel) {
         startActivity<CurrentTransactionsReportActivity>(ARGUMENT.ARG_DATA_1 to grouping, ARGUMENT.ARG_DATA_2 to model.id)
     }
 
     private fun refreshReports() {
-        FrolloSDK.reports.refreshTransactionCurrentReports(grouping) { result ->
+        // TODO: Refactor to use new reports API methods
+        /*FrolloSDK.reports.refreshTransactionCurrentReports(grouping) { result ->
             refresh_layout.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Reports Refreshed")
                 Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Reports Failed")
             }
-        }
+        }*/
     }
 
     override val resourceId: Int
