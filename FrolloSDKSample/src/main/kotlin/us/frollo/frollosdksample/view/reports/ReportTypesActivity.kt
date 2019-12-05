@@ -50,7 +50,7 @@ class ReportTypesActivity : BaseStackActivity() {
         }
 
         text_transaction_category.setOnClickListener {
-            showReportGrouping(ReportGrouping.CATEGORY)
+            showReportGrouping(ReportGrouping.TRANSACTION_CATEGORY)
         }
     }
 
