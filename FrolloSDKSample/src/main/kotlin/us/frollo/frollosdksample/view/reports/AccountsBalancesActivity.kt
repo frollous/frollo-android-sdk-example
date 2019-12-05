@@ -82,7 +82,7 @@ class AccountsBalancesActivity : BaseStackActivity() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.reports.accountBalanceReports(fromDate = fromDate, toDate = toDate, period = period, accountId = accountId).observe(this) {
+        FrolloSDK.reports.fetchAccountBalanceReports(fromDate = fromDate, toDate = toDate, period = period, accountId = accountId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { accounts -> loadReports(accounts) }
                 Resource.Status.ERROR -> displayError(it.error?.getMessage(), "Fetch Account Balance Reports Failed")
