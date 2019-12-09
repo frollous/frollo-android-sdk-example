@@ -54,11 +54,21 @@
     <string name="str_account_balances">Account Balances</string>
     <string name="str_current_transaction_reports">Current Transaction Reports</string>
     <string name="str_historic_transaction_reports">Historic Transaction Reports</string>
-    <string name="str_type_budget_category">Budget Category</string>
-    <string name="str_type_merchant">Merchant</string>
-    <string name="str_type_transaction_category">Transaction Category</string>
     <string name="str_current_reports">Current Reports</string>
     <string name="str_history_reports">History Reports</string>
+    <string name="str_report_type">Report Type</string>
+    <string name="str_report_period">Period</string>
+    <string name="str_report_transaction_category">Transaction Category (Optional)</string>
+    <string name="str_report_merchant">Merchant (Optional)</string>
+    <string name="str_report_budget_category">Budget Category (Optional)</string>
+    <string name="str_report_tag">Tag (Optional)</string>
+    <string name="str_report_grouping">Grouping (Optional)</string>
+    <string name="str_default_or_all">ALL / Default</string>
+    <string name="str_fetch_report">Fetch Report</string>
+    <string name="str_report_type_budget_category">Budget Category</string>
+    <string name="str_report_type_transaction_category">Transaction Category</string>
+    <string name="str_report_type_merchant">Merchant</string>
+    <string name="str_report_type_tag">Tag</string>
 
     <string name="str_goal_target_amount">Amount</string>
     <string name="str_goal_target_date">Date</string>

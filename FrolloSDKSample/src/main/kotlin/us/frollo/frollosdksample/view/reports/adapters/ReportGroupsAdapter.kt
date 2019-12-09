@@ -24,7 +24,8 @@ import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 import us.frollo.frollosdksample.display.GroupModel
 
-class ReportGroupsAdapter : BaseRecyclerAdapter<GroupModel, ReportGroupsAdapter.GroupModelViewHolder>(GroupModel::class.java, groupsComparator) {
+class ReportGroupsAdapter(defaultSort: Boolean = true) : BaseRecyclerAdapter<GroupModel,
+        ReportGroupsAdapter.GroupModelViewHolder>(GroupModel::class.java, if (defaultSort) groupsComparator else null) {
 
     companion object {
         private val groupsComparator = compareBy<GroupModel> { it.name }

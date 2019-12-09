@@ -16,18 +16,24 @@
 
 package us.frollo.frollosdksample.mapping
 
+import us.frollo.frollosdk.model.coredata.aggregation.merchants.Merchant
 import us.frollo.frollosdk.model.coredata.aggregation.tags.TransactionTag
+import us.frollo.frollosdk.model.coredata.aggregation.transactioncategories.TransactionCategory
+import us.frollo.frollosdk.model.coredata.reports.GroupReport
+import us.frollo.frollosdk.model.coredata.reports.ReportGrouping
+import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
+import us.frollo.frollosdksample.display.GroupModel
 
-// TODO: Refactor to use new reports API methods
-/*fun ReportGroupTransactionRelation.toGroupModel(): GroupModel? {
+fun GroupReport.toGroupModel() = GroupModel(linkedId, name)
 
-    var model: GroupModel? = null
+fun TransactionCategory.toGroupModel() = GroupModel(id = transactionCategoryId, name = name)
 
-    ifNotNull(groupReport?.linkedId, groupReport?.name) { id, name ->
-        model = GroupModel(id, name)
-    }
+fun BudgetCategory.toGroupModel() = GroupModel(id = budgetCategoryId, name = name)
 
-    return model
-}*/
+fun Merchant.toGroupModel() = GroupModel(id = merchantId, name = name)
+
+fun TransactionTag.toGroupModel() = GroupModel(id = 0, name = name)
+
+fun ReportGrouping.toGroupModel() = GroupModel(id = ordinal.toLong(), name = toString())
 
 fun String.toTransactionTag() = TransactionTag(name = this, count = null, lastUsedAt = null, createdAt = null)
