@@ -16,31 +16,67 @@
 
 package us.frollo.frollosdksample.view.reports
 
+import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_report_grouping.recycler_groups
+import kotlinx.android.synthetic.main.activity_report_grouping.refresh_layout
+import org.jetbrains.anko.support.v4.onRefresh
+import org.threeten.bp.LocalDate
+import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.model.coredata.reports.GroupReport
+import us.frollo.frollosdk.model.coredata.reports.Report
+import us.frollo.frollosdk.model.coredata.reports.ReportDateFormat
+import us.frollo.frollosdk.model.coredata.reports.ReportGrouping
+import us.frollo.frollosdk.model.coredata.reports.TransactionReportPeriod
+import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
+import us.frollo.frollosdksample.display.GroupModel
+import us.frollo.frollosdksample.extension.getMessage
+import us.frollo.frollosdksample.mapping.toGroupModel
+import us.frollo.frollosdksample.utils.displayError
+import us.frollo.frollosdksample.utils.toString
+import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_FILTER_ID
+import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_FILTER_TAG
+import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_REPORT_GROUPING
+import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_REPORT_PERIOD
+import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_REPORT_TYPE
+import us.frollo.frollosdksample.view.reports.adapters.ReportGroupsAdapter
 
-// TODO: Refactor to use new reports API methods
 class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
 
-    /*companion object {
+    companion object {
         private const val TAG = "HistoryReportGroup"
     }
 
     private val groupsAdapter = ReportGroupsAdapter()
-    private var grouping = ReportGrouping.BUDGET_CATEGORY
+    private lateinit var reportType: ReportType
+    private lateinit var reportPeriod: TransactionReportPeriod
+    private var filterId: Long? = null
+    private var filterTag: String? = null
+    private var grouping: ReportGrouping? = null
     private lateinit var fromDate: String
     private lateinit var toDate: String
-    private val period = ReportPeriod.MONTH
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        grouping = intent.getSerializableExtra(ARGUMENT.ARG_DATA_1) as ReportGrouping
+        with(intent) {
+            reportType = getSerializableExtra(ARG_REPORT_TYPE) as ReportType
+            reportPeriod = getSerializableExtra(ARG_REPORT_PERIOD) as TransactionReportPeriod
+            val id = getLongExtra(ARG_FILTER_ID, -1)
+            if (id > -1L) {
+                filterId = id
+            }
+            filterTag = getStringExtra(ARG_FILTER_TAG)
+            grouping = getSerializableExtra(ARG_REPORT_GROUPING) as? ReportGrouping
+        }
 
         updateDates()
         initView()
-        initLiveData()
-        refresh_layout.onRefresh { refreshReports() }
+        refresh_layout.onRefresh { fetchReports() }
     }
 
     private fun updateDates() {
@@ -52,7 +88,7 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
     override fun onResume() {
         super.onResume()
 
-        refreshReports()
+        fetchReports()
     }
 
     private fun initView() {
@@ -67,38 +103,72 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
         }
     }
 
-    private fun initLiveData() {
-        FrolloSDK.reports.historyTransactionReports(grouping = grouping, period = period, fromDate = fromDate, toDate = toDate).observe(this) {
-            when (it?.status) {
-                Resource.Status.SUCCESS -> it.data?.let { reports -> loadData(reports) }
-                Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Reports Failed")
-            }
+    private fun fetchReports() {
+        when (reportType) {
+            ReportType.TRANSACTION_CATEGORY -> fetchTransactionCategoryReports()
+            ReportType.MERCHANT -> fetchMerchantReports()
+            ReportType.BUDGET_CATEGORY -> fetchBudgetCategoryReports()
+            ReportType.TAG -> fetchTagReports()
         }
     }
 
-    private fun loadData(data: List<ReportTransactionRelation>) {
-        val allGroups = mutableListOf<ReportGroupTransactionRelation>()
-        data.forEach {
-            it.groups?.let { groups -> allGroups.addAll(groups) }
+    private fun fetchTransactionCategoryReports() {
+        FrolloSDK.reports.fetchTransactionCategoryReports(
+                fromDate = fromDate,
+                toDate = toDate,
+                period = reportPeriod,
+                categoryId = filterId,
+                grouping = grouping) { postFetch(it) }
+    }
+
+    private fun fetchMerchantReports() {
+        FrolloSDK.reports.fetchMerchantReports(
+                fromDate = fromDate,
+                toDate = toDate,
+                period = reportPeriod,
+                merchantId = filterId,
+                grouping = grouping) { postFetch(it) }
+    }
+
+    private fun fetchBudgetCategoryReports() {
+        FrolloSDK.reports.fetchBudgetCategoryReports(
+                fromDate = fromDate,
+                toDate = toDate,
+                period = reportPeriod,
+                budgetCategory = filterId?.let { BudgetCategory.getById(it) },
+                grouping = grouping) { postFetch(it) }
+    }
+
+    private fun fetchTagReports() {
+        FrolloSDK.reports.fetchTagReports(
+                fromDate = fromDate,
+                toDate = toDate,
+                period = reportPeriod,
+                transactionTag = filterTag,
+                grouping = grouping) { postFetch(it) }
+    }
+
+    private fun postFetch(resource: Resource<List<Report>>) {
+        refresh_layout.isRefreshing = false
+
+        when (resource.status) {
+            Resource.Status.SUCCESS -> resource.data?.let { loadData(it) }
+            Resource.Status.ERROR -> displayError(resource.error?.getMessage(), "Reports Fetch Failed")
         }
-        val models = allGroups.mapNotNull { it.toGroupModel() }.toSet()
+    }
+
+    private fun loadData(data: List<Report>) {
+        val allGroups = mutableListOf<GroupReport>()
+        data.forEach {
+            allGroups.addAll(it.groups)
+        }
+        val models = allGroups.map { it.toGroupModel() }.toSet()
         groupsAdapter.replaceAll(models.toList())
     }
 
     private fun showDetails(model: GroupModel) {
-        startActivity<HistoryTransactionsReportActivity>(ARGUMENT.ARG_DATA_1 to grouping, ARGUMENT.ARG_DATA_2 to model.id)
+        // startActivity<HistoryTransactionsReportActivity>(ARGUMENT.ARG_DATA_1 to grouping, ARGUMENT.ARG_DATA_2 to model.id)
     }
-
-    private fun refreshReports() {
-        FrolloSDK.reports.refreshTransactionHistoryReports(grouping = grouping, period = period, fromDate = fromDate, toDate = toDate) { result ->
-            refresh_layout.isRefreshing = false
-
-            when (result.status) {
-                Result.Status.SUCCESS -> Log.d(TAG, "Reports Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Reports Failed")
-            }
-        }
-    }*/
 
     override val resourceId: Int
         get() = R.layout.activity_report_grouping
