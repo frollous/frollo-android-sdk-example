@@ -19,6 +19,7 @@ package us.frollo.frollosdksample.view.reports
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -75,7 +76,10 @@ class ListDialogFragment : DialogFragment() {
         }
 
         val builder = AlertDialog.Builder(requireContext())
-        builder.setView(recyclerView)
+        with(builder) {
+            setView(recyclerView)
+            setTitle(type.title)
+        }
 
         return builder.create()
     }
@@ -152,11 +156,11 @@ class ListDialogFragment : DialogFragment() {
         fun onDialogItemSelected(listType: ListType, model: GroupModel)
     }
 
-    enum class ListType {
-        BUDGET_CATEGORIES,
-        TRANSACTION_CATEGORIES,
-        MERCHANTS,
-        TAGS,
-        GROUPING
+    enum class ListType(@StringRes val title: Int) {
+        BUDGET_CATEGORIES(R.string.str_report_type_budget_categories),
+        TRANSACTION_CATEGORIES(R.string.str_report_type_transaction_categories),
+        MERCHANTS(R.string.str_report_type_merchants),
+        TAGS(R.string.str_report_type_tags),
+        GROUPING(R.string.str_report_type_grouping)
     }
 }

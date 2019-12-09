@@ -69,6 +69,11 @@
     <string name="str_report_type_transaction_category">Transaction Category</string>
     <string name="str_report_type_merchant">Merchant</string>
     <string name="str_report_type_tag">Tag</string>
+    <string name="str_report_type_budget_categories">Budget Categories</string>
+    <string name="str_report_type_transaction_categories">Transaction Categories</string>
+    <string name="str_report_type_merchants">Merchants</string>
+    <string name="str_report_type_tags">Tags</string>
+    <string name="str_report_type_grouping">Grouping</string>
 
     <string name="str_goal_target_amount">Amount</string>
     <string name="str_goal_target_date">Date</string>
