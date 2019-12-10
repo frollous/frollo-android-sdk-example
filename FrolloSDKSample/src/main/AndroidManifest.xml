@@ -114,24 +114,9 @@
             android:label="@string/title_reports"/>
 
         <activity
-            android:name=".view.reports.CurrentTransactionsReportGroupingActivity"
+            android:name=".view.reports.TransactionsReportActivity"
             android:screenOrientation="portrait"
-            android:label="@string/str_current_reports"/>
-
-        <activity
-            android:name=".view.reports.CurrentTransactionsReportActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/str_current_reports"/>
-
-        <activity
-            android:name=".view.reports.HistoryTransactionsReportGroupingActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/str_history_reports"/>
-
-        <activity
-            android:name=".view.reports.HistoryTransactionsReportActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/str_history_reports"/>
+            android:label="@string/str_transactions_report"/>
 
         <activity
             android:name=".view.bills.BillPaymentsActivity"

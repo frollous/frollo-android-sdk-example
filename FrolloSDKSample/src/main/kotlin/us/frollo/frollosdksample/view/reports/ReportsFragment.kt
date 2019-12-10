@@ -21,11 +21,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_reports.text_account_balances
-import kotlinx.android.synthetic.main.fragment_reports.text_current_transaction_reports
 import kotlinx.android.synthetic.main.fragment_reports.text_historic_transaction_reports
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.utils.showBackNavigation
 
@@ -53,16 +51,8 @@ class ReportsFragment : BaseFragment() {
             startActivity<ReportsAccountsListActivity>()
         }
 
-        text_current_transaction_reports.setOnClickListener {
-            showReportTypes(true)
-        }
-
         text_historic_transaction_reports.setOnClickListener {
-            showReportTypes(false)
+            startActivity<ReportTypesActivity>()
         }
-    }
-
-    private fun showReportTypes(current: Boolean) {
-        startActivity<ReportTypesActivity>(ARGUMENT.ARG_DATA_1 to current)
     }
 }
