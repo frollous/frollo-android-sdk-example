@@ -17,7 +17,7 @@
 package us.frollo.frollosdksample.view.reports.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_detail_item1.view.*
+import kotlinx.android.synthetic.main.template_simple_item4.view.*
 import us.frollo.frollosdk.model.coredata.reports.GroupReport
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
@@ -25,6 +25,7 @@ import us.frollo.frollosdksample.base.BaseViewHolder
 import us.frollo.frollosdksample.display.UserCurrency
 import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.display
+import us.frollo.frollosdksample.utils.show
 
 class TransactionsReportAdapter : BaseRecyclerAdapter<GroupReport, TransactionsReportAdapter.ReportsViewHolder>(GroupReport::class.java, reportsComparator) {
 
@@ -33,7 +34,7 @@ class TransactionsReportAdapter : BaseRecyclerAdapter<GroupReport, TransactionsR
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_detail_item1
+            R.layout.template_simple_item4
 
     override fun getViewHolder(view: View, viewType: Int) =
             ReportsViewHolder(view)
@@ -41,14 +42,16 @@ class TransactionsReportAdapter : BaseRecyclerAdapter<GroupReport, TransactionsR
     inner class ReportsViewHolder(itemView: View) : BaseViewHolder<GroupReport>(itemView) {
 
         override fun bind(model: GroupReport) {
-            itemView.text_title.text = model.date.changeDateFormat(from = GroupReport.DATE_FORMAT_PATTERN, to = "MMM d, yyyy")
-                    .replace(".", "")
-            itemView.text_detail.text = model.value.display(UserCurrency.currency)
+            itemView.text_title.text = model.date.changeDateFormat(from = GroupReport.DATE_FORMAT_PATTERN, to = "MMM d, yyyy").replace(".", "")
+            itemView.text_subtitle.show()
+            itemView.text_subtitle.text = model.name
+            itemView.text_amount.text = model.value.display(UserCurrency.currency)
         }
 
         override fun recycle() {
             itemView.text_title.text = null
-            itemView.text_detail.text = null
+            itemView.text_subtitle.text = null
+            itemView.text_amount.text = null
         }
     }
 }

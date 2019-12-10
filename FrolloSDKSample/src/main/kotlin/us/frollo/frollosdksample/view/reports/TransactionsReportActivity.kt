@@ -75,8 +75,13 @@ class TransactionsReportActivity : BaseStackActivity() {
 
     private fun updateDates() {
         val now = LocalDate.now()
-        toDate = now.toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
-        fromDate = now.minusMonths(12).toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
+        if (reportPeriod == TransactionReportPeriod.DAILY) {
+            toDate = now.withDayOfMonth(now.lengthOfMonth()).toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
+            fromDate = now.withDayOfMonth(1).toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
+        } else {
+            toDate = now.toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
+            fromDate = now.minusMonths(12).withDayOfMonth(1).toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
+        }
     }
 
     private fun initView() {
@@ -88,6 +93,7 @@ class TransactionsReportActivity : BaseStackActivity() {
     }
 
     private fun fetchReports() {
+        refresh_layout.isRefreshing = true
         when (reportType) {
             ReportType.TRANSACTION_CATEGORY -> fetchTransactionCategoryReports()
             ReportType.MERCHANT -> fetchMerchantReports()

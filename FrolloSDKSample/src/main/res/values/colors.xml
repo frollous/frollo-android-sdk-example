@@ -10,4 +10,5 @@
     <color name="colorRed">#FF0000</color>
     <color name="colorOrange">#FF9100</color>
     <color name="colorGreen">#00FF00</color>
+    <color name="colorDarkGrey">#888888</color>
 </resources>
