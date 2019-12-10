@@ -29,6 +29,24 @@
         tools:text="Goal Saver" />
 
     <TextView
+        android:id="@+id/text_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/colorDarkGrey"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/text_amount"
+        app:layout_constraintTop_toBottomOf="@id/text_title"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="Goal Saver" />
+
+    <TextView
         android:id="@+id/text_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
