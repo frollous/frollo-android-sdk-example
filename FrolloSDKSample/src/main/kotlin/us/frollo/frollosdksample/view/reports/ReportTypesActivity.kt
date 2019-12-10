@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_report_types.*
 import us.frollo.frollosdk.model.coredata.reports.ReportGrouping
 import us.frollo.frollosdk.model.coredata.reports.TransactionReportPeriod
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.display.GroupModel
 import us.frollo.frollosdksample.utils.hide
@@ -37,7 +36,6 @@ class ReportTypesActivity : BaseStackActivity(), ListDialogFragment.OnDialogItem
         private const val TAG = "ReportTypes"
     }
 
-    private var current = false
     private var selectedReportType = ReportType.BUDGET_CATEGORY
     private var selectedReportPeriod = TransactionReportPeriod.ANNUALLY
     private var selectedTransactionCategoryId: Long? = null
@@ -48,8 +46,6 @@ class ReportTypesActivity : BaseStackActivity(), ListDialogFragment.OnDialogItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        current = intent.getBooleanExtra(ARGUMENT.ARG_DATA_1, false)
 
         initView()
     }
@@ -173,8 +169,7 @@ class ReportTypesActivity : BaseStackActivity(), ListDialogFragment.OnDialogItem
     }
 
     private fun showReportGrouping() {
-        val intent = if (current) Intent(this, HistoryTransactionsReportGroupingActivity::class.java)
-        else Intent(this, HistoryTransactionsReportGroupingActivity::class.java)
+        val intent = Intent(this, TransactionsReportActivity::class.java)
 
         with(intent) {
             putExtra(ReportConstants.ARG_REPORT_TYPE, selectedReportType)

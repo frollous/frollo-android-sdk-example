@@ -19,8 +19,8 @@ package us.frollo.frollosdksample.view.reports
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_report_grouping.recycler_groups
-import kotlinx.android.synthetic.main.activity_report_grouping.refresh_layout
+import kotlinx.android.synthetic.main.activity_report_details.recycler_reports
+import kotlinx.android.synthetic.main.activity_report_details.refresh_layout
 import org.jetbrains.anko.support.v4.onRefresh
 import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.FrolloSDK
@@ -33,25 +33,18 @@ import us.frollo.frollosdk.model.coredata.reports.TransactionReportPeriod
 import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
-import us.frollo.frollosdksample.display.GroupModel
 import us.frollo.frollosdksample.extension.getMessage
-import us.frollo.frollosdksample.mapping.toGroupModel
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.toString
-import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_FILTER_ID
-import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_FILTER_TAG
-import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_REPORT_GROUPING
-import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_REPORT_PERIOD
-import us.frollo.frollosdksample.view.reports.ReportConstants.Companion.ARG_REPORT_TYPE
-import us.frollo.frollosdksample.view.reports.adapters.ReportGroupsAdapter
+import us.frollo.frollosdksample.view.reports.adapters.TransactionsReportAdapter
 
-class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
+class TransactionsReportActivity : BaseStackActivity() {
 
     companion object {
-        private const val TAG = "HistoryReportGroup"
+        private const val TAG = "HistoryTxnReport"
     }
 
-    private val groupsAdapter = ReportGroupsAdapter()
+    private val reportsAdapter = TransactionsReportAdapter()
     private lateinit var reportType: ReportType
     private lateinit var reportPeriod: TransactionReportPeriod
     private var filterId: Long? = null
@@ -64,18 +57,19 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
         super.onCreate(savedInstanceState)
 
         with(intent) {
-            reportType = getSerializableExtra(ARG_REPORT_TYPE) as ReportType
-            reportPeriod = getSerializableExtra(ARG_REPORT_PERIOD) as TransactionReportPeriod
-            val id = getLongExtra(ARG_FILTER_ID, -1)
+            reportType = getSerializableExtra(ReportConstants.ARG_REPORT_TYPE) as ReportType
+            reportPeriod = getSerializableExtra(ReportConstants.ARG_REPORT_PERIOD) as TransactionReportPeriod
+            val id = getLongExtra(ReportConstants.ARG_FILTER_ID, -1)
             if (id > -1L) {
                 filterId = id
             }
-            filterTag = getStringExtra(ARG_FILTER_TAG)
-            grouping = getSerializableExtra(ARG_REPORT_GROUPING) as? ReportGrouping
+            filterTag = getStringExtra(ReportConstants.ARG_FILTER_TAG)
+            grouping = getSerializableExtra(ReportConstants.ARG_REPORT_GROUPING) as? ReportGrouping
         }
 
         updateDates()
         initView()
+        fetchReports()
         refresh_layout.onRefresh { fetchReports() }
     }
 
@@ -85,21 +79,11 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
         fromDate = now.minusMonths(12).toString(ReportDateFormat.DATE_PATTERN_FOR_REQUEST)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        fetchReports()
-    }
-
     private fun initView() {
-        recycler_groups.apply {
+        recycler_reports.apply {
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(this@HistoryTransactionsReportGroupingActivity, LinearLayoutManager.VERTICAL))
-            adapter = groupsAdapter.apply {
-                onItemClick { model, _, _ ->
-                    model?.let { showDetails(it) }
-                }
-            }
+            addItemDecoration(DividerItemDecoration(this@TransactionsReportActivity, LinearLayoutManager.VERTICAL))
+            adapter = reportsAdapter
         }
     }
 
@@ -162,14 +146,9 @@ class HistoryTransactionsReportGroupingActivity : BaseStackActivity() {
         data.forEach {
             allGroups.addAll(it.groups)
         }
-        val models = allGroups.map { it.toGroupModel() }.toSet()
-        groupsAdapter.replaceAll(models.toList())
-    }
-
-    private fun showDetails(model: GroupModel) {
-        // startActivity<HistoryTransactionsReportActivity>(ARGUMENT.ARG_DATA_1 to grouping, ARGUMENT.ARG_DATA_2 to model.id)
+        reportsAdapter.replaceAll(allGroups)
     }
 
     override val resourceId: Int
-        get() = R.layout.activity_report_grouping
+        get() = R.layout.activity_report_details
 }

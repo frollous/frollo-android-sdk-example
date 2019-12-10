@@ -51,11 +51,8 @@
     <string name="str_excluded">Excluded</string>
     <string name="str_add_tags">Add your tags</string>
 
-    <string name="str_account_balances">Account Balances</string>
-    <string name="str_current_transaction_reports">Current Transaction Reports</string>
-    <string name="str_historic_transaction_reports">Historic Transaction Reports</string>
-    <string name="str_current_reports">Current Reports</string>
-    <string name="str_history_reports">History Reports</string>
+    <string name="str_account_balances_report">Account Balances Report</string>
+    <string name="str_transactions_report">Transactions Report</string>
     <string name="str_report_type">Report Type</string>
     <string name="str_report_period">Period</string>
     <string name="str_report_transaction_category">Transaction Category (Optional)</string>
