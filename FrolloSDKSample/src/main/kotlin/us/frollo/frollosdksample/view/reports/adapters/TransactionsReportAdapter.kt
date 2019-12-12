@@ -45,7 +45,8 @@ class TransactionsReportAdapter : BaseRecyclerAdapter<GroupReport, TransactionsR
             itemView.text_title.text = model.date.changeDateFormat(from = GroupReport.DATE_FORMAT_PATTERN, to = "MMM d, yyyy").replace(".", "")
             itemView.text_subtitle.show()
             itemView.text_subtitle.text = model.name
-            itemView.text_amount.text = model.value.display(UserCurrency.currency)
+            val amount = if (model.isIncome) model.value else -model.value
+            itemView.text_amount.text = amount.display(UserCurrency.currency)
         }
 
         override fun recycle() {
