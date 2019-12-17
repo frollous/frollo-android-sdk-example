@@ -18,34 +18,32 @@ package us.frollo.frollosdksample.view.budgets
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_budgets.recylerView
 import kotlinx.android.synthetic.main.fragment_goals.refresh_layout
+import org.jetbrains.anko.selector
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.selector
-import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.budgets.Budget
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdksample.R
-import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
-import us.frollo.frollosdksample.utils.showBackNavigation
 import us.frollo.frollosdksample.view.budgets.adapters.BudgetsAdapter
 
-class BudgetsFragment : BaseFragment() {
+class BudgetsActivity : BaseStackActivity() {
+
+    override val resourceId: Int
+        get() = R.layout.fragment_budgets
 
     companion object {
         private const val TAG = "BudgetsFragment"
@@ -57,14 +55,17 @@ class BudgetsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setHasOptionsMenu(true)
         refreshData()
+        actionBar?.title = getString(R.string.title_budgets)
+
+        initView()
+        initLiveData()
+        refresh_layout?.onRefresh { refreshData() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.goals_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.goals_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,25 +81,10 @@ class BudgetsFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_budgets, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        actionBar?.showBackNavigation(show = false)
-        actionBar?.title = getString(R.string.title_budgets)
-
-        initView()
-        initLiveData()
-        refresh_layout?.onRefresh { refreshData() }
-    }
-
     private fun initView() {
         recylerView.apply {
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            addItemDecoration(DividerItemDecoration(this@BudgetsActivity, LinearLayoutManager.VERTICAL))
             adapter = mAdapter.apply {
                 onItemClick { model, _, _ ->
                     // model?.let { showDetails(it) }
@@ -113,7 +99,7 @@ class BudgetsFragment : BaseFragment() {
         fetchedLiveData?.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
-                Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Goals Failed")
+                Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Budgets Failed")
             }
         }
     }

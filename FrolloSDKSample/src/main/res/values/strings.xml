@@ -45,6 +45,7 @@
     <string name="title_add_goal">Add Goal</string>
     <string name="title_select_account">Select Account</string>
     <string name="title_goal_periods">Periods</string>
+    <string name="title_add_budget">Add budget</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
@@ -94,4 +95,11 @@
 
     <string name="str_profile_name">Name</string>
     <string name="str_profile_email">Email</string>
+
+    <string name="add_budget_budget_category">Budget Category</string>
+    <string name="add_budget_transaction_category">Transaction Category</string>
+    <string name="add_budget_select">Select</string>
+    <string name="add_budget_merchant_category">Merchant Category</string>
+    <string name="add_budget_image_url">Image url</string>
+    <string name="add_budget_image_hint">https://www.google.com/some/image.jpg</string>
 </resources>

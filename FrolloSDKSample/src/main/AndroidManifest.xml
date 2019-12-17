@@ -15,6 +15,7 @@
  * limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="us.frollo.frollosdksample">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,7 +27,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".view.StartupActivity"
@@ -142,7 +144,21 @@
             android:name=".view.goals.GoalPeriodsActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_goal_periods"/>
-        <activity android:name=".view.budgets.AddBudgetActivity" />
+
+        <activity
+            android:name=".view.budgets.AddBudgetActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_add_budget"/>
+
+        <activity
+            android:name=".view.goals.GoalsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_goals"/>
+
+        <activity
+            android:name=".view.budgets.BudgetsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_budgets"/>
 
         <service android:name=".view.notifications.MyFirebaseMessagingService">
             <intent-filter>

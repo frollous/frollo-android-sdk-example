@@ -17,7 +17,6 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -46,7 +45,7 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="Budget Category" />
+                android:text="@string/add_budget_budget_category" />
 
             <TextView
                 android:id="@+id/budgetCategory"
@@ -81,7 +80,7 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="Transaction Category" />
+                android:text="@string/add_budget_transaction_category" />
 
             <TextView
                 android:id="@+id/transactionCategory"
@@ -93,7 +92,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
                 android:enabled="false"
-                android:text="Select"/>
+                android:text="@string/add_budget_select"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -118,7 +117,7 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="Merchant Category" />
+                android:text="@string/add_budget_merchant_category" />
 
             <TextView
                 android:id="@+id/merchantCategory"
@@ -130,7 +129,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
                 android:enabled="false"
-                android:text="Select"/>
+                android:text="@string/add_budget_select"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -251,7 +250,7 @@
                 android:layout_marginEnd="20dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="Image url" />
+                android:text="@string/add_budget_image_url" />
 
             <EditText
                 android:id="@+id/imageUrl"
@@ -263,7 +262,7 @@
                 android:gravity="end|center_vertical"
                 android:layout_marginEnd="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:hint="https://www.google.com/some/image.jpg"
+                android:hint="@string/add_budget_image_hint"
                 android:textColor="@android:color/black" />
         </LinearLayout>
 
