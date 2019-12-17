@@ -22,20 +22,40 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        android:divider="?android:dividerHorizontal"
+        android:showDividers="middle|end">
 
-        <Button
+        <TextView
             android:id="@+id/goals"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_goals"/>
+            android:layout_height="52dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            android:text="@string/title_goals" />
 
-
-        <Button
+        <TextView
             android:id="@+id/budgets"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_budgets"/>
+            android:layout_height="52dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            android:text="@string/title_budgets" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

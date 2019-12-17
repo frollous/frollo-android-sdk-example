@@ -22,11 +22,12 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_others.budgets
 import kotlinx.android.synthetic.main.fragment_others.goals
+import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.utils.showBackNavigation
-import us.frollo.frollosdksample.view.budgets.BudgetsFragment
-import us.frollo.frollosdksample.view.goals.GoalsFragment
+import us.frollo.frollosdksample.view.budgets.BudgetsActivity
+import us.frollo.frollosdksample.view.goals.GoalsActivity
 
 class OthersFragment : BaseFragment() {
 
@@ -41,22 +42,10 @@ class OthersFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         goals.setOnClickListener {
-            val goalsFragment = GoalsFragment()
-            activity?.let {
-                it.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.container, goalsFragment)
-                        .commitAllowingStateLoss()
-            }
+            startActivity<GoalsActivity>()
         }
         budgets.setOnClickListener {
-            val budgetsFragment = BudgetsFragment()
-            activity?.let {
-                it.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.container, budgetsFragment)
-                        .commitAllowingStateLoss()
-            }
+            startActivity<BudgetsActivity>()
         }
     }
 
