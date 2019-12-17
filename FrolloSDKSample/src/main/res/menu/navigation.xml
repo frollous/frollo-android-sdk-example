@@ -22,8 +22,8 @@
         android:title="@string/title_reports" />
 
     <item
-        android:id="@+id/nav_goals"
-        android:icon="@drawable/ic_goals"
-        android:title="@string/title_goals" />
+        android:id="@+id/nav_others"
+        android:icon="@drawable/ic_more_horiz"
+        android:title="@string/title_others" />
 
 </menu>

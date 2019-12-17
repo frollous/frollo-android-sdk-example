@@ -142,6 +142,7 @@
             android:name=".view.goals.GoalPeriodsActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_goal_periods"/>
+        <activity android:name=".view.budgets.AddBudgetActivity" />
 
         <service android:name=".view.notifications.MyFirebaseMessagingService">
             <intent-filter>
