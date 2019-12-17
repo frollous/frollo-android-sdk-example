@@ -23,8 +23,8 @@ import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_goals.recycler_goals
-import kotlinx.android.synthetic.main.fragment_goals.refresh_layout
+import kotlinx.android.synthetic.main.activity_goals.recycler_goals
+import kotlinx.android.synthetic.main.activity_goals.refresh_layout
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
@@ -42,7 +42,7 @@ import us.frollo.frollosdksample.view.goals.adapters.GoalsAdapter
 class GoalsActivity : BaseStackActivity() {
 
     override val resourceId: Int
-        get() = R.layout.fragment_goals
+        get() = R.layout.activity_goals
 
     companion object {
         private const val TAG = "GoalsFragment"
