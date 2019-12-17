@@ -41,6 +41,7 @@ import us.frollo.frollosdk.model.coredata.aggregation.merchants.Merchant
 import us.frollo.frollosdk.model.coredata.aggregation.transactioncategories.TransactionCategory
 import us.frollo.frollosdk.model.coredata.budgets.Budget
 import us.frollo.frollosdk.model.coredata.budgets.BudgetFrequency
+import us.frollo.frollosdk.model.coredata.budgets.BudgetType
 import us.frollo.frollosdk.model.coredata.shared.BudgetCategory
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
@@ -55,9 +56,6 @@ import java.math.BigDecimal
 class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetListener {
 
     companion object {
-        const val ARG_BY_BUDGET_CATEGORY = "BUDGET_CATEGORY"
-        const val ARG_BY_MERCHANT_CATEGORY = "MERCHANT_CATEGORY"
-        const val ARG_BY_TRANSACTION_CATEGORY = "TRANSACTION_CATEGORY"
         const val ARG_MODE = "ARG_MODE"
     }
 
@@ -65,7 +63,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
     private var budgetCategoryX = BudgetCategory.LIVING
     private var startDateX: LocalDate = LocalDate.now()
     private var periodAmountX: BigDecimal = BigDecimal(0)
-    lateinit var mode: String
+    lateinit var mode: BudgetType
     private var merchantList: List<Merchant> = arrayListOf()
     private var transactionCategoryList: List<TransactionCategory> = arrayListOf()
     private var merchantId = -1L
@@ -73,13 +71,13 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mode = intent.getStringExtra(ARG_MODE)
+        mode = intent.getSerializableExtra(ARG_MODE) as BudgetType
 
         when (mode) {
-            ARG_BY_BUDGET_CATEGORY -> {
+            BudgetType.BUDGET_CATEGORY -> {
                 sectionBudgetCategory.show()
             }
-            ARG_BY_MERCHANT_CATEGORY -> {
+            BudgetType.MERCHANT -> {
                 sectionMerchantCategory.show()
                 val merchantsLiveData = FrolloSDK.aggregation.fetchMerchants()
                 merchantsLiveData.removeObservers(this)
@@ -90,7 +88,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
                     }
                 }
             }
-            ARG_BY_TRANSACTION_CATEGORY -> {
+            BudgetType.TRANSACTION_CATEGORY -> {
                 sectionTransactionCategory.show()
                 val transactionCategoryLiveData = FrolloSDK.aggregation.fetchTransactionCategories()
                 transactionCategoryLiveData.removeObservers(this)
@@ -182,7 +180,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
             return
 
         when (mode) {
-            ARG_BY_MERCHANT_CATEGORY -> {
+            BudgetType.MERCHANT -> {
 
                 if (merchantId == -1L) {
                     displayError("Kindly select a merchant", "Create Budget Failed")
@@ -193,7 +191,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
                     onBudgetCreated(it)
                 }
             }
-            ARG_BY_TRANSACTION_CATEGORY -> {
+            BudgetType.TRANSACTION_CATEGORY -> {
                 if (transactionCategoyId == -1L) {
                     displayError("Kindly select a transaction category", "Create Budget Failed")
                     return
@@ -203,7 +201,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
                     onBudgetCreated(it)
                 }
             }
-            ARG_BY_BUDGET_CATEGORY -> {
+            BudgetType.BUDGET_CATEGORY -> {
                 progress_bar_layout.show()
                 FrolloSDK.budgets.createBudgetCategoryBudget(budgetFrequencyX, periodAmountX, budgetCategoryX, startDateX.toString(Budget.DATE_FORMAT_PATTERN),
                         imageUrl.text.toString()) {

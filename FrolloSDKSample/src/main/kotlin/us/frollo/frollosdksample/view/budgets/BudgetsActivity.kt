@@ -23,8 +23,8 @@ import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_budgets.recylerView
-import kotlinx.android.synthetic.main.fragment_goals.refresh_layout
+import kotlinx.android.synthetic.main.activity_budgets.recylerView
+import kotlinx.android.synthetic.main.activity_goals.refresh_layout
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
@@ -32,6 +32,7 @@ import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.budgets.Budget
+import us.frollo.frollosdk.model.coredata.budgets.BudgetType
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseStackActivity
@@ -43,7 +44,7 @@ import us.frollo.frollosdksample.view.budgets.adapters.BudgetsAdapter
 class BudgetsActivity : BaseStackActivity() {
 
     override val resourceId: Int
-        get() = R.layout.fragment_budgets
+        get() = R.layout.activity_budgets
 
     companion object {
         private const val TAG = "BudgetsFragment"
@@ -71,8 +72,8 @@ class BudgetsActivity : BaseStackActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_add -> {
-                val list = arrayListOf(AddBudgetActivity.ARG_BY_BUDGET_CATEGORY, AddBudgetActivity.ARG_BY_MERCHANT_CATEGORY, AddBudgetActivity.ARG_BY_TRANSACTION_CATEGORY)
-                selector("Add by...", list.map { it.replace("_", " ").toLowerCase().capitalize() }) { _, index ->
+                val list = BudgetType.values()
+                selector("Select Budget Type", list.map { it.toString().replace("_", " ").capitalize() }) { _, index ->
                     startActivity<AddBudgetActivity>(AddBudgetActivity.ARG_MODE to list[index])
                 }
                 true

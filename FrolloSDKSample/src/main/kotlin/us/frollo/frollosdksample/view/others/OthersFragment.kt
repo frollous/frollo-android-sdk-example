@@ -31,10 +31,6 @@ import us.frollo.frollosdksample.view.goals.GoalsActivity
 
 class OthersFragment : BaseFragment() {
 
-    companion object {
-        private const val TAG = "GoalsFragment"
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_others, container, false)
     }
