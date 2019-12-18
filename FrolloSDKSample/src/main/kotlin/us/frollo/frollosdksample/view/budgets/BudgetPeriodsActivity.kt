@@ -82,14 +82,14 @@ class BudgetPeriodsActivity : BaseStackActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.goal_periods_menu, menu)
-        menuDelete = menu?.findItem(R.id.menu_delete_goal)
+        inflater.inflate(R.menu.budget_periods_menu, menu)
+        menuDelete = menu?.findItem(R.id.delete)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_delete_goal -> {
+            R.id.delete -> {
                 alert("Are you sure you wish to delete the budget?", "Delete Budget") {
                     positiveButton("Delete") {
                         deleteBudget()
