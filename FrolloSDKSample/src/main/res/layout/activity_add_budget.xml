@@ -14,14 +14,14 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/background_light"
@@ -36,7 +36,9 @@
             android:gravity="center_vertical"
             android:background="?selectableItemBackground"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="0dp"
@@ -71,7 +73,9 @@
             android:gravity="center_vertical"
             android:background="?selectableItemBackground"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/sectionBudgetCategory"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="0dp"
@@ -108,7 +112,9 @@
             android:gravity="center_vertical"
             android:background="?selectableItemBackground"
             android:visibility="gone"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/sectionTransactionCategory"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="0dp"
@@ -117,7 +123,7 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="@string/add_budget_merchant_category" />
+                android:text="@string/add_budget_merchant" />
 
             <TextView
                 android:id="@+id/merchantCategory"
@@ -143,7 +149,9 @@
             android:layout_height="52dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="?selectableItemBackground">
+            android:background="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/sectionMerchantCategory"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="0dp"
@@ -176,7 +184,9 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/sectionFrequency"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -185,7 +195,9 @@
                 android:layout_marginEnd="20dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="@string/str_goal_period_amount" />
+                android:text="@string/str_goal_period_amount"
+                app:layout_constraintTop_toBottomOf="@id/sectionFrequency"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <EditText
                 android:id="@+id/periodAmount"
@@ -208,7 +220,9 @@
             android:layout_height="52dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="?selectableItemBackground">
+            android:background="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/sectionPeriodAmount"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="0dp"
@@ -217,7 +231,7 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                android:text="@string/str_goal_start_date" />
+                android:text="@string/str_budget_start_date" />
 
             <TextView
                 android:id="@+id/startDate"
@@ -228,7 +242,7 @@
                 android:layout_marginEnd="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/black"
-                tools:text="7/29/19"/>
+                android:text="@string/add_budget_select"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -236,47 +250,19 @@
                 android:src="@drawable/ic_arrow_right" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/sectionImageUrlAmount"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:layout_marginEnd="20dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/black"
-                android:text="@string/add_budget_image_url" />
-
-            <EditText
-                android:id="@+id/imageUrl"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:maxLines="1"
-                android:gravity="end|center_vertical"
-                android:layout_marginEnd="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:hint="@string/add_budget_image_hint"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
-
         <FrameLayout
             android:id="@+id/progress_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/background_light"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/sectionStartDate"
+            app:layout_constraintStart_toStartOf="parent">
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
         </FrameLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -45,7 +45,7 @@ class GoalsActivity : BaseStackActivity() {
         get() = R.layout.activity_goals
 
     companion object {
-        private const val TAG = "GoalsFragment"
+        private const val TAG = "GoalsActivity"
     }
 
     private val mAdapter = GoalsAdapter()
@@ -90,7 +90,7 @@ class GoalsActivity : BaseStackActivity() {
 
     private fun initLiveData() {
         fetchedLiveData?.removeObservers(this)
-        fetchedLiveData = FrolloSDK.goals.fetchGoals(status = GoalStatus.ACTIVE)
+        fetchedLiveData = FrolloSDK.goals.fetchGoals()
         fetchedLiveData?.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
