@@ -21,6 +21,7 @@ import us.frollo.frollosdk.error.APIError
 import us.frollo.frollosdk.error.FrolloSDKError
 import us.frollo.frollosdk.model.coredata.bills.BillFrequency
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentStatus
+import us.frollo.frollosdk.model.coredata.budgets.BudgetTrackingStatus
 import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
 import us.frollo.frollosdk.model.coredata.goals.GoalTrackingStatus
 import us.frollo.frollosdksample.R
@@ -85,6 +86,20 @@ val GoalTrackingStatus.color: Int
         GoalTrackingStatus.AHEAD -> R.color.colorGreen
         GoalTrackingStatus.ON_TRACK -> R.color.colorOrange
         GoalTrackingStatus.BEHIND -> R.color.colorRed
+    }
+
+fun BudgetTrackingStatus.toDisplay(): String =
+        when (this) {
+            BudgetTrackingStatus.AHEAD -> "Ahead"
+            BudgetTrackingStatus.ON_TRACK -> "On Track"
+            BudgetTrackingStatus.BEHIND -> "Behind"
+        }
+
+val BudgetTrackingStatus.color: Int
+    get() = when (this) {
+        BudgetTrackingStatus.AHEAD -> R.color.colorGreen
+        BudgetTrackingStatus.ON_TRACK -> R.color.colorOrange
+        BudgetTrackingStatus.BEHIND -> R.color.colorRed
     }
 
 fun FrolloSDKError.getMessage(): String? {
