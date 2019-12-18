@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_add_budget.periodAmount
 import kotlinx.android.synthetic.main.activity_add_budget.progress_bar_layout
 import kotlinx.android.synthetic.main.activity_add_budget.startDate
 import kotlinx.android.synthetic.main.activity_add_budget.budgetCategory
-import kotlinx.android.synthetic.main.activity_add_budget.imageUrl
 import kotlinx.android.synthetic.main.activity_add_budget.merchantCategory
 import kotlinx.android.synthetic.main.activity_add_budget.sectionBudgetCategory
 import kotlinx.android.synthetic.main.activity_add_budget.sectionMerchantCategory
@@ -61,7 +60,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
 
     private var budgetFrequencyX = BudgetFrequency.WEEKLY
     private var budgetCategoryX = BudgetCategory.LIVING
-    private var startDateX: LocalDate = LocalDate.now()
+    private var startDateX: LocalDate? = null
     private var periodAmountX: BigDecimal = BigDecimal(0)
     lateinit var mode: BudgetType
     private var merchantList: List<Merchant> = arrayListOf()
@@ -123,13 +122,12 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
     private fun initView() {
 
         frequency.text = budgetFrequencyX.name
-        startDate.text = startDateX.toString(Budget.DATE_FORMAT_PATTERN)
 
         budgetCategory.text = BudgetCategory.LIFESTYLE.name
         budgetCategory.setOnClickListener { pickBudgetCategory() }
         frequency.setOnClickListener { pickFrequency() }
         startDate.setOnClickListener {
-            showDatePickerDialog(startDateX, DateMode.START_DATE)
+            showDatePickerDialog(LocalDate.now(), DateMode.START_DATE)
         }
         transactionCategory.setOnClickListener {
             selector("Select transaction category", transactionCategoryList.map { it.name }) { _, index ->
@@ -138,7 +136,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
             }
         }
         merchantCategory.setOnClickListener {
-            selector("Select merchant category", merchantList.map { it.name }) { _, index ->
+            selector("Select merchant", merchantList.map { it.name }) { _, index ->
                 merchantId = merchantList[index].merchantId
                 merchantCategory.text = merchantList[index].name
             }
@@ -148,7 +146,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
     private fun pickBudgetCategory() {
         val values = BudgetCategory.values()
 
-        selector("Frequency", values.map { it.name }) { _, index ->
+        selector("Select budget category", values.map { it.name }) { _, index ->
             budgetCategoryX = values[index]
             budgetCategory.text = budgetCategoryX.name
         }
@@ -157,7 +155,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
     private fun pickFrequency() {
         val values = BudgetFrequency.values()
 
-        selector("Frequency", values.map { it.name }) { _, index ->
+        selector("Select Budget Frequency", values.map { it.name }) { _, index ->
             budgetFrequencyX = values[index]
             frequency.text = budgetFrequencyX.name
         }
@@ -171,6 +169,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
     override fun onDateSet(view: DatePicker, date: LocalDate) {
         if (view.tag == DateMode.START_DATE.name) {
             startDateX = date
+            startDate.text = startDateX?.toString(Budget.DATE_FORMAT_PATTERN)
         }
     }
 
@@ -187,7 +186,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
                     return
                 }
                 progress_bar_layout.show()
-                FrolloSDK.budgets.createMerchantBudget(budgetFrequencyX, periodAmountX, merchantId, startDateX.toString(Budget.DATE_FORMAT_PATTERN), imageUrl.text.toString()) {
+                FrolloSDK.budgets.createMerchantBudget(budgetFrequencyX, periodAmountX, merchantId, startDateX?.toString(Budget.DATE_FORMAT_PATTERN)) {
                     onBudgetCreated(it)
                 }
             }
@@ -197,14 +196,14 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
                     return
                 }
                 progress_bar_layout.show()
-                FrolloSDK.budgets.createCategoryBudget(budgetFrequencyX, periodAmountX, transactionCategoyId, startDateX.toString(Budget.DATE_FORMAT_PATTERN), imageUrl.text.toString()) {
+                FrolloSDK.budgets.createCategoryBudget(budgetFrequencyX, periodAmountX, transactionCategoyId, startDateX?.toString(Budget.DATE_FORMAT_PATTERN)) {
                     onBudgetCreated(it)
                 }
             }
             BudgetType.BUDGET_CATEGORY -> {
                 progress_bar_layout.show()
-                FrolloSDK.budgets.createBudgetCategoryBudget(budgetFrequencyX, periodAmountX, budgetCategoryX, startDateX.toString(Budget.DATE_FORMAT_PATTERN),
-                        imageUrl.text.toString()) {
+                FrolloSDK.budgets.createBudgetCategoryBudget(budgetFrequencyX, periodAmountX, budgetCategoryX, startDateX?.toString(Budget.DATE_FORMAT_PATTERN)) {
+                    onBudgetCreated(it)
                 }
             }
         }

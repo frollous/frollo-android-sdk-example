@@ -47,7 +47,7 @@ class BudgetsActivity : BaseStackActivity() {
         get() = R.layout.activity_budgets
 
     companion object {
-        private const val TAG = "BudgetsFragment"
+        private const val TAG = "BudgetsActivity"
     }
 
     private val mAdapter = BudgetsAdapter()
