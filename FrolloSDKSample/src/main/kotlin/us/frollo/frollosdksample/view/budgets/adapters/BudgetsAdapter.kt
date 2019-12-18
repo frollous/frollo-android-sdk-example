@@ -44,7 +44,7 @@ class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHold
 
         override fun bind(model: Budget) {
             itemView.frequency.text = model.frequency.name
-            itemView.trackingStatus.text = model.trackingStatus.name
+            itemView.trackingStatus.text = model.status.name
             itemView.currentAmount.text = model.currentAmount.toString()
             itemView.type.text = Html.fromHtml("<b>Type</b> ${model.type.name}")
             itemView.typeValue.text = Html.fromHtml("<b>Value</b> ${model.typeValue}")
