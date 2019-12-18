@@ -27,6 +27,8 @@ import us.frollo.frollosdk.model.coredata.budgets.Budget
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
+import us.frollo.frollosdksample.display.UserCurrency
+import us.frollo.frollosdksample.utils.display
 
 class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHolder>(Budget::class.java, comparator) {
 
@@ -45,9 +47,9 @@ class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHold
         override fun bind(model: Budget) {
             itemView.frequency.text = model.frequency.name
             itemView.trackingStatus.text = model.status.name
-            itemView.currentAmount.text = model.currentAmount.toString()
+            itemView.currentAmount.text = model.currentAmount.display(UserCurrency.currency)
             itemView.type.text = Html.fromHtml("<b>Type</b> ${model.type.name}")
-            itemView.typeValue.text = Html.fromHtml("<b>Value</b> ${model.typeValue}")
+            itemView.typeValue.text = Html.fromHtml("<b>Value</b> ${model.typeValue.toUpperCase()}")
         }
 
         override fun recycle() {
