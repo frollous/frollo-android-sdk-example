@@ -105,5 +105,6 @@
     <string name="add_budget_image_hint">https://www.google.com/some/image.jpg</string>
     <string name="budget_period_delete">Deleting budget</string>
     <string name="budget_period_update">Updating budget</string>
+    <string name="budget_period_delete_budget">Delete Budget</string>
 
 </resources>
