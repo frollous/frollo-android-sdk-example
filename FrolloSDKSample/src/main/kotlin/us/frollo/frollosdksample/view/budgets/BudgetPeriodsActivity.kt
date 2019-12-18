@@ -20,6 +20,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -31,8 +32,10 @@ import kotlinx.android.synthetic.main.activity_budget_periods.periodAmount
 import kotlinx.android.synthetic.main.activity_budget_periods.recyclerView
 import kotlinx.android.synthetic.main.activity_budget_periods.refresh_layout
 import kotlinx.android.synthetic.main.activity_budget_periods.text_edit_save
+import kotlinx.android.synthetic.main.activity_budget_periods.type
 import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar_layout
 import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_title
+import kotlinx.android.synthetic.main.template_budget_item.typeValue
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
@@ -174,6 +177,7 @@ class BudgetPeriodsActivity : BaseStackActivity() {
                 when (result.status) {
                     Result.Status.SUCCESS -> {
                         setEditMode(EditMode.EDIT)
+                        refreshBudgetPeriods()
                     }
                     Result.Status.ERROR -> {
                         displayError(result.error?.getMessage(), "Updating Budget Failed")
@@ -206,6 +210,8 @@ class BudgetPeriodsActivity : BaseStackActivity() {
                     budget = budget1
                     periodAmount.setText(budget1.periodAmount.toPlainString())
                     frequency.text = budget1.frequency.name.capitalize()
+                    type.text = Html.fromHtml("<b>Type</b> ${budget1.type.name}")
+                    typeValue.text = Html.fromHtml("<b>Value</b> ${budget1.typeValue.toUpperCase()}")
                     text_edit_save.show()
                 }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Goal Failed")
