@@ -38,11 +38,14 @@
     <string name="title_search_tags">Search Tags</string>
     <string name="title_user_tags">User Tags</string>
     <string name="title_suggested_tags">Suggested Tags</string>
+    <string name="title_others">More</string>
     <string name="title_goals">Goals</string>
+    <string name="title_budgets">Budgets</string>
     <string name="title_goal_target">Target of Goal</string>
     <string name="title_add_goal">Add Goal</string>
     <string name="title_select_account">Select Account</string>
     <string name="title_goal_periods">Periods</string>
+    <string name="title_add_budget">Add budget</string>
 
     <string name="str_add_provider">Add Provider</string>
     <string name="str_add_account">Add Account</string>
@@ -92,4 +95,11 @@
 
     <string name="str_profile_name">Name</string>
     <string name="str_profile_email">Email</string>
+
+    <string name="add_budget_budget_category">Budget Category</string>
+    <string name="add_budget_transaction_category">Transaction Category</string>
+    <string name="add_budget_select">Select</string>
+    <string name="add_budget_merchant">Merchant</string>
+    <string name="str_budget_start_date">Start Date (Optional)</string>
+    <string name="add_budget_image_hint">https://www.google.com/some/image.jpg</string>
 </resources>

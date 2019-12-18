@@ -18,36 +18,33 @@ package us.frollo.frollosdksample.view.goals
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_goals.recycler_goals
-import kotlinx.android.synthetic.main.fragment_goals.refresh_layout
+import kotlinx.android.synthetic.main.activity_goals.recycler_goals
+import kotlinx.android.synthetic.main.activity_goals.refresh_layout
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.goals.Goal
-import us.frollo.frollosdk.model.coredata.goals.GoalStatus
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
-import us.frollo.frollosdksample.base.BaseFragment
+import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.observe
-import us.frollo.frollosdksample.utils.showBackNavigation
 import us.frollo.frollosdksample.view.goals.adapters.GoalsAdapter
 
-class GoalsFragment : BaseFragment() {
+class GoalsActivity : BaseStackActivity() {
+
+    override val resourceId: Int
+        get() = R.layout.activity_goals
 
     companion object {
-        private const val TAG = "GoalsFragment"
+        private const val TAG = "GoalsActivity"
     }
 
     private val mAdapter = GoalsAdapter()
@@ -56,14 +53,16 @@ class GoalsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setHasOptionsMenu(true)
+        actionBar?.title = getString(R.string.title_goals)
         refreshData()
+        initView()
+        initLiveData()
+        refresh_layout?.onRefresh { refreshData() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.goals_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.goals_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,25 +75,10 @@ class GoalsFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_goals, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        actionBar?.showBackNavigation(show = false)
-        actionBar?.title = getString(R.string.title_goals)
-
-        initView()
-        initLiveData()
-        refresh_layout?.onRefresh { refreshData() }
-    }
-
     private fun initView() {
         recycler_goals.apply {
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+            addItemDecoration(DividerItemDecoration(this@GoalsActivity, LinearLayoutManager.VERTICAL))
             adapter = mAdapter.apply {
                 onItemClick { model, _, _ ->
                     model?.let { showDetails(it) }
@@ -105,7 +89,7 @@ class GoalsFragment : BaseFragment() {
 
     private fun initLiveData() {
         fetchedLiveData?.removeObservers(this)
-        fetchedLiveData = FrolloSDK.goals.fetchGoals(status = GoalStatus.ACTIVE)
+        fetchedLiveData = FrolloSDK.goals.fetchGoals()
         fetchedLiveData?.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
@@ -119,7 +103,7 @@ class GoalsFragment : BaseFragment() {
     }
 
     private fun refreshData() {
-        FrolloSDK.goals.refreshGoals(status = GoalStatus.ACTIVE) { resource ->
+        FrolloSDK.goals.refreshGoals { resource ->
             refresh_layout?.isRefreshing = false
 
             when (resource.status) {
