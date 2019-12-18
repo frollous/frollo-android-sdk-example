@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_budget_periods.frequency
 import kotlinx.android.synthetic.main.activity_budget_periods.periodAmount
-import kotlinx.android.synthetic.main.activity_budget_periods.recycler_goal_periods
+import kotlinx.android.synthetic.main.activity_budget_periods.recyclerView
 import kotlinx.android.synthetic.main.activity_budget_periods.refresh_layout
 import kotlinx.android.synthetic.main.activity_budget_periods.text_edit_save
 import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar_layout
@@ -143,7 +143,7 @@ class BudgetPeriodsActivity : BaseStackActivity() {
             }
         }
 
-        recycler_goal_periods.apply {
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(this@BudgetPeriodsActivity, LinearLayoutManager.VERTICAL))
             adapter = periodsAdapter

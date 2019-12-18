@@ -123,7 +123,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
 
         frequency.text = budgetFrequencyX.name
 
-        budgetCategory.text = BudgetCategory.LIFESTYLE.name
+        budgetCategory.text = BudgetCategory.LIVING.name
         budgetCategory.setOnClickListener { pickBudgetCategory() }
         frequency.setOnClickListener { pickFrequency() }
         startDate.setOnClickListener {
