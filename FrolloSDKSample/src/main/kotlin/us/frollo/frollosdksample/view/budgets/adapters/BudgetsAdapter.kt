@@ -16,13 +16,10 @@
 
 package us.frollo.frollosdksample.view.budgets.adapters
 
+import android.text.Html
 import android.view.View
-import kotlinx.android.synthetic.main.template_budget_item.view.budgetStatus
-import kotlinx.android.synthetic.main.template_budget_item.view.current
 import kotlinx.android.synthetic.main.template_budget_item.view.currentAmount
 import kotlinx.android.synthetic.main.template_budget_item.view.frequency
-import kotlinx.android.synthetic.main.template_budget_item.view.imageUrl
-import kotlinx.android.synthetic.main.template_budget_item.view.periodsCount
 import kotlinx.android.synthetic.main.template_budget_item.view.trackingStatus
 import kotlinx.android.synthetic.main.template_budget_item.view.type
 import kotlinx.android.synthetic.main.template_budget_item.view.typeValue
@@ -46,24 +43,16 @@ class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHold
     inner class BudgetViewHolder(itemView: View) : BaseViewHolder<Budget>(itemView) {
 
         override fun bind(model: Budget) {
-            itemView.periodsCount.text = "period count ${model.periodsCount}"
-            itemView.current.text = "is current ${model.isCurrent}"
-            itemView.frequency.text = "frequency ${model.frequency.name}"
-            itemView.trackingStatus.text = "tracking status ${model.trackingStatus.name}"
-            itemView.budgetStatus.text = "budgetStatus ${model.status.name}"
-            itemView.imageUrl.text = "image url ${model.imageUrl}"
-            itemView.currentAmount.text = "curr amm ${model.currentAmount}"
-            itemView.type.text = "type ${model.type.name}"
-            itemView.typeValue.text = "type value ${model.typeValue}"
+            itemView.frequency.text = model.frequency.name
+            itemView.trackingStatus.text = model.trackingStatus.name
+            itemView.currentAmount.text = model.currentAmount.toString()
+            itemView.type.text = Html.fromHtml("<b>Type</b> ${model.type.name}")
+            itemView.typeValue.text = Html.fromHtml("<b>Value</b> ${model.typeValue}")
         }
 
         override fun recycle() {
-            itemView.periodsCount.text = null
-            itemView.current.text = null
             itemView.frequency.text = null
             itemView.trackingStatus.text = null
-            itemView.budgetStatus.text = null
-            itemView.imageUrl.text = null
             itemView.currentAmount.text = null
             itemView.type.text = null
             itemView.typeValue.text = null

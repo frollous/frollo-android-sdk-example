@@ -15,28 +15,25 @@
     android:paddingBottom="10dp">
 
     <TextView
-        android:id="@+id/imageUrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Target"/>
-
-    <TextView
-        android:id="@+id/periodAmount"
-        android:layout_width="0dp"
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Description"/>
+
+    <TextView
+        android:id="@+id/typeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/current"
-        app:layout_constraintTop_toBottomOf="@id/imageUrl"
-        app:layout_constraintHorizontal_bias="0"
-        android:layout_marginEnd="10dp"
-        tools:text="Description"/>
+        app:layout_constraintTop_toBottomOf="@id/type"
+        tools:text="Saved $1,234.89"/>
 
     <TextView
         android:id="@+id/frequency"
@@ -46,9 +43,7 @@
         android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/trackingStatus"
-        app:layout_constraintTop_toBottomOf="@id/periodAmount"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/typeValue"
         android:layout_marginEnd="10dp"
         tools:text="Weekly"/>
 
@@ -58,38 +53,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/periodAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frequency"
         tools:text="Target $2,000.00"/>
 
-    <TextView
-        android:id="@+id/budgetStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:layout_marginEnd="10dp"
-        android:textColor="@android:color/black"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imageUrl"
-        app:layout_constraintTop_toBottomOf="@id/frequency"
-        app:layout_constraintHorizontal_bias="0"
-        tools:text="Ends 01/01/20"/>
-
-    <TextView
-        android:id="@+id/current"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="200dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/trackingStatus"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:ellipsize="end"
-        tools:text="https://www.goog.e.com.au/asdkjhb.jashdiuujansdjn"/>
 
     <TextView
         android:id="@+id/currentAmount"
@@ -97,38 +64,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/budgetStatus"
-        tools:text="Saved $1,234.89"/>
-
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/budgetStatus"
-        tools:text="Saved $1,234.89"/>
+        app:layout_constraintTop_toTopOf="@id/type"
+        android:textStyle="bold"
+        tools:text="$1,234.89"/>
 
-    <TextView
-        android:id="@+id/typeValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/type"
-        tools:text="Saved $1,234.89"/>
-    
-    <TextView
-        android:id="@+id/periodsCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currentAmount"
-        tools:text="Saved $1,234.89"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
