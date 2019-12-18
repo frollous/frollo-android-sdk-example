@@ -20,6 +20,7 @@ import android.text.Html
 import android.view.View
 import kotlinx.android.synthetic.main.template_budget_item.view.currentAmount
 import kotlinx.android.synthetic.main.template_budget_item.view.frequency
+import kotlinx.android.synthetic.main.template_budget_item.view.periodAmount
 import kotlinx.android.synthetic.main.template_budget_item.view.trackingStatus
 import kotlinx.android.synthetic.main.template_budget_item.view.type
 import kotlinx.android.synthetic.main.template_budget_item.view.typeValue
@@ -47,7 +48,8 @@ class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHold
         override fun bind(model: Budget) {
             itemView.frequency.text = model.frequency.name
             itemView.trackingStatus.text = model.status.name
-            itemView.currentAmount.text = model.currentAmount.display(UserCurrency.currency)
+            itemView.currentAmount.text = Html.fromHtml("<b>Spent:</b> ${model.currentAmount.display(UserCurrency.currency)}")
+            itemView.periodAmount.text = Html.fromHtml("Budget: ${model.periodAmount.display(UserCurrency.currency)}")
             itemView.type.text = Html.fromHtml("<b>Type</b> ${model.type.name}")
             itemView.typeValue.text = Html.fromHtml("<b>Value</b> ${model.typeValue.toUpperCase()}")
         }
@@ -56,6 +58,7 @@ class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHold
             itemView.frequency.text = null
             itemView.trackingStatus.text = null
             itemView.currentAmount.text = null
+            itemView.periodAmount.text = null
             itemView.type.text = null
             itemView.typeValue.text = null
         }

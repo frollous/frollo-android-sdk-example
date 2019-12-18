@@ -93,7 +93,7 @@
             android:layout_below="@id/section_detail"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_goal_periods"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/divider"

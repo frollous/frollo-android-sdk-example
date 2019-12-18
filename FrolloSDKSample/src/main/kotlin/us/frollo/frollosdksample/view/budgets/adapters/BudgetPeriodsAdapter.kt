@@ -17,17 +17,20 @@
 package us.frollo.frollosdksample.view.budgets.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_start_date
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_end_date
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_current_amount
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_target_amount
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_required_amount
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_tracking_status
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_start_date
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_end_date
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_current_amount
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_target_amount
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_required_amount
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_tracking_status
+import org.jetbrains.anko.textColorResource
 import us.frollo.frollosdk.model.coredata.budgets.BudgetPeriod
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 import us.frollo.frollosdksample.display.UserCurrency
+import us.frollo.frollosdksample.extension.color
+import us.frollo.frollosdksample.extension.toDisplay
 import us.frollo.frollosdksample.utils.changeDateFormat
 import us.frollo.frollosdksample.utils.display
 
@@ -38,7 +41,7 @@ class BudgetPeriodsAdapter : BaseRecyclerAdapter<BudgetPeriod, BudgetPeriodsAdap
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_goal_period_item
+            R.layout.template_budget_period_item
 
     override fun getViewHolder(view: View, viewType: Int) =
             BudgetPeriodViewHolder(view)
@@ -51,7 +54,8 @@ class BudgetPeriodsAdapter : BaseRecyclerAdapter<BudgetPeriod, BudgetPeriodsAdap
             itemView.period_current_amount.text = "Current: ${ model.currentAmount?.display(UserCurrency.currency) }"
             itemView.period_target_amount.text = "Target: ${ model.targetAmount?.display(UserCurrency.currency) }"
             itemView.period_required_amount.text = "Required: ${ model.requiredAmount?.display(UserCurrency.currency) }"
-            itemView.period_tracking_status.text = model.trackingStatus.toString()
+            itemView.period_tracking_status.text = model.trackingStatus.toDisplay()
+            itemView.period_tracking_status.textColorResource = model.trackingStatus.color
         }
 
         override fun recycle() {
