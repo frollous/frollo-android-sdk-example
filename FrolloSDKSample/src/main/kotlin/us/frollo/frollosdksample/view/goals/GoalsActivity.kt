@@ -30,7 +30,6 @@ import org.jetbrains.anko.support.v4.onRefresh
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.goals.Goal
-import us.frollo.frollosdk.model.coredata.goals.GoalStatus
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
@@ -104,7 +103,7 @@ class GoalsActivity : BaseStackActivity() {
     }
 
     private fun refreshData() {
-        FrolloSDK.goals.refreshGoals(status = GoalStatus.ACTIVE) { resource ->
+        FrolloSDK.goals.refreshGoals { resource ->
             refresh_layout?.isRefreshing = false
 
             when (resource.status) {
