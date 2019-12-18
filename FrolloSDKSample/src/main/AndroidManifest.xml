@@ -159,6 +159,9 @@
             android:name=".view.budgets.BudgetsActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_budgets"/>
+        <activity android:name=".view.budgets.BudgetPeriodsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_budget_periods"/>
 
         <service android:name=".view.notifications.MyFirebaseMessagingService">
             <intent-filter>

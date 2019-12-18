@@ -33,8 +33,8 @@ import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.budgets.Budget
 import us.frollo.frollosdk.model.coredata.budgets.BudgetType
-import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
@@ -88,7 +88,7 @@ class BudgetsActivity : BaseStackActivity() {
             addItemDecoration(DividerItemDecoration(this@BudgetsActivity, LinearLayoutManager.VERTICAL))
             adapter = mAdapter.apply {
                 onItemClick { model, _, _ ->
-                    // model?.let { showDetails(it) }
+                    model?.let { showDetails(it) }
                 }
             }
         }
@@ -120,7 +120,7 @@ class BudgetsActivity : BaseStackActivity() {
         }
     }
 
-    private fun showDetails(model: Goal) {
-        // startActivity<GoalPeriodsActivity>(ARGUMENT.ARG_DATA_1 to model.goalId)
+    private fun showDetails(model: Budget) {
+        startActivity<BudgetPeriodsActivity>(ARGUMENT.ARG_DATA_1 to model.budgetId)
     }
 }
