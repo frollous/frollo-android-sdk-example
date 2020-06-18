@@ -40,10 +40,10 @@ class GoalsAdapter : BaseRecyclerAdapter<Goal, GoalsAdapter.GoalViewHolder>(Goal
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_goal_item
+        R.layout.template_goal_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            GoalViewHolder(view)
+        GoalViewHolder(view)
 
     inner class GoalViewHolder(itemView: View) : BaseViewHolder<Goal>(itemView) {
 

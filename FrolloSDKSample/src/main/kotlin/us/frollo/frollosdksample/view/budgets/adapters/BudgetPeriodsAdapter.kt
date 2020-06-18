@@ -17,11 +17,11 @@
 package us.frollo.frollosdksample.view.budgets.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_budget_period_item.view.period_start_date
-import kotlinx.android.synthetic.main.template_budget_period_item.view.period_end_date
 import kotlinx.android.synthetic.main.template_budget_period_item.view.period_current_amount
-import kotlinx.android.synthetic.main.template_budget_period_item.view.period_target_amount
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_end_date
 import kotlinx.android.synthetic.main.template_budget_period_item.view.period_required_amount
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_start_date
+import kotlinx.android.synthetic.main.template_budget_period_item.view.period_target_amount
 import kotlinx.android.synthetic.main.template_budget_period_item.view.period_tracking_status
 import org.jetbrains.anko.textColorResource
 import us.frollo.frollosdk.model.coredata.budgets.BudgetPeriod
@@ -41,10 +41,10 @@ class BudgetPeriodsAdapter : BaseRecyclerAdapter<BudgetPeriod, BudgetPeriodsAdap
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_budget_period_item
+        R.layout.template_budget_period_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            BudgetPeriodViewHolder(view)
+        BudgetPeriodViewHolder(view)
 
     inner class BudgetPeriodViewHolder(itemView: View) : BaseViewHolder<BudgetPeriod>(itemView) {
 

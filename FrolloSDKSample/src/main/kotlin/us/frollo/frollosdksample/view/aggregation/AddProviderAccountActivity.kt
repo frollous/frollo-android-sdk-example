@@ -37,8 +37,8 @@ import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.providers.Provider
 import us.frollo.frollosdk.model.coredata.aggregation.providers.ProviderLoginForm
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError

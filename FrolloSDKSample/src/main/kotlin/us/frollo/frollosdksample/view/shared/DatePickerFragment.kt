@@ -19,10 +19,10 @@ package us.frollo.frollosdksample.view.shared
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import us.frollo.frollosdksample.R
 import android.widget.DatePicker
+import androidx.fragment.app.DialogFragment
 import org.threeten.bp.LocalDate
+import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.utils.toDate
 import java.util.Calendar
 import java.util.Date

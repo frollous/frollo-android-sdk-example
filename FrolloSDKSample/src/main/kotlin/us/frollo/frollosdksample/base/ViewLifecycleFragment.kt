@@ -16,9 +16,9 @@
 
 package us.frollo.frollosdksample.base
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry

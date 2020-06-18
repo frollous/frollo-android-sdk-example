@@ -30,10 +30,10 @@ class ProvidersAdapter : BaseRecyclerAdapter<Provider, ProvidersAdapter.Provider
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item1
+        R.layout.template_simple_item1
 
     override fun getViewHolder(view: View, viewType: Int) =
-            ProviderViewHolder(view)
+        ProviderViewHolder(view)
 
     inner class ProviderViewHolder(itemView: View) : BaseViewHolder<Provider>(itemView) {
 

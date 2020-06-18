@@ -244,16 +244,16 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
         progress_bar_layout.show()
 
         FrolloSDK.goals.createGoal(
-                name = goalName,
-                description = goalDescription,
-                target = goalTarget,
-                trackingType = goalTrackingType,
-                frequency = goalFrequency,
-                startDate = goalStartDate.toString(Goal.DATE_FORMAT_PATTERN),
-                endDate = goalEndDate?.toString(Goal.DATE_FORMAT_PATTERN),
-                periodAmount = goalPeriodAmount,
-                targetAmount = goalTargetAmount,
-                accountId = goalAccountId
+            name = goalName,
+            description = goalDescription,
+            target = goalTarget,
+            trackingType = goalTrackingType,
+            frequency = goalFrequency,
+            startDate = goalStartDate.toString(Goal.DATE_FORMAT_PATTERN),
+            endDate = goalEndDate?.toString(Goal.DATE_FORMAT_PATTERN),
+            periodAmount = goalPeriodAmount,
+            targetAmount = goalTargetAmount,
+            accountId = goalAccountId
         ) { result ->
             progress_bar_layout.hide()
 

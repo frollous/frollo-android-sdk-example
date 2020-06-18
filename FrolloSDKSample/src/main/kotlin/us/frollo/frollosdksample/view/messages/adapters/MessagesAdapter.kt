@@ -34,10 +34,10 @@ class MessagesAdapter : BaseRecyclerAdapter<Message, MessagesAdapter.MessageText
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_message_item
+        R.layout.template_message_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            MessageTextViewHolder(view)
+        MessageTextViewHolder(view)
 
     inner class MessageTextViewHolder(itemView: View) : BaseViewHolder<Message>(itemView) {
 

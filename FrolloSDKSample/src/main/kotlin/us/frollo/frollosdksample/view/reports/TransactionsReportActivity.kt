@@ -104,38 +104,42 @@ class TransactionsReportActivity : BaseStackActivity() {
 
     private fun fetchTransactionCategoryReports() {
         FrolloSDK.reports.fetchTransactionCategoryReports(
-                fromDate = fromDate,
-                toDate = toDate,
-                period = reportPeriod,
-                categoryId = filterId,
-                grouping = grouping) { postFetch(it) }
+            fromDate = fromDate,
+            toDate = toDate,
+            period = reportPeriod,
+            categoryId = filterId,
+            grouping = grouping
+        ) { postFetch(it) }
     }
 
     private fun fetchMerchantReports() {
         FrolloSDK.reports.fetchMerchantReports(
-                fromDate = fromDate,
-                toDate = toDate,
-                period = reportPeriod,
-                merchantId = filterId,
-                grouping = grouping) { postFetch(it) }
+            fromDate = fromDate,
+            toDate = toDate,
+            period = reportPeriod,
+            merchantId = filterId,
+            grouping = grouping
+        ) { postFetch(it) }
     }
 
     private fun fetchBudgetCategoryReports() {
         FrolloSDK.reports.fetchBudgetCategoryReports(
-                fromDate = fromDate,
-                toDate = toDate,
-                period = reportPeriod,
-                budgetCategory = filterId?.let { BudgetCategory.getById(it) },
-                grouping = grouping) { postFetch(it) }
+            fromDate = fromDate,
+            toDate = toDate,
+            period = reportPeriod,
+            budgetCategory = filterId?.let { BudgetCategory.getById(it) },
+            grouping = grouping
+        ) { postFetch(it) }
     }
 
     private fun fetchTagReports() {
         FrolloSDK.reports.fetchTagReports(
-                fromDate = fromDate,
-                toDate = toDate,
-                period = reportPeriod,
-                transactionTag = filterTag,
-                grouping = grouping) { postFetch(it) }
+            fromDate = fromDate,
+            toDate = toDate,
+            period = reportPeriod,
+            transactionTag = filterTag,
+            grouping = grouping
+        ) { postFetch(it) }
     }
 
     private fun postFetch(resource: Resource<List<Report>>) {

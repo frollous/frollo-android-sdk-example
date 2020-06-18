@@ -32,10 +32,10 @@ class SelectAccountAdapter : BaseRecyclerAdapter<Account, SelectAccountAdapter.A
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item4
+        R.layout.template_simple_item4
 
     override fun getViewHolder(view: View, viewType: Int) =
-            AccountViewHolder(view)
+        AccountViewHolder(view)
 
     inner class AccountViewHolder(itemView: View) : BaseViewHolder<Account>(itemView) {
 

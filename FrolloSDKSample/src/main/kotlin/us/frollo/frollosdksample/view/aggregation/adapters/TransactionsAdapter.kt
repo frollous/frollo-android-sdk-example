@@ -34,10 +34,10 @@ class TransactionsAdapter : BaseRecyclerAdapter<Transaction, TransactionsAdapter
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_transaction_item
+        R.layout.template_transaction_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            TransactionViewHolder(view)
+        TransactionViewHolder(view)
 
     inner class TransactionViewHolder(itemView: View) : BaseViewHolder<Transaction>(itemView) {
 

@@ -1,60 +1,37 @@
 {
   "project_info": {
-    "project_number": "586764178180",
-    "firebase_url": "https://frollo-c78f4.firebaseio.com",
-    "project_id": "frollo-c78f4",
-    "storage_bucket": "frollo-c78f4.appspot.com"
+    "project_number": "584263941667",
+    "firebase_url": "https://frollo-sdk-example.firebaseio.com",
+    "project_id": "frollo-sdk-example",
+    "storage_bucket": "frollo-sdk-example.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:586764178180:android:89a07a73aa8e09d8",
+        "mobilesdk_app_id": "1:584263941667:android:4927c1e8371bc58a0ebb96",
         "android_client_info": {
           "package_name": "us.frollo.frollosdksample"
         }
       },
       "oauth_client": [
         {
-          "client_id": "586764178180-pn326nh8phamu8k6971oqpkpldslicdo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "us.frollo.frollosdksample",
-            "certificate_hash": "a0516b29aec6dc6655eba3fcf56036eb26200f72"
-          }
-        },
-        {
-          "client_id": "586764178180-9teoq4vcpv446vn1qka2ftsrm2ou0smd.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "us.frollo.frollosdksample",
-            "certificate_hash": "612e5fb5028a5a0e13fb69f1e19e3c0d08edd966"
-          }
-        },
-        {
-          "client_id": "586764178180-mthe3k12nsr8ttg5s26l3ncvoht6vi14.apps.googleusercontent.com",
+          "client_id": "584263941667-908gvhedg96qmfngcj6jnp4644s3onnt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCbL3M85Z7bQdBOpj9wSbD1y8NVwZIH-Bc"
+          "current_key": "AIzaSyCaO44_3fprlhj4OvBPRQqYTdP1qwUU0yU"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "586764178180-mthe3k12nsr8ttg5s26l3ncvoht6vi14.apps.googleusercontent.com",
+              "client_id": "584263941667-908gvhedg96qmfngcj6jnp4644s3onnt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

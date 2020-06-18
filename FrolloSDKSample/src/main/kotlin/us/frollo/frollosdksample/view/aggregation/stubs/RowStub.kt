@@ -56,60 +56,60 @@ abstract class RowStub : AnkoComponent<Context> {
     abstract fun load()
 
     protected fun @AnkoViewDslMarker _LinearLayout.spinnerFor(field: ProviderFormField, viewId: Int): Spinner =
-            spinner {
-                id = viewId
-                adapter = ArrayAdapter<ProviderFieldOption>(this@spinnerFor.context, R.layout.template_spinner_item, field.options ?: listOf())
-                onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onNothingSelected(parent: AdapterView<*>?) {}
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-                        field.options?.let { options ->
-                            field.value = options[pos].optionValue
-                        }
+        spinner {
+            id = viewId
+            adapter = ArrayAdapter<ProviderFieldOption>(this@spinnerFor.context, R.layout.template_spinner_item, field.options ?: listOf())
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                    field.options?.let { options ->
+                        field.value = options[pos].optionValue
                     }
                 }
-                setBackgroundResource(R.drawable.spinner_background)
-            }.lparams {
-                topMargin = dip(8)
-                width = matchParent
-                height = dip(52)
             }
+            setBackgroundResource(R.drawable.spinner_background)
+        }.lparams {
+            topMargin = dip(8)
+            width = matchParent
+            height = dip(52)
+        }
 
     protected fun @AnkoViewDslMarker _LinearLayout.editTextFor(field: ProviderFormField, viewId: Int): EditText =
-            editText {
-                id = viewId
-                padding = dip(10)
-                setBackgroundResource(R.drawable.border_background)
-                textAppearance = R.style.TextAppearance_AppCompat_Medium
-                textColorResource = android.R.color.black
-                maxLines = 1
-                field.maxLength?.let { maxLength ->
-                    if (maxLength > 0) setMaxLength(maxLength)
-                }
-                inputType = when (field.type) {
-                    ProviderFieldType.PASSWORD -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                    else -> InputType.TYPE_CLASS_TEXT
-                }
-            }.lparams {
-                topMargin = dip(8)
-                width = matchParent
-                height = dip(52)
+        editText {
+            id = viewId
+            padding = dip(10)
+            setBackgroundResource(R.drawable.border_background)
+            textAppearance = R.style.TextAppearance_AppCompat_Medium
+            textColorResource = android.R.color.black
+            maxLines = 1
+            field.maxLength?.let { maxLength ->
+                if (maxLength > 0) setMaxLength(maxLength)
             }
+            inputType = when (field.type) {
+                ProviderFieldType.PASSWORD -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                else -> InputType.TYPE_CLASS_TEXT
+            }
+        }.lparams {
+            topMargin = dip(8)
+            width = matchParent
+            height = dip(52)
+        }
 
     protected fun @AnkoViewDslMarker _LinearLayout.textViewFor(model: ProviderFormRow): TextView =
-            textViewFor(model.label)
+        textViewFor(model.label)
 
     protected fun @AnkoViewDslMarker _LinearLayout.textViewFor(textStr: String): TextView =
-            textView {
-                textAppearance = R.style.TextAppearance_AppCompat_Medium
-                typeface = Typeface.DEFAULT_BOLD
-                text = textStr
-            }.lparams {
-                topMargin = dip(8)
-                marginStart = dip(4)
-            }
+        textView {
+            textAppearance = R.style.TextAppearance_AppCompat_Medium
+            typeface = Typeface.DEFAULT_BOLD
+            text = textStr
+        }.lparams {
+            topMargin = dip(8)
+            marginStart = dip(4)
+        }
 
     protected inline fun ViewManager.horizontalLayout(theme: Int = 0, init: (@AnkoViewDslMarker _LinearLayout).() -> Unit): LinearLayout =
-            this.verticalLayout(theme, init).apply { orientation = LinearLayout.HORIZONTAL }
+        this.verticalLayout(theme, init).apply { orientation = LinearLayout.HORIZONTAL }
 }
 
 fun EditText.setMaxLength(maxLength: Int) {
@@ -118,9 +118,9 @@ fun EditText.setMaxLength(maxLength: Int) {
     } else {
         // This is used in order not to override other filters
         filters.filter { it !is InputFilter.LengthFilter }
-                .toMutableList()
-                .apply { add(InputFilter.LengthFilter(maxLength)) }
-                .toTypedArray()
+            .toMutableList()
+            .apply { add(InputFilter.LengthFilter(maxLength)) }
+            .toTypedArray()
     }
 }
 

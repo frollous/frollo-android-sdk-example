@@ -32,7 +32,7 @@ class TagViewModel : ViewModel() {
     fun fetchUserTags(searchTerm: String? = null) {
         removeUserTagSource()
         userTagsSource = FrolloSDK.aggregation.fetchTransactionUserTags(searchTerm)
-                .apply { userTagsLiveData.addSource(this) { userTagsLiveData.value = it } }
+            .apply { userTagsLiveData.addSource(this) { userTagsLiveData.value = it } }
     }
 
     fun fetchSuggestedTags(searchTerm: String? = null) {

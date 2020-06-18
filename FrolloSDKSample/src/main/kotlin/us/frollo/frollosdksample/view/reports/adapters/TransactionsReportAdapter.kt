@@ -34,10 +34,10 @@ class TransactionsReportAdapter : BaseRecyclerAdapter<GroupReport, TransactionsR
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item4
+        R.layout.template_simple_item4
 
     override fun getViewHolder(view: View, viewType: Int) =
-            ReportsViewHolder(view)
+        ReportsViewHolder(view)
 
     inner class ReportsViewHolder(itemView: View) : BaseViewHolder<GroupReport>(itemView) {
 

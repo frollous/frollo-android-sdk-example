@@ -81,21 +81,21 @@ class OptionsRowStub(val item: FieldItem, private val parent: ViewGroup) : RowSt
 
                             if (field.type == ProviderFieldType.OPTION)
                                 spinnerFor(field, viewId)
-                                        .lparams {
-                                            weight = 1f
-                                            topMargin = dip(8)
-                                            width = matchParent
-                                            height = dip(52)
-                                        }
+                                    .lparams {
+                                        weight = 1f
+                                        topMargin = dip(8)
+                                        width = matchParent
+                                        height = dip(52)
+                                    }
                             else
                                 editTextFor(field, viewId)
-                                        .lparams {
-                                            weight = 1f
-                                            topMargin = dip(8)
-                                            if (fieldIndex < lastIndex) marginEnd = dip(10)
-                                            width = matchParent
-                                            height = dip(52)
-                                        }
+                                    .lparams {
+                                        weight = 1f
+                                        topMargin = dip(8)
+                                        if (fieldIndex < lastIndex) marginEnd = dip(10)
+                                        width = matchParent
+                                        height = dip(52)
+                                    }
                         }
                     }
 

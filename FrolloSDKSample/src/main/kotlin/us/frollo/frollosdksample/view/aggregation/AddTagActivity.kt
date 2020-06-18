@@ -31,8 +31,8 @@ import kotlinx.android.synthetic.main.activity_add_tag.text_section_recent
 import kotlinx.android.synthetic.main.activity_add_tag.text_section_suggested
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.aggregation.tags.TransactionTag
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.utils.hide
 import us.frollo.frollosdksample.utils.observe

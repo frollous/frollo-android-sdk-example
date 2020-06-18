@@ -26,9 +26,9 @@ import com.google.gson.annotations.SerializedName
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -108,24 +108,24 @@ class CustomV1Authentication(private val app: Application, private val baseUrl: 
     private inner class CustomNetworkService {
         private fun createRetrofit(baseUrl: String): Retrofit {
             val gson = GsonBuilder()
-                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                    .enableComplexMapKeySerialization()
-                    .create()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .enableComplexMapKeySerialization()
+                .create()
 
             val httpClient = OkHttpClient.Builder()
-                    .addInterceptor(CustomInterceptor())
-                    .build()
+                .addInterceptor(CustomInterceptor())
+                .build()
 
             val builder = Retrofit.Builder()
-                    .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(httpClient)
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(httpClient)
 
             return builder.build()
         }
 
         fun <T> create(baseUrl: String, service: Class<T>): T =
-                createRetrofit(baseUrl).create(service)
+            createRetrofit(baseUrl).create(service)
     }
 
     private inner class CustomInterceptor : Interceptor {
@@ -138,8 +138,10 @@ class CustomV1Authentication(private val app: Application, private val baseUrl: 
         }
 
         private fun addRequestUserAgentHeader(builder: Request.Builder) {
-            builder.addHeader("User-Agent",
-                    "${BuildConfig.APPLICATION_ID}|V${BuildConfig.VERSION_NAME}|B${BuildConfig.VERSION_CODE}|Android${Build.VERSION.RELEASE}|API1.17")
+            builder.addHeader(
+                "User-Agent",
+                "${BuildConfig.APPLICATION_ID}|V${BuildConfig.VERSION_NAME}|B${BuildConfig.VERSION_CODE}|Android${Build.VERSION.RELEASE}|API1.17"
+            )
         }
     }
 

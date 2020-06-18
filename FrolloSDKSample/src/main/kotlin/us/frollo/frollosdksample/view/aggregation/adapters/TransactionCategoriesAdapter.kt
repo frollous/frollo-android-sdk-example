@@ -24,17 +24,17 @@ import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 
 class TransactionCategoriesAdapter : BaseRecyclerAdapter<TransactionCategory,
-        TransactionCategoriesAdapter.TransactionCategoryViewHolder>(TransactionCategory::class.java, categoryComparator) {
+    TransactionCategoriesAdapter.TransactionCategoryViewHolder>(TransactionCategory::class.java, categoryComparator) {
 
     companion object {
         private val categoryComparator = compareBy<TransactionCategory> { it.name }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_transaction_category_item
+        R.layout.template_transaction_category_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            TransactionCategoryViewHolder(view)
+        TransactionCategoryViewHolder(view)
 
     inner class TransactionCategoryViewHolder(itemView: View) : BaseViewHolder<TransactionCategory>(itemView) {
 

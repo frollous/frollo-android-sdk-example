@@ -32,17 +32,17 @@ class AccountsBalancesAdapter : BaseRecyclerAdapter<ReportAccountBalanceRelation
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_detail_item1
+        R.layout.template_detail_item1
 
     override fun getViewHolder(view: View, viewType: Int) =
-            AccountBalanceViewHolder(view)
+        AccountBalanceViewHolder(view)
 
     inner class AccountBalanceViewHolder(itemView: View) : BaseViewHolder<ReportAccountBalanceRelation>(itemView) {
 
         override fun bind(model: ReportAccountBalanceRelation) {
             model.report?.let {
                 itemView.text_title.text = it.date.changeDateFormat(from = it.period.dateFormatPattern, to = "MMM d, yyyy")
-                        .replace(".", "")
+                    .replace(".", "")
                 itemView.text_detail.text = model.report?.value?.display(it.currency)
             }
         }

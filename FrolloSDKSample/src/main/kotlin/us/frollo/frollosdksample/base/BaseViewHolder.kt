@@ -33,15 +33,15 @@ abstract class BaseViewHolder<in T>(itemView: View) : RecyclerView.ViewHolder(it
     protected open fun bindLongClickHandlers() {
         itemView.setOnLongClickListener {
             invokeLongClickCallback(it)
-        true
+            true
         }
     }
 
     protected fun invokeCallback(view: View) =
-            ifNotNull(mClickCallback, view) { it, _ -> it.invoke(view, adapterPosition) }
+        ifNotNull(mClickCallback, view) { it, _ -> it.invoke(view, adapterPosition) }
 
     protected open fun invokeLongClickCallback(view: View) =
-            ifNotNull(mLongClickCallback, view) { it, _ -> it.invoke(view, adapterPosition) }
+        ifNotNull(mLongClickCallback, view) { it, _ -> it.invoke(view, adapterPosition) }
 
     fun setOnClickListener(callback: (((View), (Int)) -> Unit)) {
         bindClickHandlers()

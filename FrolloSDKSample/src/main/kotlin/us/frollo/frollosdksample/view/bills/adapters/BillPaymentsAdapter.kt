@@ -41,10 +41,10 @@ class BillPaymentsAdapter : BaseRecyclerAdapter<BillPaymentRelation, BillPayment
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item3
+        R.layout.template_simple_item3
 
     override fun getViewHolder(view: View, viewType: Int) =
-            BillPaymentViewHolder(view)
+        BillPaymentViewHolder(view)
 
     inner class BillPaymentViewHolder(itemView: View) : BaseViewHolder<BillPaymentRelation>(itemView) {
 

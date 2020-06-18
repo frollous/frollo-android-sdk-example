@@ -30,10 +30,10 @@ class ProviderAccountsAdapter : BaseRecyclerAdapter<ProviderAccountRelation, Pro
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item2
+        R.layout.template_simple_item2
 
     override fun getViewHolder(view: View, viewType: Int) =
-            ProviderAccountViewHolder(view)
+        ProviderAccountViewHolder(view)
 
     inner class ProviderAccountViewHolder(itemView: View) : BaseViewHolder<ProviderAccountRelation>(itemView) {
 

@@ -27,14 +27,14 @@ class ReportAccountsAdapter : BaseRecyclerAdapter<AccountRelation, ReportAccount
 
     companion object {
         private val accountsComparator = compareBy<AccountRelation> { it.providerAccount?.providerAccount?.providerAccountId }
-                .thenBy { it.account?.attributes?.accountType }.thenBy { it.account?.accountName }
+            .thenBy { it.account?.attributes?.accountType }.thenBy { it.account?.accountName }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item2
+        R.layout.template_simple_item2
 
     override fun getViewHolder(view: View, viewType: Int) =
-            AccountViewHolder(view)
+        AccountViewHolder(view)
 
     inner class AccountViewHolder(itemView: View) : BaseViewHolder<AccountRelation>(itemView) {
 

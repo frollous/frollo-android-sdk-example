@@ -27,10 +27,10 @@ import us.frollo.frollosdksample.base.BaseViewHolder
 class TagsAdapter : BaseRecyclerAdapter<TransactionTag, TagsAdapter.TagViewHolder>(TransactionTag::class.java) {
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_tag_item
+        R.layout.template_tag_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            TagViewHolder(view)
+        TagViewHolder(view)
 
     inner class TagViewHolder(itemView: View) : BaseViewHolder<TransactionTag>(itemView) {
 

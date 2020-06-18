@@ -17,23 +17,16 @@
 package us.frollo.frollosdksample.view.aggregation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_transactions.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 import org.threeten.bp.LocalDate
-import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Resource
-import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
-import us.frollo.frollosdksample.extension.getMessage
-import us.frollo.frollosdksample.utils.displayError
-import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.toString
 import us.frollo.frollosdksample.view.aggregation.adapters.TransactionsAdapter
 
@@ -75,12 +68,13 @@ class TransactionsActivity : BaseStackActivity() {
     }
 
     private fun initLiveData() {
-        FrolloSDK.aggregation.fetchTransactions(accountId = accountId).observe(this) {
+        // TODO: Refactor to use new methods
+        /*FrolloSDK.aggregation.fetchTransactions(accountId = accountId).observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { transactions -> loadTransactions(transactions) }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Transactions Failed")
             }
-        }
+        }*/
     }
 
     private fun loadTransactions(transactions: List<Transaction>) {
@@ -91,14 +85,15 @@ class TransactionsActivity : BaseStackActivity() {
         val toDate = LocalDate.now().toString(Transaction.DATE_FORMAT_PATTERN)
         val fromDate = LocalDate.now().minusMonths(3).toString(Transaction.DATE_FORMAT_PATTERN) // 3 months ago
 
-        FrolloSDK.aggregation.refreshTransactions(fromDate = fromDate, toDate = toDate, accountIds = longArrayOf(accountId)) { result ->
+        // TODO: Refactor to use new methods
+        /*FrolloSDK.aggregation.refreshTransactions(fromDate = fromDate, toDate = toDate, accountIds = longArrayOf(accountId)) { result ->
             refresh_layout.isRefreshing = false
 
             when (result.status) {
                 Result.Status.SUCCESS -> Log.d(TAG, "Transactions Refreshed")
                 Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Transactions Failed")
             }
-        }
+        }*/
     }
 
     private fun showTransactionDetails(transaction: Transaction) {

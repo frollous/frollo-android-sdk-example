@@ -21,17 +21,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.DatePicker
+import kotlinx.android.synthetic.main.activity_add_budget.budgetCategory
 import kotlinx.android.synthetic.main.activity_add_budget.frequency
+import kotlinx.android.synthetic.main.activity_add_budget.merchantCategory
 import kotlinx.android.synthetic.main.activity_add_budget.periodAmount
 import kotlinx.android.synthetic.main.activity_add_budget.progress_bar_layout
-import kotlinx.android.synthetic.main.activity_add_budget.startDate
-import kotlinx.android.synthetic.main.activity_add_budget.budgetCategory
-import kotlinx.android.synthetic.main.activity_add_budget.merchantCategory
 import kotlinx.android.synthetic.main.activity_add_budget.sectionBudgetCategory
 import kotlinx.android.synthetic.main.activity_add_budget.sectionMerchantCategory
 import kotlinx.android.synthetic.main.activity_add_budget.sectionTransactionCategory
+import kotlinx.android.synthetic.main.activity_add_budget.startDate
 import kotlinx.android.synthetic.main.activity_add_budget.transactionCategory
-
 import org.jetbrains.anko.selector
 import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.FrolloSDK

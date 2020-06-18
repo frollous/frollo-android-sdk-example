@@ -63,7 +63,7 @@ abstract class BaseRecyclerAdapter<T : IAdapterModel, VH : BaseViewHolder<T>>(kl
     }
 
     fun getItemAt(position: Int): T? =
-            if (position > -1 && position < mData.size) mData[position] else null
+        if (position > -1 && position < mData.size) mData[position] else null
 
     override fun getItemCount(): Int = mData.size
 

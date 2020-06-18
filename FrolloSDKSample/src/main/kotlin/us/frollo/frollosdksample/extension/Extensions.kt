@@ -28,58 +28,58 @@ import us.frollo.frollosdksample.R
 import java.lang.StringBuilder
 
 fun BillFrequency.toDisplay(): String =
-        when (this) {
-            BillFrequency.ANNUALLY -> "Annually"
-            BillFrequency.BIANNUALLY -> "Biannually"
-            BillFrequency.FORTNIGHTLY -> "Fortnightly"
-            BillFrequency.FOUR_WEEKLY -> "Four Weekly"
-            BillFrequency.IRREGULAR -> "Irregular"
-            BillFrequency.MONTHLY -> "Monthly"
-            BillFrequency.QUARTERLY -> "Quarterly"
-            BillFrequency.WEEKLY -> "Weekly"
-            BillFrequency.UNKNOWN -> "Unknown"
-        }
+    when (this) {
+        BillFrequency.ANNUALLY -> "Annually"
+        BillFrequency.BIANNUALLY -> "Biannually"
+        BillFrequency.FORTNIGHTLY -> "Fortnightly"
+        BillFrequency.FOUR_WEEKLY -> "Four Weekly"
+        BillFrequency.IRREGULAR -> "Irregular"
+        BillFrequency.MONTHLY -> "Monthly"
+        BillFrequency.QUARTERLY -> "Quarterly"
+        BillFrequency.WEEKLY -> "Weekly"
+        BillFrequency.UNKNOWN -> "Unknown"
+    }
 
 fun BillPaymentStatus.toDisplay(): String =
-        when (this) {
-            BillPaymentStatus.DUE -> "Due"
-            BillPaymentStatus.FUTURE -> "Future"
-            BillPaymentStatus.OVERDUE -> "Overdue"
-            BillPaymentStatus.PAID -> "Paid"
-        }
+    when (this) {
+        BillPaymentStatus.DUE -> "Due"
+        BillPaymentStatus.FUTURE -> "Future"
+        BillPaymentStatus.OVERDUE -> "Overdue"
+        BillPaymentStatus.PAID -> "Paid"
+    }
 
 fun GoalFrequency.toDisplay(): String =
-        when (this) {
-            GoalFrequency.ANNUALLY -> "Annually"
-            GoalFrequency.BIANNUALLY -> "Biannually"
-            GoalFrequency.DAILY -> "Daily"
-            GoalFrequency.FORTNIGHTLY -> "Fortnightly"
-            GoalFrequency.FOUR_WEEKLY -> "Four Weekly"
-            GoalFrequency.MONTHLY -> "Monthly"
-            GoalFrequency.QUARTERLY -> "Quarterly"
-            GoalFrequency.SINGULAR -> "Singular"
-            GoalFrequency.WEEKLY -> "Weekly"
-        }
+    when (this) {
+        GoalFrequency.ANNUALLY -> "Annually"
+        GoalFrequency.BIANNUALLY -> "Biannually"
+        GoalFrequency.DAILY -> "Daily"
+        GoalFrequency.FORTNIGHTLY -> "Fortnightly"
+        GoalFrequency.FOUR_WEEKLY -> "Four Weekly"
+        GoalFrequency.MONTHLY -> "Monthly"
+        GoalFrequency.QUARTERLY -> "Quarterly"
+        GoalFrequency.SINGULAR -> "Singular"
+        GoalFrequency.WEEKLY -> "Weekly"
+    }
 
 fun LocalDate.getGoalEndDate(frequency: GoalFrequency): LocalDate =
-        when (frequency) {
-            GoalFrequency.ANNUALLY -> this.plusYears(1)
-            GoalFrequency.BIANNUALLY -> this.plusDays((this.lengthOfYear() / 2).toLong())
-            GoalFrequency.DAILY -> this.plusDays(1)
-            GoalFrequency.FORTNIGHTLY -> this.plusDays(14)
-            GoalFrequency.FOUR_WEEKLY -> this.plusDays(28)
-            GoalFrequency.MONTHLY -> this.plusMonths(1)
-            GoalFrequency.QUARTERLY -> this.plusMonths(3)
-            GoalFrequency.SINGULAR -> this.plusDays(1)
-            GoalFrequency.WEEKLY -> this.plusWeeks(1)
-        }
+    when (frequency) {
+        GoalFrequency.ANNUALLY -> this.plusYears(1)
+        GoalFrequency.BIANNUALLY -> this.plusDays((this.lengthOfYear() / 2).toLong())
+        GoalFrequency.DAILY -> this.plusDays(1)
+        GoalFrequency.FORTNIGHTLY -> this.plusDays(14)
+        GoalFrequency.FOUR_WEEKLY -> this.plusDays(28)
+        GoalFrequency.MONTHLY -> this.plusMonths(1)
+        GoalFrequency.QUARTERLY -> this.plusMonths(3)
+        GoalFrequency.SINGULAR -> this.plusDays(1)
+        GoalFrequency.WEEKLY -> this.plusWeeks(1)
+    }
 
 fun GoalTrackingStatus.toDisplay(): String =
-        when (this) {
-            GoalTrackingStatus.AHEAD -> "Ahead"
-            GoalTrackingStatus.ON_TRACK -> "On Track"
-            GoalTrackingStatus.BEHIND -> "Behind"
-        }
+    when (this) {
+        GoalTrackingStatus.AHEAD -> "Ahead"
+        GoalTrackingStatus.ON_TRACK -> "On Track"
+        GoalTrackingStatus.BEHIND -> "Behind"
+    }
 
 val GoalTrackingStatus.color: Int
     get() = when (this) {
@@ -89,11 +89,11 @@ val GoalTrackingStatus.color: Int
     }
 
 fun BudgetTrackingStatus.toDisplay(): String =
-        when (this) {
-            BudgetTrackingStatus.AHEAD -> "Ahead"
-            BudgetTrackingStatus.ON_TRACK -> "On Track"
-            BudgetTrackingStatus.BEHIND -> "Behind"
-        }
+    when (this) {
+        BudgetTrackingStatus.AHEAD -> "Ahead"
+        BudgetTrackingStatus.ON_TRACK -> "On Track"
+        BudgetTrackingStatus.BEHIND -> "Behind"
+    }
 
 val BudgetTrackingStatus.color: Int
     get() = when (this) {

@@ -30,8 +30,8 @@ import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.bills.BillPayment
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentRelation
 import us.frollo.frollosdk.model.coredata.bills.BillPaymentStatus
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError

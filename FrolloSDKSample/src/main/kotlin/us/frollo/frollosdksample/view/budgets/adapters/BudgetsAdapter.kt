@@ -38,10 +38,10 @@ class BudgetsAdapter : BaseRecyclerAdapter<Budget, BudgetsAdapter.BudgetViewHold
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_budget_item
+        R.layout.template_budget_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            BudgetViewHolder(view)
+        BudgetViewHolder(view)
 
     inner class BudgetViewHolder(itemView: View) : BaseViewHolder<Budget>(itemView) {
 

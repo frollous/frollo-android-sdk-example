@@ -48,38 +48,44 @@ class SetupManager {
             Host.FROLLO_V2 -> {
                 useV1Auth = false
                 FrolloSDKConfiguration(
-                        authenticationType = OAuth2(
-                                redirectUrl = "frollo-sdk-example://authorize",
-                                authorizationUrl = "https://id-sandbox.frollo.us/oauth/authorize/",
-                                tokenUrl = "https://id-sandbox.frollo.us/oauth/token/",
-                                revokeTokenURL = "https://id-sandbox.frollo.us/oauth/revoke/"),
-                        clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
-                        serverUrl = "https://api-sandbox.frollo.us/api/v2/",
-                        logLevel = LogLevel.DEBUG)
+                    authenticationType = OAuth2(
+                        redirectUrl = "frollo-sdk-example://authorize",
+                        authorizationUrl = "https://id-sandbox.frollo.us/oauth/authorize/",
+                        tokenUrl = "https://id-sandbox.frollo.us/oauth/token/",
+                        revokeTokenURL = "https://id-sandbox.frollo.us/oauth/revoke/"
+                    ),
+                    clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
+                    serverUrl = "https://api-sandbox.frollo.us/api/v2/",
+                    logLevel = LogLevel.DEBUG
+                )
             }
             Host.FROLLO_AUTH0 -> {
                 useV1Auth = false
                 FrolloSDKConfiguration(
-                        authenticationType = OAuth2(
-                                redirectUrl = "frollo-sdk-example://authorize",
-                                authorizationUrl = "https://frollo-test.au.auth0.com/authorize/",
-                                tokenUrl = "https://frollo-test.au.auth0.com/oauth/token/",
-                                revokeTokenURL = "https://frollo-test.au.auth0.com/oauth/revoke/"),
-                        clientId = "PzlborkOwZf42SJ2b6Fdj6JTi9lcqiNi",
-                        serverUrl = "https://volt-sandbox.frollo.us/api/v2/",
-                        logLevel = LogLevel.DEBUG)
+                    authenticationType = OAuth2(
+                        redirectUrl = "frollo-sdk-example://authorize",
+                        authorizationUrl = "https://frollo-test.au.auth0.com/authorize/",
+                        tokenUrl = "https://frollo-test.au.auth0.com/oauth/token/",
+                        revokeTokenURL = "https://frollo-test.au.auth0.com/oauth/revoke/"
+                    ),
+                    clientId = "PzlborkOwZf42SJ2b6Fdj6JTi9lcqiNi",
+                    serverUrl = "https://volt-sandbox.frollo.us/api/v2/",
+                    logLevel = LogLevel.DEBUG
+                )
             }
             Host.FROLLO_V1 -> {
                 useV1Auth = true
                 val authentication = CustomV1Authentication(
-                        app = application,
-                        baseUrl = "https://api-sandbox.frollo.us/api/v1/")
+                    app = application,
+                    baseUrl = "https://api-sandbox.frollo.us/api/v1/"
+                )
                 customAuthentication = authentication
                 FrolloSDKConfiguration(
-                        authenticationType = Custom(accessTokenProvider = authentication, authenticationCallback = authentication),
-                        clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
-                        serverUrl = "https://api-sandbox.frollo.us/api/v2/",
-                        logLevel = LogLevel.DEBUG)
+                    authenticationType = Custom(accessTokenProvider = authentication, authenticationCallback = authentication),
+                    clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
+                    serverUrl = "https://api-sandbox.frollo.us/api/v2/",
+                    logLevel = LogLevel.DEBUG
+                )
             }
         }
 

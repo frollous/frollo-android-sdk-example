@@ -25,17 +25,17 @@ import us.frollo.frollosdksample.base.BaseViewHolder
 import us.frollo.frollosdksample.display.GroupModel
 
 class ReportGroupsAdapter(defaultSort: Boolean = true) : BaseRecyclerAdapter<GroupModel,
-        ReportGroupsAdapter.GroupModelViewHolder>(GroupModel::class.java, if (defaultSort) groupsComparator else null) {
+    ReportGroupsAdapter.GroupModelViewHolder>(GroupModel::class.java, if (defaultSort) groupsComparator else null) {
 
     companion object {
         private val groupsComparator = compareBy<GroupModel> { it.name }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item1
+        R.layout.template_simple_item1
 
     override fun getViewHolder(view: View, viewType: Int) =
-            GroupModelViewHolder(view)
+        GroupModelViewHolder(view)
 
     inner class GroupModelViewHolder(itemView: View) : BaseViewHolder<GroupModel>(itemView) {
 

@@ -111,7 +111,8 @@ class ListDialogFragment : DialogFragment() {
         FrolloSDK.aggregation.fetchMerchants().observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { merchants ->
-                    loadData(merchants.map { merchant -> merchant.toGroupModel() }.toMutableList()) }
+                    loadData(merchants.map { merchant -> merchant.toGroupModel() }.toMutableList())
+                }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Merchants Failed")
             }
         }
@@ -125,7 +126,8 @@ class ListDialogFragment : DialogFragment() {
         tagViewModel.userTagsLiveData.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { tags ->
-                    loadData(tags.map { tag -> tag.toGroupModel() }.toMutableList()) }
+                    loadData(tags.map { tag -> tag.toGroupModel() }.toMutableList())
+                }
                 Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Tags Failed")
             }
         }

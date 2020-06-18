@@ -69,7 +69,8 @@ class MainActivity : BaseStackActivity() {
 
     private fun registerPushNotification() {
         FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
+            .addOnCompleteListener(
+                OnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         Log.e(TAG, "getInstanceId failed: ${ task.exception }")
                         return@OnCompleteListener
@@ -77,7 +78,8 @@ class MainActivity : BaseStackActivity() {
 
                     val token = task.result?.token
                     token?.let { FrolloSDK.notifications.registerPushNotificationToken(it) }
-                })
+                }
+            )
     }
 
     private fun bottomNavSelected(itemId: Int) {
@@ -96,9 +98,9 @@ class MainActivity : BaseStackActivity() {
 
         fragment?.let {
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, it)
-                    .commitAllowingStateLoss()
+                .beginTransaction()
+                .replace(R.id.container, it)
+                .commitAllowingStateLoss()
         }
     }
 

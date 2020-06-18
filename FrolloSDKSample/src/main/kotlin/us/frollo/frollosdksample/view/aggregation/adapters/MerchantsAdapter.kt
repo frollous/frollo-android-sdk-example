@@ -24,17 +24,17 @@ import us.frollo.frollosdksample.base.BaseRecyclerAdapter
 import us.frollo.frollosdksample.base.BaseViewHolder
 
 class MerchantsAdapter : BaseRecyclerAdapter<Merchant,
-        MerchantsAdapter.MerchantViewHolder>(Merchant::class.java, merchantComparator) {
+    MerchantsAdapter.MerchantViewHolder>(Merchant::class.java, merchantComparator) {
 
     companion object {
         private val merchantComparator = compareBy<Merchant> { it.name }
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_merchant_item
+        R.layout.template_merchant_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            MerchantViewHolder(view)
+        MerchantViewHolder(view)
 
     inner class MerchantViewHolder(itemView: View) : BaseViewHolder<Merchant>(itemView) {
 

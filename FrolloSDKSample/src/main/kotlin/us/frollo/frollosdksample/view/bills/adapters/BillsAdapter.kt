@@ -39,17 +39,19 @@ class BillsAdapter : BaseRecyclerAdapter<BillRelation, BillsAdapter.BillViewHold
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_simple_item3
+        R.layout.template_simple_item3
 
     override fun getViewHolder(view: View, viewType: Int) =
-            BillViewHolder(view)
+        BillViewHolder(view)
 
     inner class BillViewHolder(itemView: View) : BaseViewHolder<BillRelation>(itemView) {
 
         override fun bind(model: BillRelation) {
             itemView.text_title.text = model.bill?.name
-            itemView.text_subtitle1.text = itemView.context.getString(R.string.str_next_due,
-                    model.bill?.nextPaymentDate?.changeDateFormat(from = Bill.DATE_FORMAT_PATTERN, to = "M/d/yy"))
+            itemView.text_subtitle1.text = itemView.context.getString(
+                R.string.str_next_due,
+                model.bill?.nextPaymentDate?.changeDateFormat(from = Bill.DATE_FORMAT_PATTERN, to = "M/d/yy")
+            )
             itemView.text_amount.text = model.bill?.dueAmount?.display(UserCurrency.currency)
             itemView.text_subtitle3.text = model.bill?.frequency?.toDisplay()
             itemView.text_subtitle2.text = model.transactionCategory?.name

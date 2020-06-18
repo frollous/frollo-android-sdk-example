@@ -137,10 +137,11 @@ class LoginActivity : AppCompatActivity() {
         cancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
         FrolloSDK.oAuth2Authentication?.loginUserUsingWeb(
-                activity = this,
-                scopes = scopes,
-                completedIntent = PendingIntent.getActivity(this, 0, completionIntent, 0),
-                cancelledIntent = PendingIntent.getActivity(this, 0, cancelIntent, 0),
-                toolBarColor = resources.getColor(R.color.colorPrimary, null))
+            activity = this,
+            scopes = scopes,
+            completedIntent = PendingIntent.getActivity(this, 0, completionIntent, 0),
+            cancelledIntent = PendingIntent.getActivity(this, 0, cancelIntent, 0),
+            toolBarColor = resources.getColor(R.color.colorPrimary, null)
+        )
     }
 }

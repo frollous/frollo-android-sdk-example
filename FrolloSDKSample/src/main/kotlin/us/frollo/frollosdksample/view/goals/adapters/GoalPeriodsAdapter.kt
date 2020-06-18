@@ -17,11 +17,11 @@
 package us.frollo.frollosdksample.view.goals.adapters
 
 import android.view.View
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_start_date
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_end_date
 import kotlinx.android.synthetic.main.template_goal_period_item.view.period_current_amount
-import kotlinx.android.synthetic.main.template_goal_period_item.view.period_target_amount
+import kotlinx.android.synthetic.main.template_goal_period_item.view.period_end_date
 import kotlinx.android.synthetic.main.template_goal_period_item.view.period_required_amount
+import kotlinx.android.synthetic.main.template_goal_period_item.view.period_start_date
+import kotlinx.android.synthetic.main.template_goal_period_item.view.period_target_amount
 import kotlinx.android.synthetic.main.template_goal_period_item.view.period_tracking_status
 import org.jetbrains.anko.textColorResource
 import us.frollo.frollosdk.model.coredata.goals.GoalPeriod
@@ -41,10 +41,10 @@ class GoalPeriodsAdapter : BaseRecyclerAdapter<GoalPeriod, GoalPeriodsAdapter.Go
     }
 
     override fun getViewHolderLayout(viewType: Int) =
-            R.layout.template_goal_period_item
+        R.layout.template_goal_period_item
 
     override fun getViewHolder(view: View, viewType: Int) =
-            GoalPeriodViewHolder(view)
+        GoalPeriodViewHolder(view)
 
     inner class GoalPeriodViewHolder(itemView: View) : BaseViewHolder<GoalPeriod>(itemView) {
 

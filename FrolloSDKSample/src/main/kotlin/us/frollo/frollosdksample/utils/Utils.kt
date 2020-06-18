@@ -54,10 +54,10 @@ fun <T1, T2> ifNotNull(value1: T1?, value2: T2?, bothNotNull: (T1, T2) -> (Unit)
 }
 
 fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) =
-        observe(owner, Observer<T> { v -> observer.invoke(v) })
+    observe(owner, Observer<T> { v -> observer.invoke(v) })
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToParent: Boolean = false): View =
-        LayoutInflater.from(context).inflate(layoutRes, this, attachToParent)
+    LayoutInflater.from(context).inflate(layoutRes, this, attachToParent)
 
 fun View.show() {
     this.visibility = View.VISIBLE
@@ -68,26 +68,26 @@ fun View.hide(visibility: Int = View.GONE) {
 }
 
 fun View.isVisible(): Boolean =
-        visibility == View.VISIBLE
+    visibility == View.VISIBLE
 
 fun AlertBuilder<AlertDialog>.showThemed(): AlertDialog =
-        show().setTheme()
+    show().setTheme()
 
 fun AlertBuilder<DialogInterface>.showThemed(): DialogInterface =
-        show().apply { (this as? AlertDialog)?.setTheme() }
+    show().apply { (this as? AlertDialog)?.setTheme() }
 
 fun DialogInterface.showThemed(): DialogInterface =
-        apply { (this as? AlertDialog)?.setTheme() }
+    apply { (this as? AlertDialog)?.setTheme() }
 
 private fun AlertDialog.setTheme(): AlertDialog =
-        apply {
-            getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
-            getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
-            getButton(AlertDialog.BUTTON_NEUTRAL)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
-        }
+    apply {
+        getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
+        getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
+        getButton(AlertDialog.BUTTON_NEUTRAL)?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.colorPrimary, context.theme))
+    }
 
 fun Fragment.displayError(message: String?, title: String) =
-        requireActivity().displayError(message, title)
+    requireActivity().displayError(message, title)
 
 fun Activity.displayError(message: String?, title: String, callback: (() -> Unit)? = null) {
     alert(message ?: "", title) {
@@ -102,48 +102,48 @@ fun Fragment.showListDialog(
     title: String? = null,
     clickListener: DialogInterface.OnClickListener
 ) =
-        requireActivity().showListDialog(array, title, clickListener)
+    requireActivity().showListDialog(array, title, clickListener)
 
 fun Activity.showListDialog(
     array: Array<String>,
     title: String? = null,
     clickListener: DialogInterface.OnClickListener
 ) =
-        AlertDialog.Builder(this).apply {
-            title?.let { setTitle(title) }
-            setItems(array, clickListener)
-            create()
-            show()
-        }
+    AlertDialog.Builder(this).apply {
+        title?.let { setTitle(title) }
+        setItems(array, clickListener)
+        create()
+        show()
+    }
 
 fun LocalDateTime.toString(pattern: String): String =
-        DateTimeFormatter.ofPattern(pattern).format(this)
+    DateTimeFormatter.ofPattern(pattern).format(this)
 
 fun LocalDate.toString(pattern: String): String =
-        DateTimeFormatter.ofPattern(pattern).format(this)
+    DateTimeFormatter.ofPattern(pattern).format(this)
 
 fun String.changeDateFormat(from: String, to: String): String {
     val sourceFormatter = DateTimeFormatterBuilder()
-            .appendPattern(from)
-            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
-            .toFormatter()
+        .appendPattern(from)
+        .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+        .toFormatter()
     val date = LocalDate.parse(this, sourceFormatter)
     return date.toString(to)
 }
 
 fun String.toLocalDate(pattern: String): LocalDate {
     val formatter = DateTimeFormatterBuilder()
-            .appendPattern(pattern)
-            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
-            .toFormatter()
+        .appendPattern(pattern)
+        .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+        .toFormatter()
     return LocalDate.parse(this, formatter)
 }
 
 fun LocalDate.toDate(): Date =
-        DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+    DateTimeUtils.toDate(atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
 
 fun String.formatISOString(pattern: String): String =
-        LocalDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toString(pattern)
+    LocalDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toString(pattern)
 
 fun Number.toCurrencyString(currency: String, fractionDigits: Int = 2): String {
     val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
@@ -166,7 +166,7 @@ val Balance?.display: String?
     }
 
 fun BigDecimal.display(currency: String): String? =
-        this.toCurrencyString(currency, 2)
+    this.toCurrencyString(currency, 2)
 
 fun ActionBar.showBackNavigation(show: Boolean) {
     displayOptions = if (show) ActionBar.DISPLAY_SHOW_TITLE or ActionBar.DISPLAY_SHOW_HOME or ActionBar.DISPLAY_HOME_AS_UP

@@ -31,8 +31,8 @@ import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
-import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.R
+import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
@@ -106,7 +106,8 @@ class TransactionSearchFragment : BaseFragment() {
     private fun fetchTransactions(transactionIds: LongArray) {
         fetchedLiveData?.removeObservers(this)
 
-        fetchedLiveData = FrolloSDK.aggregation.fetchTransactions(transactionIds)
+        // TODO: Refactor to use new methods
+        /*fetchedLiveData = FrolloSDK.aggregation.fetchTransactions(transactionIds)*/
         fetchedLiveData?.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
