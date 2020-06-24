@@ -29,8 +29,10 @@ import kotlinx.android.synthetic.main.fragment_transaction_search.recycler_trans
 import kotlinx.android.synthetic.main.fragment_transaction_search.search_view
 import org.jetbrains.anko.support.v4.startActivity
 import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.PaginatedResult
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.aggregation.transactions.Transaction
+import us.frollo.frollosdk.model.coredata.aggregation.transactions.TransactionFilter
 import us.frollo.frollosdksample.R
 import us.frollo.frollosdksample.base.ARGUMENT
 import us.frollo.frollosdksample.base.BaseFragment
@@ -89,25 +91,24 @@ class TransactionSearchFragment : BaseFragment() {
     private fun searchTransactions(searchTerm: String) {
         progress.show()
 
-        FrolloSDK.aggregation.transactionSearch(searchTerm) { resource ->
+        FrolloSDK.aggregation.refreshTransactionsWithPagination(TransactionFilter(searchTerm = searchTerm)) { result ->
             progress.hide()
 
-            when (resource.status) {
-                Resource.Status.ERROR -> {
-                    displayError(resource.error?.getMessage(), "Search Transactions Failed")
+            when (result) {
+                is PaginatedResult.Error -> {
+                    displayError(result.error?.getMessage(), "Search Transactions Failed")
                 }
-                Resource.Status.SUCCESS -> {
-                    resource.data?.let { fetchTransactions(it) }
+                is PaginatedResult.Success -> {
+                    fetchTransactions(searchTerm)
                 }
             }
         }
     }
 
-    private fun fetchTransactions(transactionIds: LongArray) {
+    private fun fetchTransactions(searchTerm: String) {
         fetchedLiveData?.removeObservers(this)
 
-        // TODO: Refactor to use new methods
-        /*fetchedLiveData = FrolloSDK.aggregation.fetchTransactions(transactionIds)*/
+        fetchedLiveData = FrolloSDK.aggregation.fetchTransactions(TransactionFilter(searchTerm = searchTerm))
         fetchedLiveData?.observe(this) {
             when (it?.status) {
                 Resource.Status.SUCCESS -> it.data?.let { models -> loadData(models) }
