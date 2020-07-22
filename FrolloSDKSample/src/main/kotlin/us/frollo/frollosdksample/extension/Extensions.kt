@@ -76,30 +76,30 @@ fun LocalDate.getGoalEndDate(frequency: GoalFrequency): LocalDate =
 
 fun GoalTrackingStatus.toDisplay(): String =
     when (this) {
-        GoalTrackingStatus.AHEAD -> "Ahead"
-        GoalTrackingStatus.ON_TRACK -> "On Track"
-        GoalTrackingStatus.BEHIND -> "Behind"
+        GoalTrackingStatus.ABOVE -> "Ahead"
+        GoalTrackingStatus.EQUAL -> "On Track"
+        GoalTrackingStatus.BELOW -> "Behind"
     }
 
 val GoalTrackingStatus.color: Int
     get() = when (this) {
-        GoalTrackingStatus.AHEAD -> R.color.colorGreen
-        GoalTrackingStatus.ON_TRACK -> R.color.colorOrange
-        GoalTrackingStatus.BEHIND -> R.color.colorRed
+        GoalTrackingStatus.ABOVE -> R.color.colorGreen
+        GoalTrackingStatus.EQUAL -> R.color.colorOrange
+        GoalTrackingStatus.BELOW -> R.color.colorRed
     }
 
 fun BudgetTrackingStatus.toDisplay(): String =
     when (this) {
-        BudgetTrackingStatus.AHEAD -> "Ahead"
-        BudgetTrackingStatus.ON_TRACK -> "On Track"
-        BudgetTrackingStatus.BEHIND -> "Behind"
+        BudgetTrackingStatus.ABOVE -> "Ahead"
+        BudgetTrackingStatus.EQUAL -> "On Track"
+        BudgetTrackingStatus.BELOW -> "Behind"
     }
 
 val BudgetTrackingStatus.color: Int
     get() = when (this) {
-        BudgetTrackingStatus.AHEAD -> R.color.colorGreen
-        BudgetTrackingStatus.ON_TRACK -> R.color.colorOrange
-        BudgetTrackingStatus.BEHIND -> R.color.colorRed
+        BudgetTrackingStatus.ABOVE -> R.color.colorGreen
+        BudgetTrackingStatus.EQUAL -> R.color.colorOrange
+        BudgetTrackingStatus.BELOW -> R.color.colorRed
     }
 
 fun FrolloSDKError.getMessage(): String? {
