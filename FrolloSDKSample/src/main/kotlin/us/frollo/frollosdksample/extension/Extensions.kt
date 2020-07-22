@@ -76,9 +76,9 @@ fun LocalDate.getGoalEndDate(frequency: GoalFrequency): LocalDate =
 
 fun GoalTrackingStatus.toDisplay(): String =
     when (this) {
-        GoalTrackingStatus.ABOVE -> "Ahead"
-        GoalTrackingStatus.EQUAL -> "On Track"
-        GoalTrackingStatus.BELOW -> "Behind"
+        GoalTrackingStatus.ABOVE -> "Above"
+        GoalTrackingStatus.EQUAL -> "Equal"
+        GoalTrackingStatus.BELOW -> "Below"
     }
 
 val GoalTrackingStatus.color: Int
@@ -90,9 +90,9 @@ val GoalTrackingStatus.color: Int
 
 fun BudgetTrackingStatus.toDisplay(): String =
     when (this) {
-        BudgetTrackingStatus.ABOVE -> "Ahead"
-        BudgetTrackingStatus.EQUAL -> "On Track"
-        BudgetTrackingStatus.BELOW -> "Behind"
+        BudgetTrackingStatus.ABOVE -> "Above"
+        BudgetTrackingStatus.EQUAL -> "Equal"
+        BudgetTrackingStatus.BELOW -> "Below"
     }
 
 val BudgetTrackingStatus.color: Int
