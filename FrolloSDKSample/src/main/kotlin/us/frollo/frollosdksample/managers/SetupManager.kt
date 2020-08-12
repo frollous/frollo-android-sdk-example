@@ -89,12 +89,12 @@ class SetupManager {
             }
         }
 
-        setupSdk(application, configuration)
+        setupSdk(configuration)
     }
 
-    private fun setupSdk(application: Application, configuration: FrolloSDKConfiguration) {
+    private fun setupSdk(configuration: FrolloSDKConfiguration) {
         if (!FrolloSDK.isSetup) {
-            FrolloSDK.setup(application, configuration = configuration) { result ->
+            FrolloSDK.setup(configuration = configuration) { result ->
                 if (result.status == Result.Status.ERROR) {
                     Log.e(TAG, result.error?.localizedDescription)
                 }
