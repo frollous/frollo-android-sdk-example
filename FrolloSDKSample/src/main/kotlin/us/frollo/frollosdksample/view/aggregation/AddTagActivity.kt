@@ -19,8 +19,8 @@ package us.frollo.frollosdksample.view.aggregation
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_add_tag.btn_add
@@ -46,7 +46,7 @@ class AddTagActivity : BaseStackActivity() {
         private const val TAG = "AddTagActivity"
     }
 
-    private lateinit var tagViewModel: TagViewModel
+    private val tagViewModel: TagViewModel by viewModels()
     private val userTagsAdapter = TagsSearchAdapter()
     private val suggestedTagsAdapter = TagsSearchAdapter()
     private var countDownTimer: CountDownTimer? = null
@@ -54,7 +54,6 @@ class AddTagActivity : BaseStackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        tagViewModel = ViewModelProviders.of(this).get(TagViewModel::class.java)
         initView()
         initLiveData()
     }

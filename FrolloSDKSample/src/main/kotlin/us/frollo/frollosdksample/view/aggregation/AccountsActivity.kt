@@ -23,13 +23,18 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_accounts.*
-import kotlinx.android.synthetic.main.progress_bar_full_screen.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_accounts.recycler_accounts
+import kotlinx.android.synthetic.main.activity_accounts.refresh_layout
+import kotlinx.android.synthetic.main.progress_bar_full_screen.progress_bar_layout
+import kotlinx.android.synthetic.main.progress_bar_full_screen.text_progress_title
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Resource
+import us.frollo.frollosdk.aggregation.fetchAccountsRx
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.aggregation.accounts.Account
 import us.frollo.frollosdksample.R
@@ -38,7 +43,6 @@ import us.frollo.frollosdksample.base.BaseStackActivity
 import us.frollo.frollosdksample.extension.getMessage
 import us.frollo.frollosdksample.utils.displayError
 import us.frollo.frollosdksample.utils.hide
-import us.frollo.frollosdksample.utils.observe
 import us.frollo.frollosdksample.utils.show
 import us.frollo.frollosdksample.view.aggregation.adapters.AccountsAdapter
 
@@ -51,6 +55,7 @@ class AccountsActivity : BaseStackActivity() {
     private val accountsAdapter = AccountsAdapter()
     private var providerAccountId: Long = -1
     private var menuDelete: MenuItem? = null
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +63,7 @@ class AccountsActivity : BaseStackActivity() {
         providerAccountId = intent.getLongExtra(ARGUMENT.ARG_DATA_1, -1)
 
         initView()
-        initLiveData()
+        subscribeToData()
         refresh_layout.onRefresh { refreshAccounts() }
     }
 
@@ -91,13 +96,17 @@ class AccountsActivity : BaseStackActivity() {
         }
     }
 
-    private fun initLiveData() {
-        FrolloSDK.aggregation.fetchAccounts(providerAccountId = providerAccountId).observe(this) {
-            when (it?.status) {
-                Resource.Status.SUCCESS -> it.data?.let { accounts -> loadAccounts(accounts) }
-                Resource.Status.ERROR -> displayError(it.error?.localizedDescription, "Fetch Accounts Failed")
+    /**
+     * Example fetch of data using methods returning Rx Observable
+     */
+    private fun subscribeToData() {
+        val disposable = FrolloSDK.aggregation.fetchAccountsRx(providerAccountId = providerAccountId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe { accounts ->
+                loadAccounts(accounts)
             }
-        }
+        compositeDisposable.add(disposable)
     }
 
     private fun loadAccounts(accounts: List<Account>) {
@@ -138,6 +147,12 @@ class AccountsActivity : BaseStackActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.dispose()
     }
 
     override val resourceId: Int
