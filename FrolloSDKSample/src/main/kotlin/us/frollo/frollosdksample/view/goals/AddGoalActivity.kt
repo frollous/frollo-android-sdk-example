@@ -43,7 +43,7 @@ import org.jetbrains.anko.selector
 import org.jetbrains.anko.startActivityForResult
 import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Result
+import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.goals.Goal
 import us.frollo.frollosdk.model.coredata.goals.GoalFrequency
 import us.frollo.frollosdk.model.coredata.goals.GoalTarget
@@ -254,12 +254,12 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
             periodAmount = goalPeriodAmount,
             targetAmount = goalTargetAmount,
             accountId = goalAccountId
-        ) { result ->
+        ) { resource ->
             progress_bar_layout.hide()
 
-            when (result.status) {
-                Result.Status.SUCCESS -> { finish() }
-                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Create Goal Failed")
+            when (resource.status) {
+                Resource.Status.SUCCESS -> { finish() }
+                Resource.Status.ERROR -> displayError(resource.error?.getMessage(), "Create Goal Failed")
             }
         }
     }

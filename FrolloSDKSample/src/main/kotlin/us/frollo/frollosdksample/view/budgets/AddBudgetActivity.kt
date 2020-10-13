@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.activity_add_budget.transactionCategory
 import org.jetbrains.anko.selector
 import org.threeten.bp.LocalDate
 import us.frollo.frollosdk.FrolloSDK
-import us.frollo.frollosdk.base.Result
+import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.model.coredata.aggregation.merchants.Merchant
 import us.frollo.frollosdk.model.coredata.aggregation.transactioncategories.TransactionCategory
 import us.frollo.frollosdk.model.coredata.budgets.Budget
@@ -208,12 +208,12 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
         }
     }
 
-    private fun onBudgetCreated(result: Result) {
+    private fun onBudgetCreated(resource: Resource<Long>) {
         progress_bar_layout.hide()
 
-        when (result.status) {
-            Result.Status.SUCCESS -> { finish() }
-            Result.Status.ERROR -> displayError(result.error?.localizedMessage, "Create Budget Failed")
+        when (resource.status) {
+            Resource.Status.SUCCESS -> { finish() }
+            Resource.Status.ERROR -> displayError(resource.error?.localizedMessage, "Create Budget Failed")
         }
     }
 
