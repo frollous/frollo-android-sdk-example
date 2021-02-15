@@ -149,7 +149,7 @@ class AddGoalActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSetL
 
         if (requestCode == REQUEST_SELECTION && resultCode == RESULT_OK && data != null) {
             goalAccountId = data.getLongExtra(ARG_DATA_1, -1)
-            goalAccountName = data.getStringExtra(ARG_DATA_2)
+            goalAccountName = data.getStringExtra(ARG_DATA_2) ?: ""
             account.text = goalAccountName
         }
     }

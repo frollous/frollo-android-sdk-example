@@ -6,11 +6,11 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "../frollo-android-sdk/ktlint.gradle"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "us.frollo.frollosdksample"
         minSdkVersion 23 // Android 6.0 (Marshmallow)
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "3.7.0-demo"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

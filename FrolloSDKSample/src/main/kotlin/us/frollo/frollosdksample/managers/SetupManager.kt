@@ -96,7 +96,7 @@ class SetupManager {
         if (!FrolloSDK.isSetup) {
             FrolloSDK.setup(configuration = configuration) { result ->
                 if (result.status == Result.Status.ERROR) {
-                    Log.e(TAG, result.error?.localizedDescription)
+                    Log.e(TAG, result.error?.localizedDescription ?: "SDK Setup Failed")
                 }
             }
         }
