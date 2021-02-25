@@ -26,8 +26,8 @@ import us.frollo.frollosdk.model.coredata.aggregation.tags.TransactionTag
 
 class TagViewModel : ViewModel() {
     private var userTagsSource: LiveData<Resource<List<TransactionTag>>>? = null
-    var userTagsLiveData = MediatorLiveData<Resource<List<TransactionTag>>>()
-    val suggestedTagsLiveData = MutableLiveData<List<TransactionTag>>()
+    var userTagsLiveData = MediatorLiveData<Resource<List<TransactionTag>>?>()
+    val suggestedTagsLiveData = MutableLiveData<List<TransactionTag>?>()
 
     fun fetchUserTags(searchTerm: String? = null) {
         removeUserTagSource()
