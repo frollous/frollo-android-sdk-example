@@ -40,6 +40,7 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
 import us.frollo.frollosdk.FrolloSDK
+import us.frollo.frollosdk.base.PaginatedResult
 import us.frollo.frollosdk.base.Resource
 import us.frollo.frollosdk.base.Result
 import us.frollo.frollosdk.model.coredata.budgets.Budget
@@ -231,12 +232,12 @@ class BudgetPeriodsActivity : BaseStackActivity() {
     }
 
     private fun refreshBudgetPeriods() {
-        FrolloSDK.budgets.refreshBudgetPeriods(budgetId) { result ->
+        FrolloSDK.budgets.refreshBudgetPeriodsByBudgetIdWithPagination(budgetId = budgetId) { result ->
             refresh_layout.isRefreshing = false
 
-            when (result.status) {
-                Result.Status.SUCCESS -> Log.d(TAG, "Budget Periods Refreshed")
-                Result.Status.ERROR -> displayError(result.error?.getMessage(), "Refreshing Budget Periods Failed")
+            when (result) {
+                is PaginatedResult.Success -> Log.d(TAG, "Budget Periods Refreshed")
+                is PaginatedResult.Error -> displayError(result.error?.getMessage(), "Refreshing Budget Periods Failed")
             }
         }
     }
