@@ -22,7 +22,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import us.frollo.frollosdk.FrolloSDK
@@ -68,16 +68,19 @@ class MainActivity : BaseStackActivity() {
     }
 
     private fun registerPushNotification() {
-        FirebaseInstanceId.getInstance().instanceId
+        FirebaseMessaging.getInstance().token
+            .addOnSuccessListener { token ->
+                token?.let { FrolloSDK.notifications.registerPushNotificationToken(it) }
+            }
+            .addOnFailureListener {
+                it.printStackTrace()
+            }
             .addOnCompleteListener(
                 OnCompleteListener { task ->
                     if (!task.isSuccessful) {
-                        Log.e(TAG, "getInstanceId failed: ${ task.exception }")
+                        Log.e(TAG, "getToken failed ${task.exception}")
                         return@OnCompleteListener
                     }
-
-                    val token = task.result?.token
-                    token?.let { FrolloSDK.notifications.registerPushNotificationToken(it) }
                 }
             )
     }
