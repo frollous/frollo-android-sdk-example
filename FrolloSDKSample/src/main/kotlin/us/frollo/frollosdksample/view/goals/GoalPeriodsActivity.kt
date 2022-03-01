@@ -83,7 +83,7 @@ class GoalPeriodsActivity : BaseStackActivity() {
         refresh_layout.onRefresh { refreshGoalPeriods() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.goal_periods_menu, menu)
         menuDelete = menu?.findItem(R.id.menu_delete_goal)

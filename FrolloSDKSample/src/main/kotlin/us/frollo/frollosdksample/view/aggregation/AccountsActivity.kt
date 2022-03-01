@@ -67,7 +67,7 @@ class AccountsActivity : BaseStackActivity() {
         refresh_layout.onRefresh { refreshAccounts() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.accounts_menu, menu)
         menuDelete = menu?.findItem(R.id.menu_delete_account)

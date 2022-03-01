@@ -32,7 +32,8 @@
 
         <activity
             android:name=".view.StartupActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -163,7 +164,8 @@
             android:screenOrientation="portrait"
             android:label="@string/title_budget_periods"/>
 
-        <service android:name=".view.notifications.MyFirebaseMessagingService">
+        <service android:name=".view.notifications.MyFirebaseMessagingService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

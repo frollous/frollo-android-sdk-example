@@ -72,7 +72,7 @@ class AddProviderAccountActivity : BaseStackActivity() {
         refreshProvider()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.add_account_menu, menu)
         menuDone = menu?.findItem(R.id.menu_done)

@@ -102,7 +102,7 @@ class AddBudgetActivity : BaseStackActivity(), DatePickerFragment.CustomOnDateSe
         initView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.create_menu, menu)
         return true

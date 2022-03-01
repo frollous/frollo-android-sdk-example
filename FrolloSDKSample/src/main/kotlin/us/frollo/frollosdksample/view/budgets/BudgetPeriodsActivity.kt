@@ -84,7 +84,7 @@ class BudgetPeriodsActivity : BaseStackActivity() {
         refresh_layout.onRefresh { refreshBudgetPeriods() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.budget_periods_menu, menu)
         menuDelete = menu?.findItem(R.id.delete)

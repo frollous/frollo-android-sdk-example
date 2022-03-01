@@ -64,7 +64,7 @@ class BudgetsActivity : BaseStackActivity() {
         refresh_layout?.onRefresh { refreshData() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.goals_menu, menu)
         return true
     }

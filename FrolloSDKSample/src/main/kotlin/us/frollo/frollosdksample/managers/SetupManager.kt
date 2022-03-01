@@ -56,7 +56,8 @@ class SetupManager {
                     ),
                     clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                     serverUrl = "https://api-sandbox.frollo.us/api/v2/",
-                    logLevel = LogLevel.DEBUG
+                    logLevel = LogLevel.DEBUG,
+                    sdkDBPassphrase = "Frollo123"
                 )
             }
             Host.FROLLO_AUTH0 -> {
@@ -70,7 +71,8 @@ class SetupManager {
                     ),
                     clientId = "PzlborkOwZf42SJ2b6Fdj6JTi9lcqiNi",
                     serverUrl = "https://volt-sandbox.frollo.us/api/v2/",
-                    logLevel = LogLevel.DEBUG
+                    logLevel = LogLevel.DEBUG,
+                    sdkDBPassphrase = "Frollo123"
                 )
             }
             Host.FROLLO_V1 -> {
@@ -84,7 +86,8 @@ class SetupManager {
                     authenticationType = Custom(accessTokenProvider = authentication, authenticationCallback = authentication),
                     clientId = "243ffc404803ee5a567d93e1f2dd322a0df911557a5283dd3dd7ebed3258ddeb",
                     serverUrl = "https://api-sandbox.frollo.us/api/v2/",
-                    logLevel = LogLevel.DEBUG
+                    logLevel = LogLevel.DEBUG,
+                    sdkDBPassphrase = "Frollo123"
                 )
             }
         }
