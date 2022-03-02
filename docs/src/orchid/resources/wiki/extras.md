@@ -67,7 +67,7 @@ Import the FrolloSDK and ensure you run setup with your tenant URL provided by u
 
 ### Authentication
 
-Before any data can be refreshed for a user they must be authenticated first. If using OAuth2 authentication you can check the logged in status of the user on the [OAuth2Authentication](us.frollo.frollosdk.authentication/-o-auth2-authentication/index.html) class.
+Before any data can be refreshed for a user they must be authenticated first. If using OAuth2 authentication you can check the logged in status of the user on the [OAuth2Authentication](./../kotlindoc/us/frollo/frollosdk/authentication/oauth2authentication) class.
 
 ```kotlin
     if (FrolloSDK.oAuth2Authentication.loggedIn) {
@@ -81,13 +81,13 @@ If the user is not authenticated then the user must login or an access token mus
 
 #### OAuth2 Authentication
 
-Using OAuth2 based authentication Resource Owner Password Credential flow and Authorization Code with PKCE flow are supported. Identity Providers must be OpenID Connect compliant to use the in-built [OAuth2Authentication](us.frollo.frollosdk.authentication/-o-auth2-authentication/index.html) authentication class. If using OAuth2 authentication you can use [oAuth2Authentication](us.frollo.frollosdk/-frollo-s-d-k/o-auth2-authentication.html)
+Using OAuth2 based authentication Resource Owner Password Credential flow and Authorization Code with PKCE flow are supported. Identity Providers must be OpenID Connect compliant to use the in-built [OAuth2Authentication](./../kotlindoc/us/frollo/frollosdk/authentication/oauth2authentication) authentication class. If using OAuth2 authentication you can use `oAuth2Authentication` variable in [FrolloSDK](./../kotlindoc/us/frollo/frollosdk/frollosdk)
 
 ##### ROPC Flow
 
 Using the ROPC flow is the simplest and can be used if you are implementing the SDK in your own highly trusted first party application. All it requires is email and password and can be used in conjunction with a native UI.
 
-See [loginUser(email:password:completion:)](us.frollo.frollosdk.authentication/-o-auth2-authentication/login-user.html)
+See method `loginUser(email:password:completion:)` in [OAuth2Authentication](./../kotlindoc/us/frollo/frollosdk/authentication/oauth2authentication)
 
 
 ```kotlin
@@ -109,7 +109,7 @@ See [loginUser(email:password:completion:)](us.frollo.frollosdk.authentication/-
 
 Authenticating the user using Authorization Code flow involves a couple of extra steps to configure. The first is to present the ChromeTabs to the user to take them through the web based authorization flow. The Activity this should be presented from must be passed to the SDK.
 
-See [loginUserUsingWeb](us.frollo.frollosdk.authentication/-o-auth2-authentication/login-user-using-web.html)
+See method `loginUserUsingWeb` in [OAuth2Authentication](./../kotlindoc/us/frollo/frollosdk/authentication/oauth2authentication)
 
 ##### Integration Requirements
 
@@ -246,11 +246,11 @@ The next step is to pass the intent received by the Completion Activity to the S
 
 #### Custom Authentication
 
-Custom authentication can be provided by conforming to the [AccessTokenProvider](us.frollo.frollosdk.authentication/-access-token-provider/index.html) interface and [AuthenticationCallback](us.frollo.frollosdk.authentication/-authentication-callback/index.html) interface ensuring all interface functions are implemented appropriately.
+Custom authentication can be provided by conforming to the [AccessTokenProvider](./../kotlindoc/us/frollo/frollosdk/authentication/accesstokenprovider) interface and [AuthenticationCallback](./../kotlindoc/us/frollo/frollosdk/authentication/authenticationcallback) interface ensuring all interface functions are implemented appropriately.
 
 #### Refreshing Data
 
-After logging in, your cache will be empty in the SDK. Refresh important data such as [Messages](us.frollo.frollosdk.messages/-messages/index.html) immediately after login.
+After logging in, your cache will be empty in the SDK. Refresh important data such as [Messages](./../kotlindoc/us/frollo/frollosdk/messages/messages) immediately after login.
 
 ```kotlin
     FrolloSDK.messages.refreshUnreadMessages { result ->
@@ -261,7 +261,7 @@ After logging in, your cache will be empty in the SDK. Refresh important data su
     }
 ```
 
-Alternatively refresh data on startup in an optimized way using [refreshData](us.frollo.frollosdk/-frollo-s-d-k/refresh-data.html) on the main SDK. This will refresh important user data first, delaying less important ones until later.
+Alternatively refresh data on startup in an optimized way using `refreshData` method in [FrolloSDK](./../kotlindoc/us/frollo/frollosdk/frollosdk) on the main SDK. This will refresh important user data first, delaying less important ones until later.
 
 ```kotlin
     FrolloSDK.refreshData()

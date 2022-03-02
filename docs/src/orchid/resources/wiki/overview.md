@@ -24,7 +24,7 @@ The Frollo Android SDK is broken down into multiple components that reflect the 
 * [AddressManagement](#addressmanagement) - TBD
 * [Statements](#statements) - TBD
 * [ServiceStatusManagement](#servicestatusmanagement) - TBD
-* [AffordabilityManagement](#affordabilitymanagement) - TBD
+* [Affordability](#affordability) - TBD
 
 ### Authentication
 
@@ -37,7 +37,7 @@ Authentication is supported using the following OAuth2 flows:
 
 Authentication provides the access token needed to access Frollo APIs and manages refreshing the access token if it expires.
 
-See [OAuth2Authentication](us.frollo.frollosdk.authentication/-o-auth2-authentication/index.html) for more details.
+See [OAuth2Authentication](./../kotlindoc/us/frollo/frollosdk/authentication/oauth2authentication) for more details.
 
 ### User
 
@@ -55,7 +55,7 @@ The following are available depending on how authentication and users are config
 * Changing the user's password
 * Reset password
 
-See [UserManagement](us.frollo.frollosdk.user/-user-management/index.html) for more details.
+See [UserManagement](./../kotlindoc/us/frollo/frollosdk/user/usermanagement) for more details.
 
 ### Aggregation
 
@@ -67,7 +67,7 @@ Account data can come from many different sources including:
 * Open banking
 * Direct integrations
 
-An institution is referred to as a [Provider](us.frollo.frollosdk.model.coredata.aggregation.providers/-provider/index.html) and the login or connection to that provider as a [ProviderAccount](us.frollo.frollosdk.model.coredata.aggregation.provideraccounts/-provider-account/index.html). The actual account data is referred to as an [Account](us.frollo.frollosdk.model.coredata.aggregation.accounts/-account/index.html) as each provider account may have multiple accounts linked to it. An example would be:
+An institution is referred to as a [Provider](./../kotlindoc/us/frollo/frollosdk/model/coredata/aggregation/providers/provider) and the login or connection to that provider as a [ProviderAccount](./../kotlindoc/us/frollo/frollosdk/model/coredata/aggregation/provideraccounts/provideraccount). The actual account data is referred to as an [Account](./../kotlindoc/us/frollo/frollosdk/model/coredata/aggregation/accounts/account) as each provider account may have multiple accounts linked to it. An example would be:
 
 * **Provider**: ANZ
    * **Provider Account**: user@example.com
@@ -85,7 +85,7 @@ Supported account types include:
 * Rewards and Loyalty
 * Credit / Financial Scores
 
-Transactions can support tagging for personalisation at a granular level or allow for spending breakdown to be mesaured at higher level through automatic categorisation and allocation to "buckets". Buckets include income, living, lifestyle and savings. Naming of these buckets can be changed at the UI level and allocation between them can be determined by configuration of the host tenant. These are referred to as a [BudgetCategory](us.frollo.frollosdk.model.coredata.shared/-budget-category/index.html) in the API.
+Transactions can support tagging for personalisation at a granular level or allow for spending breakdown to be mesaured at higher level through automatic categorisation and allocation to "buckets". Buckets include income, living, lifestyle and savings. Naming of these buckets can be changed at the UI level and allocation between them can be determined by configuration of the host tenant. These are referred to as a [BudgetCategory](./../kotlindoc/us/frollo/frollosdk/model/coredata/shared/budgetcategory) in the API.
 
 The following features are part of aggregation:
 
@@ -99,7 +99,7 @@ The following features are part of aggregation:
 
 Note: Aggregation refers the the aggregated view of accounts seen within Frollo, whether this includes accounts from external aggregation partners will depend on how your tenant is configured.
 
-See [Aggregation](us.frollo.frollosdk.aggregation/-aggregation/index.html) for more details.
+See [Aggregation](./../kotlindoc/us/frollo/frollosdk/aggregation/aggregation) for more details.
 
 ### Bills
 
@@ -113,7 +113,7 @@ The following features are part of bills:
 * Payments forecasting
 * Manual bills
 
-See [Bills](us.frollo.frollosdk.bills/-bills/index.html) for more details.
+See [Bills](./../kotlindoc/us/frollo/frollosdk/bills/bills) for more details.
 
 ### Budget and Pay Day
 
@@ -125,7 +125,7 @@ The following features are part of budgets and pay day:
 * Set multiple budgets
 * Set budgets by category, merchant or bucket
 
-See [Budgets](us.frollo.frollosdk.budgets/-budgets/index.html) for more details.
+See [Budgets](./../kotlindoc/us/frollo/frollosdk/budgets/budgets) for more details.
 
 ### Payday
 
@@ -144,7 +144,7 @@ The following features are part of reports:
 * Historical spend - breakdown the spend of a user for them to explore and find where money is going
 * Tracking against a budget - if available a budget value will be returned to allow the user to visually see how they're tracking
 
-See [Reports](us.frollo.frollosdk.reports/-reports/index.html) for more details.
+See [Reports](./../kotlindoc/us/frollo/frollosdk/reports/reports) for more details.
 
 ### Goals
 
@@ -157,13 +157,13 @@ The following features are part of goals and challenges:
 * Save towards a date, amount or open-ended target
 * See a breakdown of each period's progress towards a goal and calculate how to get back on track
  
-See [Goals](us.frollo.frollosdk.goals/-goals/index.html) for more details.
+See [Goals](./../kotlindoc/us/frollo/frollosdk/goals/goals) for more details.
 
 ### Events
 
 Events allow user actions to drive changes or chains of actions on the Frollo host. For example a user could reach some fitness goals using HealthKit and trigger an event to increase their lifestyle budget for the next week as a reward.
 
-See [Events](us.frollo.frollosdk.events/-events/index.html) for more details.
+See [Events](./../kotlindoc/us/frollo/frollosdk/events/events) for more details.
 
 ### Messages
 
@@ -176,7 +176,7 @@ The following features are supported as part of messages:
 * Driving the user to deep linked content in a consuming app
 * Chaining and trumping of messages to ensure the user doesn't get bombarded with duplicates and only has relevant content at the right time
 
-See [Messages](us.frollo.frollosdk.messages/-messages/index.html) for more details
+See [Messages](./../kotlindoc/us/frollo/frollosdk/messages/messages) for more details
 
 ### Surveys
 
@@ -190,70 +190,70 @@ The following features are supported as part of surveys:
 * Custom input (freeform) answers
 * Triggering events based on answers
 
-See [Surveys](us.frollo.frollosdk.surveys/-surveys/index.html) for more details
+See [Surveys](./../kotlindoc/us/frollo/frollosdk/surveys/surveys) for more details
 
 ### Payments
 
 Payments help the user to pay via Account Number & BSB, BPay, NPP or Transfer.
 
-See [Payments](us.frollo.frollosdk.payments/-payments/index.html) for more details.
+See [Payments](./../kotlindoc/us/frollo/frollosdk/payments/payments) for more details.
 
 ### Images
 
 Images help the user to upload images for his budgets, goals etc..
 
-See [Images](us.frollo.frollosdk.images/-images/index.html) for more details.
+See [Images](./../kotlindoc/us/frollo/frollosdk/images/images) for more details.
 
 ### Contacts
 
 TBD
 
-See [Contacts](us.frollo.frollosdk.contacts/-contacts/index.html) for more details.
+See [Contacts](./../kotlindoc/us/frollo/frollosdk/contacts/contacts) for more details.
 
 ### Cards
 
 TBD
 
-See [Cards](us.frollo.frollosdk.cards/-cards/index.html) for more details.
+See [Cards](./../kotlindoc/us/frollo/frollosdk/cards/cards) for more details.
 
 ### KYC
 
 TBD
 
-See [KYC](us.frollo.frollosdk.kyc/-kyc/index.html) for more details.
+See [KYC](./../kotlindoc/us/frollo/frollosdk/kyc/kyc) for more details.
 
 ### Managed Products
 
 TBD
 
-See [ManagedProducts](us.frollo.frollosdk.managedproducts/-managed-products/index.html) for more details.
+See [ManagedProducts](./../kotlindoc/us/frollo/frollosdk/managedproducts/managedproducts) for more details.
 
 ### Payday
 
 TBD
 
-See [Paydays](us.frollo.frollosdk.paydays/-paydays/index.html) for more details.
+See [Paydays](./../kotlindoc/us/frollo/frollosdk/paydays/paydays) for more details.
 
 ### AddressManagement
 
 TBD
 
-See [AddressManagement](us.frollo.frollosdk.address/-address-management/index.html) for more details.
+See [AddressManagement](./../kotlindoc/us/frollo/frollosdk/address/addressmanagement) for more details.
 
 ### Statements
 
 TBD
 
-See [Statements](us.frollo.frollosdk.statements/-statements/index.html) for more details.
+See [Statements](./../kotlindoc/us/frollo/frollosdk/statements/statements) for more details.
 
 ### ServiceStatusManagement
 
 TBD
 
-See [ServiceStatusManagement](us.frollo.frollosdk.servicestatus/-service-status-management/index.html) for more details.
+See [ServiceStatusManagement](./../kotlindoc/us/frollo/frollosdk/servicestatus/servicestatusmanagement) for more details.
 
 ### AffordabilityManagement
 
 TBD
 
-See [AffordabilityManagement](us.frollo.frollosdk.affordability/-affordability/index.html) for more details.
+See [Affordability](./../kotlindoc/us/frollo/frollosdk/affordability/affordability) for more details.

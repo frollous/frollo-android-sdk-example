@@ -34,6 +34,12 @@ Editorial:
       asSubmenu: true
       submenuTitle: 'Packages'
 
-  kotlindoc:
-    sourceDirs:
-      - './../../../../frollo-android-sdk/src/main/kotlin'
+kotlindoc:
+  sourceDirs:
+    - './../../../../frollo-android-sdk/src/main/kotlin'
+  pages:
+    menu:
+      - type: 'sourcedocPageLinks'
+        moduleType: 'kotlindoc'
+        itemTitleType: 'SIGNATURE'
+        includeItems: true
