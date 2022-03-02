@@ -70,8 +70,5 @@ dependencies {
 
     implementation project(":frollo-android-sdk")
 }
-repositories {
-    mavenCentral()
-}
 
 apply plugin: 'com.google.gms.google-services'

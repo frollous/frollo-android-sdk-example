@@ -1,0 +1,14 @@
+apply plugin: 'com.eden.orchidPlugin'
+
+dependencies {
+    orchidRuntimeOnly "io.github.javaeden.orchid:OrchidDocs:0.21.1"
+    orchidRuntimeOnly "io.github.javaeden.orchid:OrchidKotlindoc:0.21.1"
+    orchidRuntimeOnly "io.github.javaeden.orchid:OrchidPluginDocs:0.21.1"
+}
+
+orchid {
+    theme = "Editorial"
+    version = "3.15.2"
+    //srcDir  = "src/orchid/resources"
+    //destDir = "build/docs/orchid"
+}

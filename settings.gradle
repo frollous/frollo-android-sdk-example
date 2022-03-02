@@ -1,1 +1,1 @@
-include ':FrolloSDKSample', ':frollo-android-sdk'
+include ':FrolloSDKSample', ':frollo-android-sdk', ':docs'

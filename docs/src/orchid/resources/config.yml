@@ -1,0 +1,21 @@
+site:
+  about:
+    siteName: Frollo Android SDK
+    siteDescription: The Frollo Android SDK is designed to simplify integration of the Frollo APIs by providing all the tools needed to manage caching of data from the APIs and authentication.
+
+Editorial:
+  primaryColor: '#6923FF'
+  trianglifyOptions:
+    x_colors: [ '#000', '#6923FF', '#000' ]
+  metaComponents:
+    - type: "prism"
+      githubTheme: 'duotone-light'
+      languages:
+        - java
+        - kotlin
+        - groovy
+        - swift
+  menu:
+    - type: 'separator'
+      title: 'Wiki'
+    - type: 'wiki'
