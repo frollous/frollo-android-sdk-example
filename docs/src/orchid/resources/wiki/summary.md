@@ -2,4 +2,4 @@
 - [Overview](overview.md)
 - [Installation](README.md)
 - [Basic Configuration](extras.md)
-- [Changelog](../../../../../frollo-android-sdk/changelog.md)
+- [Changelog](sdk-changelog.md)

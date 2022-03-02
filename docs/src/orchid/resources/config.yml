@@ -5,9 +5,11 @@ site:
 
 Editorial:
   primaryColor: '#6923FF'
+  legacySearch: false
   trianglifyOptions:
     x_colors: [ '#000', '#6923FF', '#000' ]
   metaComponents:
+    - type: 'orchidSearch'
     - type: "prism"
       githubTheme: 'duotone-light'
       languages:
@@ -19,3 +21,19 @@ Editorial:
     - type: 'separator'
       title: 'Wiki'
     - type: 'wiki'
+    - type: 'separator'
+      title: 'SDK Docs'
+    - type: 'sourcedocPages'
+      moduleType: 'kotlindoc'
+      node: 'classes'
+      asSubmenu: true
+      submenuTitle: 'Classes'
+    - type: 'sourcedocPages'
+      moduleType: 'kotlindoc'
+      node: 'packages'
+      asSubmenu: true
+      submenuTitle: 'Packages'
+
+  kotlindoc:
+    sourceDirs:
+      - './../../../../frollo-android-sdk/src/main/kotlin'
